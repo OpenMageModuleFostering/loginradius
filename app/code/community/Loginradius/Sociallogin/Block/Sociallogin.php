@@ -1,39 +1,34 @@
 <?php
 class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 {
-	protected function _construct()
-    {
+	protected function _construct(){
         parent::_construct();
 		if( $this->shareEnable() == "1" || $this->counterEnable() == "1" ){
         	$this->setTemplate('sociallogin/socialshare.phtml');
     	}
 	}
-	public function _prepareLayout()
-    {
+	public function _prepareLayout(){
 		return parent::_prepareLayout();
     }
-    public function getSociallogin()     
-     { 
+    public function getSociallogin(){ 
         if (!$this->hasData('sociallogin')) {
             $this->setData('sociallogin', Mage::registry('sociallogin'));
         }
         return $this->getData('sociallogin');
-     }
-	 public function user_is_already_login() {
+    }
+	public function user_is_already_login() {
 	   if( Mage::getSingleton('customer/session')->isLoggedIn() ){
 		 return true;
 	   }
 	   return false;
-     }
-	public function loginEnable()
-	 {
+    }
+	public function loginEnable(){
        return Mage::getStoreConfig('sociallogin_options/messages/loginEnable');
      }
-	public function getApikey()
-	 {
+	public function getApikey(){
        return Mage::getStoreConfig('sociallogin_options/messages/appid');
      }
-	 public function getAvatar( $id ){
+	public function getAvatar( $id ){
 		$socialLoginConn = Mage::getSingleton('core/resource')
 							->getConnection('core_read');
 		$SocialLoginTbl = Mage::getSingleton('core/resource')->getTableName("sociallogin");
@@ -48,6 +43,22 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 	public function getShowDefault()
 	 {
        return Mage::getStoreConfig('sociallogin_options/messages/showdefault');
+     }
+	public function getAboveLogin()
+	 {
+       return Mage::getStoreConfig('sociallogin_options/messages/aboveLogin');
+     }
+	public function getBelowLogin()
+	 {
+       return Mage::getStoreConfig('sociallogin_options/messages/belowLogin');
+     }
+	public function getAboveRegister()
+	 {
+       return Mage::getStoreConfig('sociallogin_options/messages/aboveRegister');
+     }
+	public function getBelowRegister()
+	 {
+       return Mage::getStoreConfig('sociallogin_options/messages/belowRegister');
      }
 	public function getApiSecret()
       {	 

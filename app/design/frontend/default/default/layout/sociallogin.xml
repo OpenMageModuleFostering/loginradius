@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<layout version="2.0.0">
+<layout version="2.1.0">
     <default>
 		<reference name="right">
-            <block type="sociallogin/sociallogin" name="sociallogin" template="sociallogin/sociallogin.phtml" />
+            <block type="sociallogin/sociallogin" name="sociallogin" template="sociallogin/sociallogin.phtml" before="-" />
         </reference>
 	 	<reference name="head">
             <block type="sociallogin/sociallogin" name="socialshare_head" template="sociallogin/socialshare_head.phtml" />
@@ -16,4 +16,24 @@
             <block type="sociallogin/sociallogin" name="socialcounter" template="sociallogin/socialcounter.phtml" />
         </reference>
     </catalog_product_view>
- </layout> 
+	<customer_account_login>
+	  <reference name="content">
+            <block type="sociallogin/sociallogin" name="lrabovelogin" template="sociallogin/abovelogin.phtml" before="-" />
+	  </reference>
+	</customer_account_login>
+	<customer_account_login>
+	  <reference name="content">
+            <block type="sociallogin/sociallogin" name="lrbelowlogin" template="sociallogin/belowlogin.phtml" />
+	  </reference>
+	</customer_account_login>
+	<customer_account_create>
+	  <reference name="content">
+            <block type="sociallogin/sociallogin" name="lraboveregister" template="sociallogin/aboveregister.phtml" before="-" />
+	  </reference>
+	</customer_account_create>
+	<customer_account_create>
+	  <reference name="content">
+            <block type="sociallogin/sociallogin" name="lrbelowregister" template="sociallogin/belowregister.phtml" />
+	  </reference>
+	</customer_account_create>
+</layout> 

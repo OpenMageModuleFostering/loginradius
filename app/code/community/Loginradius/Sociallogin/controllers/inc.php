@@ -6,7 +6,6 @@ function showDie($line,$msg){
 		die;
 	}
 }
-
 function SL_popUpWindow( $loginRadiusPopupTxt, $socialLoginMsg = "", $loginRadiusShowForm = true ){	
 ?>
 	<!--css of email block		-->

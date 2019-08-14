@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <config>
  <tabs>
 		<socialconfig translate="label" module="sociallogin">
@@ -65,7 +64,7 @@
                                 <show_in_store>1</show_in_store>
                             </loginradius_title>
 							<showdefault translate="label">
-                                <label>Show interface in right side panel</label>
+                                <label>Show Social Login interface in right side panel</label>
                                 <frontend_type>select</frontend_type>
 								<comment><![CDATA[Select No you don't want to display module in right panel. You can also set widget in pages or any area of your site. ]]>
                             	</comment>
@@ -75,6 +74,50 @@
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
                             </showdefault>
+							<aboveLogin translate="label">
+                                <label>Show Social Login interface above login form</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[Select 'Yes' to enable Social Login interface above login form.]]>
+                            	</comment>
+							    <source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>24</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </aboveLogin>
+							<belowLogin translate="label">
+                                <label>Show Social Login interface below login form</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[Select 'Yes' to enable Social Login interface below login form.]]>
+                            	</comment>
+							    <source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>25</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </belowLogin>
+							<aboveRegister translate="label">
+                                <label>Show Social Login interface above registration form</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[Select 'Yes' to enable Social Login interface above registration form.]]>
+                            	</comment>
+							    <source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>26</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </aboveRegister>
+							<belowRegister translate="label">
+                                <label>Show Social Login interface below registration form</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[Select 'Yes' to enable Social Login interface below registration form.]]>
+                            	</comment>
+							    <source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>27</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </belowRegister>
 							<socialLinking translate="label">
                                 <label>Social Linking</label>
                                 <frontend_type>select</frontend_type>
@@ -277,9 +320,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                 </info>
-
             </groups>                
         </sociallogin_options>
-	
             </sections>
 </config>

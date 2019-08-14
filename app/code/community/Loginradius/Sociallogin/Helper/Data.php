@@ -1,7 +1,5 @@
 <?php
-
 class Loginradius_Sociallogin_Helper_Data extends Mage_Core_Helper_Abstract {
-
     /**
      * Returns whether the Enabled config variable is set to true
      *
