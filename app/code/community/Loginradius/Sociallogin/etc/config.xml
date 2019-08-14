@@ -1,57 +1,12 @@
 <?xml version="1.0"?>
 <config>
-	<default>
-		<sociallogin_options>
-			<messages>
-				<loginEnable>0</loginEnable>
-				<loginradius_title>Login with your social account</loginradius_title>
-				<iconSize>small</iconSize>
-				<showdefault>1</showdefault>
-				<socialLinking>1</socialLinking>
-				<redirect>account</redirect>
-				<aboveLogin>1</aboveLogin>
-				<aboveRegister>1</aboveRegister>
-				<sameWindow>1</sameWindow>
-			</messages>
-			<email_settings>
-				<profileFieldsRequired>0</profileFieldsRequired>
-				<updateProfileData>1</updateProfileData>
-				<emailrequired>1</emailrequired>
-				<verificationText>Please click on the following link or paste it in browser to verify your email:-</verificationText>
-				<popupText>Please enter your email to proceed</popupText>
-				<popupError>The email you entered is already registered or invalid. Please enter a valid email.</popupError>
-				<notifyUser>1</notifyUser>
-				<notifyAdmin>0</notifyAdmin>
-				<notifyAdminText>New customer has been registered to your store with following details:-</notifyAdminText>
-			</email_settings>
-			<horizontalSharing>
-				<horizontalShareEnable>1</horizontalShareEnable>
-				<horizontalShareProduct>1</horizontalShareProduct>
-				<horizontalShareSuccess>1</horizontalShareSuccess>
-				<sharingTitle>Share it now!</sharingTitle>
-				<horizontalSharingTheme>32</horizontalSharingTheme>
-				<horizontalSharingProvidersHidden>Facebook,Twitter,GooglePlus,LinkedIn,Pinterest,Print,Email</horizontalSharingProvidersHidden>
-				<horizontalCounterProvidersHidden>Facebook Like,Google+ +1,Twitter Tweet,Pinterest Pin it,Hybridshare</horizontalCounterProvidersHidden>
-			</horizontalSharing>
-			<verticalSharing>
-				<verticalShareEnable>1</verticalShareEnable>
-				<verticalShareProduct>1</verticalShareProduct>
-				<verticalShareSuccess>1</verticalShareSuccess>
-				<verticalSharingTheme>counter_vertical</verticalSharingTheme>
-				<verticalAlignment>top_left</verticalAlignment>
-				<offset>150</offset>
-				<verticalSharingProvidersHidden>Facebook,Twitter,GooglePlus,LinkedIn,Pinterest,Print,Email</verticalSharingProvidersHidden>
-				<verticalCounterProvidersHidden>Facebook Like,Google+ +1,Twitter Tweet,Pinterest Pin it,Hybridshare</verticalCounterProvidersHidden>
-			</verticalSharing>
-		</sociallogin_options>
-	</default>   
     <modules>
         <Loginradius_Sociallogin>
-            <version>3.7.1</version>
+            <version>4.0.0</version>
         </Loginradius_Sociallogin>
     </modules>
-	<frontend>
-	<layout>
+    <frontend>
+        <layout>
             <updates>
                 <sociallogin>
                     <file>sociallogin.xml</file>
@@ -75,21 +30,21 @@
                     <frontName>sociallogin</frontName>
                 </args>
             </sociallogin>
-        </routers>  
+        </routers>
     </frontend>
-	<admin>
+    <admin>
         <routers>
-			<sociallogin>
-				<use>admin</use>
-				<args>
-					<module>Loginradius_Sociallogin</module>
-					<frontName>sociallogin admin</frontName>
-				</args>
-			</sociallogin>
+            <sociallogin>
+                <use>admin</use>
+                <args>
+                    <module>Loginradius_Sociallogin</module>
+                    <frontName>sociallogin admin</frontName>
+                </args>
+            </sociallogin>
         </routers>
     </admin>
-	<adminhtml>
-	<acl>
+    <adminhtml>
+        <acl>
             <resources>
                 <admin>
                     <children>
@@ -108,30 +63,30 @@
                 </admin>
             </resources>
         </acl>
-		
-		<acl>
-			<resources>
-				<all>
-					<title>Allow Everything</title>
-				</all>
-				<admin>
-					<children>
-						<Loginradius_Sociallogin>
-							<title>Sociallogin Module</title>
-							<sort_order>10</sort_order>
-						</Loginradius_Sociallogin>
-					</children>
-				</admin>
-			</resources>
-		</acl>
-		<layout>
-			<updates>
-				<sociallogin>
-					<file>loginradius_sociallogin.xml</file>
-				</sociallogin>
-			</updates>
-		</layout>
-		<translate>
+
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <Loginradius_Sociallogin>
+                            <title>Sociallogin Module</title>
+                            <sort_order>10</sort_order>
+                        </Loginradius_Sociallogin>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <sociallogin>
+                    <file>loginradius_sociallogin.xml</file>
+                </sociallogin>
+            </updates>
+        </layout>
+        <translate>
             <modules>
                 <Loginradius_Sociallogin>
                     <files>
@@ -140,9 +95,25 @@
                 </Loginradius_Sociallogin>
             </modules>
         </translate>
-    </adminhtml>   
-	<global>
-	<models>
+        <events>
+            <admin_system_config_changed_section_sociallogin_options>
+                <observers>
+                    <sociallogin>
+                        <type>singleton</type>
+                        <class>sociallogin/Observer</class>
+                        <method>adminSystemConfigChangedSection</method>
+                    </sociallogin>
+                </observers>
+            </admin_system_config_changed_section_sociallogin_options>
+        </events>
+        <helpers>
+            <sociallogin>
+                <class>Loginradius_Sociallogin_Helper_admin_Adminhelper</class>
+            </sociallogin>
+        </helpers>
+    </adminhtml>
+    <global>
+        <models>
             <sociallogin>
                 <class>Loginradius_Sociallogin_Model</class>
                 <resourceModel>sociallogin_mysql4</resourceModel>
@@ -176,16 +147,63 @@
                 </connection>
             </sociallogin_read>
         </resources>
-		
-	<blocks>
+        <blocks>
             <sociallogin>
                 <class>Loginradius_Sociallogin_Block</class>
             </sociallogin>
-    </blocks>
-	<helpers>
+        </blocks>
+
+        <helpers>
             <sociallogin>
                 <class>Loginradius_Sociallogin_Helper</class>
             </sociallogin>
-    </helpers>
-	</global>
+        </helpers>
+    </global>
+    <default>
+        <sociallogin_options>
+            <basicSettings>
+                <redirectAfterLogin>account</redirectAfterLogin>
+                <redirectAfterRegistration>account</redirectAfterRegistration>
+            </basicSettings>
+            <advancedSettings>
+                <loginradius_title>Login with your social account</loginradius_title>
+                <iconSize>small</iconSize>
+                <iconsPerRow>4</iconsPerRow>
+                <showdefault>1</showdefault>
+                <socialLinking>1</socialLinking>
+                <redirect>account</redirect>
+                <aboveLogin>1</aboveLogin>
+                <aboveRegister>1</aboveRegister>
+                <emailrequired>1</emailrequired>
+                <updateProfileData>1</updateProfileData>
+                <profileFieldsRequired>0</profileFieldsRequired>
+                <verificationText>Please click on the following link or paste it in browser to verify your email:-</verificationText>
+                <popupText>Please provide following details</popupText>
+                <popupError>The email you entered is already registered or invalid. Please enter a valid email.</popupError>
+                <notifyUser>1</notifyUser>
+                <notifyAdmin>0</notifyAdmin>
+                <notifyAdminText>New customer has been registered to your store with following details:-</notifyAdminText>
+                <debugMode>0</debugMode>
+            </advancedSettings>
+            <horizontalSharing>
+                <horizontalShareEnable>1</horizontalShareEnable>
+                <horizontalShareProduct>1</horizontalShareProduct>
+                <horizontalShareSuccess>1</horizontalShareSuccess>
+                <sharingTitle>Share it now!</sharingTitle>
+                <horizontalSharingTheme>32</horizontalSharingTheme>
+                <horizontalSharingProvidersHidden>Facebook,Twitter,GooglePlus,LinkedIn,Pinterest,Print,Email</horizontalSharingProvidersHidden>
+                <horizontalCounterProvidersHidden>Facebook Like,Google+ +1,Twitter Tweet,Pinterest Pin it,Hybridshare</horizontalCounterProvidersHidden>
+            </horizontalSharing>
+            <verticalSharing>
+                <verticalShareEnable>1</verticalShareEnable>
+                <verticalShareProduct>1</verticalShareProduct>
+                <verticalShareSuccess>1</verticalShareSuccess>
+                <verticalSharingTheme>counter_vertical</verticalSharingTheme>
+                <verticalAlignment>top_left</verticalAlignment>
+                <offset>150</offset>
+                <verticalSharingProvidersHidden>Facebook,Twitter,GooglePlus,LinkedIn,Pinterest,Print,Email</verticalSharingProvidersHidden>
+                <verticalCounterProvidersHidden>Facebook Like,Google+ +1,Twitter Tweet,Pinterest Pin it,Hybridshare</verticalCounterProvidersHidden>
+            </verticalSharing>
+        </sociallogin_options>
+    </default>
 </config>

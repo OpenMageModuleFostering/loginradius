@@ -1,0 +1,18 @@
+<?php
+$horizontalShareSettings = $this->getHorizontalSharingSettings();
+$verticalShareSettings = $this->getVerticalSharingSettings();
+$apiKey = Mage::getStoreConfig('sociallogin_options/apiSettings/apikey');
+if ($horizontalShareSettings['horizontalShareEnable'] == "1" || $verticalShareSettings['verticalShareEnable'] == "1") {
+  $sharingScript = '<script type="text/javascript">var islrsharing = true; var islrsocialcounter = true;</script> <script type="text/javascript" src="//share.loginradius.com/Content/js/LoginRadius.js" id="lrsharescript"></script><script type="text/javascript">';
+
+  if ($horizontalShareSettings['horizontalShareEnable'] == "1") {
+    // check horizontal sharing enabled
+    $sharingScript .= $this->login_radius_sharing_get_sharing_script_horizontal($horizontalShareSettings, $apiKey);
+  }
+  if ($verticalShareSettings['verticalShareEnable'] == '1') {
+    // check vertical sharing enabled
+    $sharingScript .= $this->login_radius_sharing_get_sharing_script_vertical($verticalShareSettings, $apiKey);
+  }
+  $sharingScript .= '</script>';
+  echo $sharingScript;
+}

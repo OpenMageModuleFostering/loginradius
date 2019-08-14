@@ -1,0 +1,185 @@
+/*Options cleanup changes starts...*/
+tr#row_sociallogin_options_basicSettings_redirectAfterLogin td input, tr#row_sociallogin_options_basicSettings_redirectAfterRegistration td input{
+    float:left !important;
+    margin-right: 6px;
+}
+tr#row_sociallogin_options_basicSettings_redirectAfterLogin label.inline{
+
+}
+tr#row_sociallogin_options_horizontalSharing_horizontalSharingTheme td input {
+    margin-top: 7px;
+    margin-right: 6px;
+    float:left;
+
+}
+tr#row_sociallogin_options_horizontalSharing_horizontalSharingTheme td img {
+    padding-bottom:10px;
+}
+#sociallogin_options_horizontalSharing_horizontalSharingTheme32{
+
+}
+#sociallogin_options_horizontalSharing_horizontalSharingTheme16{
+    margin-top:4px !important;
+}
+#sociallogin_options_horizontalSharing_horizontalSharingThemesingle_small{
+    margin-top:3px !important;
+}
+tr#row_sociallogin_options_basicSettings_redirectSettings td label{
+    font-size: 15px;
+    font-weight: bold;
+
+}
+tr#row_sociallogin_options_basicSettings_redirectSettings{
+border-bottom: 1px solid grey !important;
+}
+.lr_admin_configuration_info_fieldsets.lr_configuration_info_fieldsets_left{
+    width: 63%;
+    float:left;
+    margin-right: 6px;
+}
+#lr_thank_message_container{
+    padding-bottom: 25px;
+    height:169px;
+}
+#lr_extension_help_container{
+     height:130px;
+    padding-bottom: 0 !important;
+ }
+#lr_extension_support_container{
+    height:130px;
+}
+.lr_admin_fieldset_title{
+    border-bottom:#d7d7d7 1px solid !important;
+}
+#lr_extension_info_container img {
+    width:50px;
+}
+
+#lr_extension_info_container{
+    width:30%;
+    padding-bottom: 0 !important;
+}
+
+.lr_admin_configuration_info_fieldsets.lr_configuration_info_fieldsets_right{
+    width: 30%;
+    float:left;
+    padding-bottom:0 !important;
+}
+.lr_configuration_info_fieldsets_right{
+    padding-bottom: 0px !important;
+}
+.lr_admin_configuration_info_fieldsets{
+    border-radius:6px;
+}
+
+
+.lr_configuration_info_fieldsets a:hover, .loginRadiusHelpDiv ul li a:hover{
+    text-decoration:underline !important
+}
+.loginRadiusHelpDiv ul li{
+    list-style-type: disc;
+}
+.loginRadiusHelpDiv ul{
+    margin: 0 15px;
+}
+.loginradius_radio{
+    vertical-align:top;
+    margin-left:7px
+}
+#row_sociallogin_options_horizontalSharing_horizontalSharingProviders ul li{
+    width:149px;
+    float:left
+}
+#row_sociallogin_options_messages_redirect td input{
+    margin-right:2px
+}
+#row_sociallogin_options_verticalSharing_verticalSharingProviders ul li{
+    width:149px;
+    float:left
+}
+#row_sociallogin_options_verticalSharing_verticalCounterProviders ul li{
+    width:149px;
+    float:left
+}
+#row_sociallogin_options_horizontalSharing_horizontalCounterProviders ul li{
+    width:149px;
+    float:left
+}
+#loginRadiushorizontalRearrangeSharing li, #loginRadiusverticalRearrangeSharing li{
+    float:left
+}
+#row_sociallogin_options_verticalSharing_verticalSharingTheme td label{
+    float:left !important
+}
+#row_sociallogin_options_messages_iconSize td input{
+    margin-right:2px
+}
+#row_sociallogin_options_messages_sameWindow td input{
+    margin-right:2px
+}
+#row_sociallogin_options_verticalSharing_verticalSharingTheme td input{
+    float:left !important;
+    margin-left:4px
+}
+#row_sociallogin_options_horizontalSharing_horizontalSharingTheme td input{
+    vertical-align:top
+}
+#row_sociallogin_options_horizontalSharing_horizontalSharingTheme td[class=value]{
+    width: 400px !important
+}
+#row_sociallogin_options_verticalSharing_verticalSharingTheme td.value{
+    width:400px !important;
+}
+#row_sociallogin_options_sharing_verticalSharing td input{
+    vertical-align:top !important;
+    float:left !important;
+    margin-right:2px
+}
+#row_sociallogin_options_sharing_verticalSharing td label, #row_sociallogin_options_counter_verticalCounter td label{
+    float:left !important
+}
+#row_sociallogin_options_sharing_horizontalSharing td input{
+    vertical-align:top !important;
+    margin-right:2px
+}
+#row_sociallogin_options_counter_horizontalCounter td input{
+    vertical-align:top !important;
+    margin-right:2px
+}
+#row_sociallogin_options_counter_verticalCounter td input{
+    vertical-align:top !important;
+    margin-right:2px;
+    float:left !important
+}
+.lrshare_iconsprite32{
+    cursor: pointer !important;
+    height: 32px;
+    margin: 4px !important;
+    width: 32px;
+    padding: 0px !important;
+    border: none !important;
+    background: url("lrshare_iconsprite32.png") no-repeat scroll left top transparent;
+    list-style-type: none !important;
+}
+.lrshare_iconsprite32.lrshare_delicious { background-position: 0px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_digg { background-position: -34px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_dotnetkicks { background-position: -68px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_email { background-position: -102px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_evenmore32 { background-position: -138px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_facebook { background-position: -174px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_google { background-position: -208px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_googleplus { background-position: -242px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_hyves { background-position: -276px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_linkedin { background-position: -310px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_live { background-position: -344px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_myspace { background-position: -378px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_pinterest { background-position: -412px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_print { background-position: -446px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_reddit { background-position: -480px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_sharingcounter32 { background-position: -514px 0px; width: 50px; height: 32px; padding-top:4px !important; font-size:18px; }
+.lrshare_iconsprite32.lrshare_tumblr { background-position: -576px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_twitter { background-position: -610px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_viadeo { background-position: -644px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_vkontakte { background-position: -678px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_wordpress { background-position: -712px 0px; width: 32px; height: 32px;  }
+.lrshare_iconsprite32.lrshare_yahoo { background-position: -746px 0px; width: 32px; height: 32px;  }
