@@ -12,6 +12,7 @@
 				<aboveRegister>1</aboveRegister>
 			</messages>
 			<email_settings>
+				<profileFieldsRequired>0</profileFieldsRequired>
 				<emailrequired>0</emailrequired>
 				<verificationText>Please click on the following link or paste it in browser to verify your email:-</verificationText>
 				<popupText>Please enter your email to proceed</popupText>
@@ -22,15 +23,31 @@
 			</email_settings>
 			<sharing>
 				<shareEnable>1</shareEnable>
+				<sharingTitle>Share it now!</sharingTitle>
+				<sharingTheme>horizontal</sharingTheme>
+				<horizontalSharing>32</horizontalSharing>
+				<verticalSharing>32</verticalSharing>
+				<sharingVerticalAlignment>top_left</sharingVerticalAlignment>
+				<sharingProvidersHidden>facebook,twitter,googleplus,linkedin,print,email</sharingProvidersHidden>
+				<shareProduct>1</shareProduct>
+				<shareSuccess>1</shareSuccess>
 			</sharing>
 			<counter>
 				<counterEnable>1</counterEnable>
+				<counterTitle>Share it now!</counterTitle>
+				<counterTheme>horizontal</counterTheme>
+				<horizontalCounter>vertical</horizontalCounter>
+				<verticalCounter>vertical</verticalCounter>
+				<counterVerticalAlignment>top_left</counterVerticalAlignment>
+				<counterProvidersHidden>Facebook Like,Google+ +1,LinkedIn Share,Twitter Tweet</counterProvidersHidden>
+				<counterProduct>1</counterProduct>
+				<counterSuccess>1</counterSuccess>
 			</counter>
 		</sociallogin_options>
 	</default>   
     <modules>
         <Loginradius_Sociallogin>
-            <version>2.1.2</version>
+            <version>3.0.0</version>
         </Loginradius_Sociallogin>
     </modules>
 	<frontend>
@@ -110,7 +127,7 @@
 		<layout>
 			<updates>
 				<sociallogin>
-					<file>sociallogin.xml</file>
+					<file>loginradius_sociallogin.xml</file>
 				</sociallogin>
 			</updates>
 		</layout>

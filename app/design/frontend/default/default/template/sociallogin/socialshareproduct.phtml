@@ -1,0 +1,8 @@
+<?php
+if( $this->shareEnable() == "1" && $this->shareProduct() == "1"){
+	if($this->sharingTheme() == "horizontal" && trim($this->sharingTitle()) != ""){
+		echo '<div style="font-weight:bold">'.trim($this->sharingTitle()).'</div>';
+	}
+	echo '<div class="lrsharecontainer"></div>';
+}
+?>

@@ -18,7 +18,7 @@ if( $this->loginEnable() == "1" ){
 		if($ApiKey == "" && $ApiSecrete == ""){
 			echo '<p style ="color:red;">To activate your plugin, please log in to LoginRadius and get API Key & Secret. Web: <b><a href ="http://www.loginradius.com" target = "_blank">www.LoginRadius.com</a></b></p>';
 		}elseif ($UserAuth == false) {
-	    echo '<p style ="color:red;">Your LoginRadius API key and secret is not valid, please correct it or contact LoginRadius support at <b><a href ="http://www.loginradius.com" target = "_blank">www.LoginRadius.com</a></b></p>';
+	    	echo '<p style ="color:red;">Your LoginRadius API key and secret is not valid, please correct it or contact LoginRadius support at <b><a href ="http://www.loginradius.com" target = "_blank">www.LoginRadius.com</a></b></p>';
       	}
 	  else {
 		echo $loginRadiusTitle.'<div class="interfacecontainerdiv" style="margin-left:10px"></div>';

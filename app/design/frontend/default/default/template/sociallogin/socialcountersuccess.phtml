@@ -1,0 +1,8 @@
+<?php
+if( $this->counterEnable() == "1" && $this->counterSuccess() == "1"){
+	if($this->counterTheme() == "horizontal" && trim($this->counterTitle()) != ""){
+		echo '<div style="font-weight:bold">'.trim($this->counterTitle()).'</div>';
+	}
+	echo '<div class="lrcounter_simplebox"></div>';
+}
+?>

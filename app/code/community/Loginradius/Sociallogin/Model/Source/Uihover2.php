@@ -7,6 +7,6 @@
         $result[] = array('value' => 'varien', 'label'=>'Use "http_varien_client"');
 	    $result[] = array('value' => 'curl', 'label'=>'Use cURL');
 	    $result[] = array('value' => 'fopen', 'label'=>'Use FSOCKOPEN' );
-	 return $result;  
+	 	return $result;  
   	} 	
  }

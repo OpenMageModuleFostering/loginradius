@@ -19,6 +19,10 @@ class Loginradius_Sociallogin_Block_Auth extends Mage_Core_Block_Template implem
 		}elseif( $UserAuth == false ){
 			return '<p style ="color:red;">Your LoginRadius API key and secret is not valid, please correct it or contact LoginRadius support at <b><a href ="http://www.loginradius.com" target = "_blank">www.LoginRadius.com</a></b></p>';
 		 }else {
+	      $IsHttps = (!empty($UserAuth->IsHttps)) ? $UserAuth->IsHttps : '';
+	      $iframeHeight = (!empty($UserAuth->height)) ? $UserAuth->height : 50;
+	      $iframeWidth = (!empty($UserAuth->width)) ? $UserAuth->width : 138;
+          $http = ($IsHttps == 1) ? "https://" : "http://";
 	      $loc = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin/";
 		   if (empty($titleText)) {
              $titleText = 'Social Login';

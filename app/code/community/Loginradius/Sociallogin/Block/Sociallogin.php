@@ -69,28 +69,24 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
     	return Mage::getStoreConfig('sociallogin_options/messages/loginradius_title');
       }
       public function getRedirectOption(){
-    
     	return Mage::getStoreConfig('sociallogin_options/messages/redirect');
       }
       public function getApiOption(){
-    
     	return Mage::getStoreConfig('sociallogin_options/messages/api');
       }
-	  
+	  public function getProfileFieldsRequired(){
+    	return Mage::getStoreConfig('sociallogin_options/email_settings/profileFieldsRequired');
+      }
 	  public function getEmailRequired(){
-    
     	return Mage::getStoreConfig('sociallogin_options/email_settings/emailrequired');
       }
 	  public function verificationText(){
-    
     	return Mage::getStoreConfig('sociallogin_options/email_settings/verificationText');
       }
 	  public function getPopupText(){
-    
     	return Mage::getStoreConfig('sociallogin_options/email_settings/popupText');
       }
 	  public function getPopupError(){
-    
     	return Mage::getStoreConfig('sociallogin_options/email_settings/popupError');
       }
 	  public function getLinking(){
@@ -111,14 +107,62 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 	  public function shareEnable(){
     	return Mage::getStoreConfig('sociallogin_options/sharing/shareEnable');
 	  }
-	  public function sharingCode(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingCode');
+	  public function shareProduct(){
+    	return Mage::getStoreConfig('sociallogin_options/sharing/shareProduct');
+	  }
+	  public function shareSuccess(){
+    	return Mage::getStoreConfig('sociallogin_options/sharing/shareSuccess');
+	  }
+	  public function sharingTitle(){
+    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingTitle');
+	  }
+	  public function sharingTheme(){
+    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingTheme');
+	  }
+	  public function horizontalSharing(){
+    	return Mage::getStoreConfig('sociallogin_options/sharing/horizontalSharing');
+	  }
+	  public function verticalSharing(){
+    	return Mage::getStoreConfig('sociallogin_options/sharing/verticalSharing');
+	  }
+	  public function sharingVerticalAlignment(){
+    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingVerticalAlignment');
+	  }
+	  public function sharingOffset(){
+    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingOffset');
+	  }
+	  public function sharingProviders(){
+    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingProvidersHidden');
 	  }
 	  public function counterEnable(){
     	return Mage::getStoreConfig('sociallogin_options/counter/counterEnable');
 	  }
-	  public function counterCode(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/counterCode');
+	  public function counterProduct(){
+    	return Mage::getStoreConfig('sociallogin_options/counter/counterProduct');
+	  }
+	  public function counterSuccess(){
+    	return Mage::getStoreConfig('sociallogin_options/counter/counterSuccess');
+	  }
+	  public function counterTitle(){
+    	return Mage::getStoreConfig('sociallogin_options/counter/counterTitle');
+	  }
+	  public function counterTheme(){
+    	return Mage::getStoreConfig('sociallogin_options/counter/counterTheme');
+	  }
+	  public function horizontalCounter(){
+    	return Mage::getStoreConfig('sociallogin_options/counter/horizontalCounter');
+	  }
+	  public function verticalCounter(){
+    	return Mage::getStoreConfig('sociallogin_options/counter/verticalCounter');
+	  }
+	  public function counterVerticalAlignment(){
+    	return Mage::getStoreConfig('sociallogin_options/counter/counterVerticalAlignment');
+	  }
+	  public function counterOffset(){
+    	return Mage::getStoreConfig('sociallogin_options/counter/counterOffset');
+	  }
+	  public function counterProviders(){
+    	return Mage::getStoreConfig('sociallogin_options/counter/counterProvidersHidden');
 	  }
 	  public function getCallBack(){
     	return Mage::getStoreConfig('sociallogin_options/messages/call');
@@ -126,7 +170,7 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 	  public function getProfileResult($ApiSecrete) 
 	  { 
 	    if(isset($_REQUEST['token'])) {
-		  $ValidateUrl = "https://hub.loginradius.com/userprofile.ashx?token=".$_REQUEST['token']."&apisecrete=".trim($ApiSecrete);
+		  $ValidateUrl = "http://hub.loginradius.com/userprofile.ashx?token=".$_REQUEST['token']."&apisecrete=".trim($ApiSecrete);
 		  return $this->getApiCall($ValidateUrl);
 		}
 	  }
@@ -144,26 +188,37 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 			if ( $this->getApiOption() == 'curl' ){
 				$curl_handle = curl_init();
 				curl_setopt($curl_handle, CURLOPT_URL, $url);
-				curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 3);
+				curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 5);
+				curl_setopt($curl_handle, CURLOPT_TIMEOUT, 5); 
 				curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, false);
 				if (ini_get('open_basedir') == '' && (ini_get('safe_mode') == 'Off' or !ini_get('safe_mode'))) {
 				  curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, 1);
 				  curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
-				  $JsonResponse = curl_exec($curl_handle);
 				}else {
-				  curl_setopt($curl_handle, CURLOPT_HEADER, 1);
-				  $url = curl_getinfo($curl_handle, CURLINFO_EFFECTIVE_URL);
-				  curl_close($curl_handle);
-				  $ch = curl_init();
-				  $url = str_replace('?','/?',$url);
-				  curl_setopt($ch, CURLOPT_URL, $url);
-				  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				  $JsonResponse = curl_exec($ch);
-				  curl_close($ch);
-			   }
+					curl_setopt($curl_handle, CURLOPT_HEADER, 1); 
+					$url = curl_getinfo($curl_handle, CURLINFO_EFFECTIVE_URL);
+					curl_close($curl_handle);
+					$curl_handle = curl_init(); 
+					$url = str_replace('?','/?',$url); 
+					curl_setopt($curl_handle, CURLOPT_URL, $url); 
+					curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
+			    }
+			    $JsonResponse = curl_exec($curl_handle);
+				$httpCode = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+				if(in_array($httpCode, array(400, 401, 403, 404, 500, 503)) && $httpCode != 200){
+					return "service connection timeout";
+				}else{
+					if(curl_errno($curl_handle) == 28){
+						return "timeout";
+					}
+				}
+			    curl_close($curl_handle);
 		 }
 		 elseif($this->getApiOption() == 'fopen') {
-		    $JsonResponse = file_get_contents($url);
+		    $JsonResponse = @file_get_contents($url);
+			if(strpos(@$http_response_header[0], "400") !== false || strpos(@$http_response_header[0], "401") !== false || strpos(@$http_response_header[0], "403") !== false || strpos(@$http_response_header[0], "404") !== false || strpos(@$http_response_header[0], "500") !== false || strpos(@$http_response_header[0], "503") !== false){
+				return "service connection timeout";
+			}
 		 }else {
 	       $method = 'GET';
 		   try{
@@ -179,6 +234,5 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 			else {
                return "something went wrong, Can not get api response.";
             }
-            
       }
 }

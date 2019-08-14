@@ -1,6 +1,65 @@
 <?php
+if($this->shareEnable() == "1" || $this->counterEnable() == "1"){
+	echo '<script type="text/javascript">var islrsharing = true; var islrsocialcounter = true;</script> <script type="text/javascript" src="//share.loginradius.com/Content/js/LoginRadius.js" id="lrsharescript"></script>';
+}
 if( $this->shareEnable() == "1" ){
-	echo str_replace("islrsocialcounter = false", "islrsocialcounter = true", trim($this->sharingCode()) );
+	// sharing code
+	if($this->sharingTheme() == "horizontal"){
+		// interface
+		if($this->horizontalSharing() == "32" || $this->horizontalSharing() == "16"){
+			$interface = 'horizontal';
+		}elseif($this->horizontalSharing() == "single_large" || $this->horizontalSharing() == "single_small"){
+			$interface = 'simpleimage';
+		}else{
+			$interface = 'horizontal';
+		}
+		// size
+		if($this->horizontalSharing() == "32" || $this->horizontalSharing() == "single_large"){
+			$size = '32';
+		}elseif($this->horizontalSharing() == "16" || $this->horizontalSharing() == "single_small"){
+			$size = '16';
+		}else{
+			$size = '32';
+		}
+	}elseif($this->sharingTheme() == "vertical"){
+		$interface = 'Simplefloat';
+		if($this->verticalSharing() == "32" || $this->verticalSharing() == "single_large"){
+			$size = '32';
+		}else{
+			$size = '16';
+		}
+	}else{
+		$interface = 'horizontal';
+		$size = '32';
+	}
+	if($this->sharingProviders() != ""){
+		$providers = str_replace(',', '","', $this->sharingProviders());
+	}else{
+		$providers = 'Facebook","Twitter","GooglePlus","Print","Email';
+	}
+	$code = '<script type="text/javascript">LoginRadius.util.ready(function () { $i = $SS.Interface.'.$interface.'; $SS.Providers.Top = ["'.$providers.'"]; $u = LoginRadius.user_settings; $u.apikey= \''.trim($this->getApikey()).'\'; $i.size = '.$size.';';
+	if($this->sharingTheme() == "vertical"){
+		if($this->sharingVerticalAlignment() == 'top_left'){
+			$position1 = 'top';
+			$position2 = 'left';
+		}elseif($this->sharingVerticalAlignment() == 'top_right'){
+			$position1 = 'top';
+			$position2 = 'right';
+		}elseif($this->sharingVerticalAlignment() == 'bottom_left'){
+			$position1 = 'bottom';
+			$position2 = 'left';
+		}else{
+			$position1 = 'bottom';
+			$position2 = 'right';
+		}
+		if(trim($this->sharingOffset()) != ""){
+			$code .= '$i.top = \''.trim($this->sharingOffset()).'px\'; $i.'.$position2.' = \'0px\';';
+		}else{
+			$code .= '$i.'.$position1.' = \'0px\'; $i.'.$position2.' = \'0px\';';
+		}
+	}
+	$code .= '$i.show("lrsharecontainer"); }); </script>';
+	echo $code;
 	?>
 	<style type="text/css">
 		div.lrsharecontainer{
@@ -9,9 +68,55 @@ if( $this->shareEnable() == "1" ){
 	</style>
 	<?php
 }
-if( $this->counterEnable() == "1" ){
-	$loginRadiusCounter = str_replace("islrsharing = false", "islrsharing = true", trim($this->counterCode()));
-	echo str_replace("$S.left = '50px'", "$S.left = '0px'", $loginRadiusCounter );
+if($this->counterEnable() == "1"){
+	$interface = 'simple';
+	if($this->counterTheme() == "horizontal"){
+		$isHorizontal = "true";
+		// interface
+		if($this->horizontalCounter() == "vertical"){
+			$type = 'vertical';
+		}else{
+			$type = 'horizontal';
+		}
+	}elseif($this->counterTheme() == "vertical"){
+		$isHorizontal = "false";
+		if($this->verticalCounter() == "vertical"){
+			$type = 'vertical';
+		}else{
+			$type = 'horizontal';
+		}
+	}else{
+		$isHorizontal = "true";
+		$type = 'horizontal';
+	}
+	if($this->counterProviders() != ""){
+		$providers = str_replace(',', '","', $this->counterProviders());
+	}else{
+		$providers = 'Facebook Like","Google+ +1","LinkedIn Share","Twitter Tweet';
+	}
+	$code = '<script type="text/javascript">LoginRadius.util.ready(function () { $SC.Providers.Selected = ["'.$providers.'"]; $S = $SC.Interface.'.$interface.'; $S.isHorizontal = '.$isHorizontal.'; $S.countertype = \''.$type.'\';';
+	if($this->counterTheme() == "vertical"){
+		if($this->counterVerticalAlignment() == 'top_left'){
+			$position1 = 'top';
+			$position2 = 'left';
+		}elseif($this->counterVerticalAlignment() == 'top_right'){
+			$position1 = 'top';
+			$position2 = 'right';
+		}elseif($this->counterVerticalAlignment() == 'bottom_left'){
+			$position1 = 'bottom';
+			$position2 = 'left';
+		}else{
+			$position1 = 'bottom';
+			$position2 = 'right';
+		}
+		if(trim($this->counterOffset()) != ""){
+			$code .= '$S.top = \''.trim($this->counterOffset()).'px\'; $S.'.$position2.' = \'0px\';';
+		}else{
+			$code .= '$S.'.$position1.' = \'0px\'; $S.'.$position2.' = \'0px\';';
+		}
+	}
+	$code .= '$S.show("lrcounter_simplebox"); }); </script>';
+	echo $code;
 	?>
 	<style type="text/css">
 		div.lrcounter_simplebox{
@@ -22,9 +127,16 @@ if( $this->counterEnable() == "1" ){
 }
 if( $this->loginEnable() == "1" ){
 	$loc = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin/";
+	if($this->getLayout()->getBlock('head')->getTitle() == "Checkout"){
+		$loginRadiusCallback = $loc."?loginRadiusCheckout=1";
+	}elseif($this->getLayout()->getBlock('head')->getTitle() == "My Account"){
+		$loginRadiusCallback = $loc."?loginRadiusLinking=1";
+	}else{
+		$loginRadiusCallback = $loc;
+	}
 	?>
 	 <script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script>
-	 <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings;$ui.interfacesize = "small";$ui.apikey = "<?php echo trim($this->getApikey()) ?>";$ui.callback = "<?php echo $loc ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); });
+	 <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings;$ui.interfacesize = "small";$ui.apikey = "<?php echo trim($this->getApikey()) ?>";$ui.callback = "<?php echo $loginRadiusCallback ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); });
 	 </script>
 	<?php
 }

@@ -1,0 +1,149 @@
+.loginRadiusFieldset{
+	position: relative;
+	border: #d7d7d7 1px solid;
+	border-radius: 4px;
+	width: 490px;
+	float: left;
+	padding: 3px 10px 0 10px;
+	margin-bottom: 10px;
+	background-color: #FFFFE0;
+	border: 1px solid #E6DB55;
+}
+.loginRadiusHelpDiv {
+	width: 65%;
+	float: left;
+	border-radius: 4px;
+	margin-right: 10px;
+	background-color: #FFFFE0 !important;
+	border: 1px solid #E6DB55 !important;
+	padding-bottom:5px !important;
+}
+.loginRadiusFieldset a, .loginRadiusHelpDiv ul li a{
+	color: #00ccff;
+	text-decoration: none;
+}
+.loginRadiusFieldset a:hover, .loginRadiusHelpDiv ul li a:hover{
+	text-decoration:underline !important
+}
+.loginRadiusHelpDiv ul li{
+	list-style-type: disc;
+}
+.loginRadiusHelpDiv ul{
+	margin: 0 15px;
+}
+.twitter_box {
+    width: 58px; height: 34px;
+    position: relative;
+    background: #fff;
+    border: 1px solid #bbb;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+	margin-left: 56px;
+}
+.twitter_box:after, .twitter_box:before{
+    width: 0; height: 0;
+    position: absolute;
+    top: 100%;
+    border: solid transparent;
+    pointer-events: none;
+    content: " ";
+}
+.twitter_box:after{
+    left: 50%;
+    border-top-color: #fff;
+    border-width: 3px;
+    margin-left: -3px;
+}
+.twitter_box:before{
+    left: 50%;
+    border-top-color: #aaa;
+    border-width: 4px;
+    margin-left: -4px;
+}
+.twitter_box #followers{
+    width: 100%; height: auto;
+    position: absolute;
+    top: 0px; left: 0px;
+    font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+    font-size: 16px; line-height: 34px;
+    letter-spacing: 0;
+    white-space: nowrap;
+    color: #333;
+    text-align: center;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+loginradius_radio{
+	vertical-align:top;
+	margin-left:7px
+}
+#row_sociallogin_options_sharing_sharingProviders ul li{
+	width:100px;
+	float:left
+}
+#row_sociallogin_options_messages_redirect td input{
+	margin-right:2px
+}
+#row_sociallogin_options_counter_counterProviders ul li{
+	width:149px;
+	float:left
+}
+#loginRadiusRearrangeSharing li{
+	float:left
+}
+#row_sociallogin_options_sharing_verticalSharing td input{
+	vertical-align:top !important;
+	float:left !important;
+	margin-right:2px
+}
+#row_sociallogin_options_sharing_verticalSharing td label, #row_sociallogin_options_counter_verticalCounter td label{
+	float:left !important
+}
+#row_sociallogin_options_sharing_horizontalSharing td input{
+	vertical-align:top !important;
+	margin-right:2px
+}
+#row_sociallogin_options_counter_horizontalCounter td input{
+	vertical-align:top !important;
+	margin-right:2px
+}
+#row_sociallogin_options_counter_verticalCounter td input{
+	vertical-align:top !important;
+	margin-right:2px;
+	float:left !important
+}
+.lrshare_iconsprite32{
+	cursor: pointer !important;
+	height: 32px;
+	margin: 4px !important;
+	width: 32px;
+	padding: 0px !important;
+	border: none !important;
+	background: url("lrshare_iconsprite32.png") no-repeat scroll left top transparent;
+	list-style-type: none !important;
+}
+.lrshare_iconsprite32.lrshare_delicious { background-position: 0px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_digg { background-position: -34px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_dotnetkicks { background-position: -68px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_email { background-position: -102px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_evenmore32 { background-position: -138px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_facebook { background-position: -174px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_google { background-position: -208px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_googleplus { background-position: -242px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_hyves { background-position: -276px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_linkedin { background-position: -310px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_live { background-position: -344px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_myspace { background-position: -378px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_pinterest { background-position: -412px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_print { background-position: -446px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_reddit { background-position: -480px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_sharingcounter32 { background-position: -514px 0px; width: 50px; height: 32px; padding-top:4px !important; font-size:18px; } 
+.lrshare_iconsprite32.lrshare_tumblr { background-position: -576px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_twitter { background-position: -610px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_viadeo { background-position: -644px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_vkontakte { background-position: -678px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_wordpress { background-position: -712px 0px; width: 32px; height: 32px;  } 
+.lrshare_iconsprite32.lrshare_yahoo { background-position: -746px 0px; width: 32px; height: 32px;  }
