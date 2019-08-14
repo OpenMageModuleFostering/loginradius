@@ -6,6 +6,9 @@
  * Time: 7:05 PM
  */
 $loc = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . "sociallogin/";
+if (strpos(Mage::helper('core/url')->getCurrentUrl(),'https://') !== false) {
+    $loc = str_replace('http://', 'https://', $loc);
+}
 if ($this->getLayout()->getBlock('head')->getTitle() == "Checkout") {
   $loginRadiusCallback = $loc . "?loginradiuscheckout=1";
 }
@@ -17,7 +20,7 @@ else {
 }
 $scriptUrl = $this->getSkinUrl('Loginradius/Sociallogin/js/LoginRadiusSDK.2.0.0.js');
 ?>
-<script src="http://cdn.loginradius.com/hub/prod/v1/js/LoginRadius.1.0.js"></script>
+<script src="//cdn.loginradius.com/hub/prod/v1/js/LoginRadius.1.0.js"></script>
 <script src="<?php echo $scriptUrl; ?>"></script>
 
 <script type="text/javascript">

@@ -74,7 +74,7 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
             <h4 class="lr_admin_fieldset_title"><strong><?php echo $this->__('Extension Information!') ?></strong></h4>
 
             <div style="margin:5px 0">
-                <strong>Version: </strong>4.0.0 <br/>
+                <strong>Version: </strong>4.1.0 <br/>
                 <strong>Author:</strong> LoginRadius<br/>
                 <strong>Website:</strong> <a href="https://www.loginradius.com" target="_blank">www.loginradius.com</a>
                 <br/>
