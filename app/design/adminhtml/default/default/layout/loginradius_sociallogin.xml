@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<layout version="4.0.0">
-    <adminhtml_system_config_edit>
+<layout version="1.0.0">
+    <sociallogin_custom_handle>
         <reference name="head">
-            <action method="addJs"><script>../skin/adminhtml/default/default/Loginradius/Sociallogin/js/jquery.js</script></action>
-            <action method="addJs"><script>../skin/adminhtml/default/default/Loginradius/Sociallogin/js/jquery.ui.sortable.min.js</script></action>
-            <action method="addJs"><script>../skin/adminhtml/default/default/Loginradius/Sociallogin/js/admin-ui.js</script></action>
-            <action method="addCss"><script>../../../adminhtml/default/default/Loginradius/Sociallogin/css/admin-ui.css</script></action>
+            <action method="addItem"><type>skin_js</type><name>Loginradius/Sociallogin/js/jquery.js</name><params/></action>
+            <action method="addItem"><type>skin_js</type><name>Loginradius/Sociallogin/js/jquery.noConflict.js</name><params/></action>
+            <action method="addItem"><type>skin_js</type><name>Loginradius/Sociallogin/js/jquery.ui.sortable.min.js</name><params/></action>
+            <action method="addItem"><type>skin_js</type><name>Loginradius/Sociallogin/js/admin-ui.js</name><params/></action>
+            <action method="addItem"><type>skin_css</type><name>Loginradius/Sociallogin/css/admin-ui.css</name><params/></action>
         </reference>
-    </adminhtml_system_config_edit>
+    </sociallogin_custom_handle>
 </layout>

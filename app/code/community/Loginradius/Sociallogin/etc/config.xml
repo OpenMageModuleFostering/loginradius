@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Loginradius_Sociallogin>
-            <version>4.2.0</version>
+            <version>4.2.1</version>
         </Loginradius_Sociallogin>
     </modules>
     <frontend>
@@ -105,6 +105,16 @@
                     </sociallogin>
                 </observers>
             </model_config_data_save_before>
+        </events>
+        <events>
+            <controller_action_layout_load_before>
+                <observers>
+                    <sociallogin_observer>
+                        <class>sociallogin/Observer</class>
+                        <method>addCustomLayoutHandle</method>
+                    </sociallogin_observer>
+                </observers>
+            </controller_action_layout_load_before>
         </events>
         <helpers>
             <sociallogin>

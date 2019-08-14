@@ -144,7 +144,7 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
                 <li><a target="_blank" href="http://ish.re/8PG2">Discussion Forum</a></li>
                 <li><a target="_blank" href="http://ish.re/96M7">About LoginRadius</a></li>
                 <li><a target="_blank" href="http://ish.re/8PG8">Social Plugins</a></li>
-                <li><a target="_blank" href="http://ish.re/6JMW">Social SDKs</a></li>
+                <li><a target="_blank" href="http://ish.re/C9F7">Social SDKs</a></li>
             </ul>
         </fieldset>
     <?php

@@ -368,6 +368,21 @@ class Loginradius_Sociallogin_Helper_Loginhelper extends Mage_Core_Helper_Abstra
             }
         }
 
+        if (empty($profileDataFiltered['LastName'])) {
+            if (!empty($profileDataFiltered['FullName'])) {
+                $profileDataFiltered['LastName'] = $profileDataFiltered['FullName'];
+            } elseif (!empty($profileDataFiltered['ProfileName'])) {
+                $profileDataFiltered['LastName'] = $profileDataFiltered['ProfileName'];
+            } elseif (!empty($profileDataFiltered['NickName'])) {
+                $profileDataFiltered['LastName'] = $profileDataFiltered['NickName'];
+            } elseif (!empty($email)) {
+                $user_name = explode('@', $email);
+                $profileDataFiltered['LastName'] = str_replace("_", " ", $user_name[0]);
+            } else {
+                $profileDataFiltered['LastName'] = $userObject->ID;
+            }
+        }
+
         $profileDataFiltered['Gender'] = (!empty($userObject->Gender) ? $userObject->Gender : '');
         if (strtolower(substr($profileDataFiltered['Gender'], 0, 1)) == 'm') {
             $profileDataFiltered['Gender'] = '1';

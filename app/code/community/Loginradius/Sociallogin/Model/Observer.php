@@ -75,4 +75,18 @@ class Loginradius_Sociallogin_Model_Observer extends Mage_Core_Helper_Abstract
 
         return $result;
     }
+
+    public function addCustomLayoutHandle(Varien_Event_Observer $observer)
+    {
+        $controllerAction = $observer->getEvent()->getAction();
+        $layout = $observer->getEvent()->getLayout();
+        if ($controllerAction && $layout && $controllerAction instanceof Mage_Adminhtml_System_ConfigController) {
+            if ($controllerAction->getRequest()->getParam('section') == 'sociallogin_options') {
+                $layout->getUpdate()->addHandle('sociallogin_custom_handle');
+            }
+        }
+        return $this;
+    }
+
+
 }
