@@ -126,15 +126,14 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 	  public function getProfileResult($ApiSecrete) 
 	  { 
 	    if(isset($_REQUEST['token'])) {
-		  $ValidateUrl = "http://hub.loginradius.com/userprofile.ashx?token=".$_REQUEST['token']."&apisecrete=".trim($ApiSecrete);
+		  $ValidateUrl = "http://devhub.loginradius.com/userprofile.ashx?token=".$_REQUEST['token']."&apisecrete=".trim($ApiSecrete);
 		  return $this->getApiCall($ValidateUrl);
 		}
 	  }
 	  public function getApiResult($ApiKey, $ApiSecrete) 
 	  { 
 	    if ( !empty($ApiKey) && !empty($ApiSecrete) && preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/i', $ApiKey) && preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/i', $ApiSecrete) ) {
-	      $url = "https://hub.loginradius.com/getappinfo/$ApiKey/$ApiSecrete";
-		  return $this->getApiCall($url);
+		  return true;
 		}
 		else {
 		   return false;
@@ -142,7 +141,6 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
       }
       public function getApiCall($url)
        {
-	   		
 			if ( $this->getApiOption() == 'curl' ){
 				$curl_handle = curl_init();
 				curl_setopt($curl_handle, CURLOPT_URL, $url);

@@ -13,12 +13,7 @@ if( $this->loginEnable() == "1" && !$this->user_is_already_login() ){
 	    echo '<p style ="color:red;">Your LoginRadius API key and secret is not valid, please correct it or contact LoginRadius support at <b><a href ="http://www.loginradius.com" target = "_blank">www.LoginRadius.com</a></b></p>';
       	}
 	  else {
-		$IsHttps = (!empty($UserAuth->IsHttps)) ? $UserAuth->IsHttps : '';
-		$iframeHeight = (!empty($UserAuth->height)) ? $UserAuth->height : 50;
-		$iframeWidth = (!empty($UserAuth->width)) ? $UserAuth->width : 138;
-		$http = ($IsHttps == 1) ? "https://" : "http://";
-		$loc = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin/";
-		echo '<div style="margin:5px"><div style="margin-bottom:5px">'.$loginRadiusTitle.'</div><iframe src="'.$http.'hub.loginradius.com/Control/PluginSlider.aspx?apikey='.$ApiKey.'&callback='.$loc.'" width="'.$iframeWidth.'" height="'.$iframeHeight.'" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>';
+		echo '<div style="margin:5px"><div style="margin-bottom:5px">'.$loginRadiusTitle.'</div><div class="interfacecontainerdiv" ></div></div>';
 	  }
     echo '</p></div></div>';
   }
