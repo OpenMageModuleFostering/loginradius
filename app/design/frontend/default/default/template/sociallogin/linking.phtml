@@ -10,7 +10,7 @@ if( $this->loginEnable() == "1" ){
 				<div class="col-1">
 					<div class="box">
 						<div class="box-title">
-							<h3>Linked Accounts</h3>
+							<h3><?php echo __('Linked Accounts') ?></h3>
 						</div>
 						<div class="box-content">
 							<?php
@@ -18,21 +18,21 @@ if( $this->loginEnable() == "1" ){
 							if(isset($_GET['LoginRadiusLinked']) && trim($_GET['LoginRadiusLinked']) == 1){
 								?>
 								<div style="color:green; background-color: #eaffdc; border: 1px solid #84b47a; padding: 3px 5px; margin:10px 0">
-									Account linked successfully.
+									<?php echo __('Account linked successfully.') ?>
 								</div>
 								<?php
 							// account from this provider is already linked
 							}elseif(isset($_GET['LoginRadiusLinked']) && trim($_GET['LoginRadiusLinked']) == 2){
 								?>
 								<div style="color:red; background-color: rgb(255, 235, 232); border: 1px solid rgb(204, 0, 0); padding: 3px 5px; margin:10px 0">
-									Multiple accounts cannot be linked from the same Social ID Provider.
+									<?php echo __('Multiple accounts cannot be linked from the same Social ID Provider.') ?>
 								</div>
 								<?php
 							// account already mapped or exists
 							}elseif(isset($_GET['LoginRadiusLinked']) && trim($_GET['LoginRadiusLinked']) == 0){
 								?>
 								<div style="color:red; background-color: rgb(255, 235, 232); border: 1px solid rgb(204, 0, 0); padding: 3px 5px;; margin:10px 0">
-									Account already exists or mapped.
+									<?php echo __('Account already exists or mapped.') ?>
 								</div>
 								<?php
 							}
@@ -53,7 +53,7 @@ if( $this->loginEnable() == "1" ){
 								}
 								?>
 								<div style="color:green; background-color: #eaffdc; border: 1px solid #84b47a; padding: 3px 5px;">
-									Account removed successfully.
+									<?php echo __('Account removed successfully.') ?>
 								</div>
 								<?php
 							}
@@ -69,10 +69,10 @@ if( $this->loginEnable() == "1" ){
 									if($result["provider"] != NULL || $result["provider"] != ""){
 										echo '<div style="float:left">';
 										if(Mage::getSingleton("customer/session")->getloginRadiusId() == $result["sociallogin_id"]){
-											echo '<span style="color:green">Currently </span>';
+											echo '<span style="color:green">'.__("Currently").' </span>';
 										}
-										echo 'Connected with <img alt="'.ucfirst($result['provider']).'" title="'.ucfirst($result['provider']).'" src="'.Mage::getDesign()->getSkinUrl("Loginradius".DS."Sociallogin".DS."images".DS."Linking".DS.$result["provider"].'.png', array('_area'=>'frontend')).'" />'.
-										'</div> <div style="float:right"><a href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK).'customer/account/?LoginRadiusUnlink='.$result["sociallogin_id"].'" title="Unlink this ID from your account">Remove</a></div>'.
+										echo __('Connected with').' <img alt="'.ucfirst($result['provider']).'" title="'.ucfirst($result['provider']).'" src="'.Mage::getDesign()->getSkinUrl("Loginradius".DS."Sociallogin".DS."images".DS."Linking".DS.$result["provider"].'.png', array('_area'=>'frontend')).'" />'.
+										'</div> <div style="float:right"><a href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK).'customer/account/?LoginRadiusUnlink='.$result["sociallogin_id"].'" title="'.__('Unlink this ID from your account').'">'.__('Remove').'</a></div>'.
 										'<br />';
 									}
 								}
@@ -84,7 +84,7 @@ if( $this->loginEnable() == "1" ){
 				<div class="col-2">
 					<div class="box">
 						<div class="box-title">
-							<h3>Link Social IDs to your Magento Account</h3>
+							<h3><?php echo __('Link Social IDs to your Magento Account') ?></h3>
 						</div>
 						<div class="box-content">
 							<div class="interfacecontainerdiv" style="margin-left:10px"></div>

@@ -70,6 +70,9 @@ loginradius_radio{
 #row_sociallogin_options_horizontalSharing_horizontalSharingTheme td input{
 	vertical-align:top
 }
+#row_sociallogin_options_horizontalSharing_horizontalSharingTheme td[class=value]{
+	width: 400px !important
+}
 #row_sociallogin_options_verticalSharing_verticalSharingTheme td.value{
 	width:400px !important;
 }

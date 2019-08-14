@@ -3,9 +3,10 @@
  {
     public function toOptionArray(){
 		$result = array();
-        $result[] = array('value' => 'account', 'label'=>'Redirect to Account page<br/>');
-	    $result[] = array('value' => 'index', 'label'=>'Redirect to Home page<br/>');
-	    $result[] = array('value' => 'custom', 'label'=>'Redirect to following url' );
-	 return $result;  
+        $result[] = array('value' => 'same', 'label'=>__('Redirect to same page where the user logged in').'<br/>');
+		$result[] = array('value' => 'account', 'label'=>__('Redirect to account page').'<br/>');
+	    $result[] = array('value' => 'index', 'label'=>__('Redirect to home page').'<br/>');
+	    $result[] = array('value' => 'custom', 'label'=>__('Redirect to following url') );
+		return $result;
   	} 	
  }

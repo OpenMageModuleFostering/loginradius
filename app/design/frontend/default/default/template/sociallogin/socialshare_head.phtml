@@ -141,11 +141,11 @@ echo $sharingScript;
 if( $this->loginEnable() == "1" ){
 	$loc = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin/";
 	if($this->getLayout()->getBlock('head')->getTitle() == "Checkout"){
-		$loginRadiusCallback = $loc."?loginRadiusCheckout=1";
+		$loginRadiusCallback = $loc."?loginradiuscheckout=1";
 	}elseif($this->getLayout()->getBlock('head')->getTitle() == "My Account"){
 		$loginRadiusCallback = $loc."?loginRadiusLinking=1";
 	}else{
-		$loginRadiusCallback = $loc;
+		$loginRadiusCallback = $loc."?redirect_to=".Mage::helper('core/url')->getCurrentUrl();
 	}
 	?>
 	 <script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script>

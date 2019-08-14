@@ -4,10 +4,10 @@
     public function toOptionArray()
     {
 		$result = array();
-        $result[] = array('value' => 'top_left', 'label'=>'Top Left');
-	    $result[] = array('value' => 'top_right', 'label'=>'Top Right');
-        $result[] = array('value' => 'bottom_left', 'label'=>'Bottom Left');
-        $result[] = array('value' => 'bottom_right', 'label'=>'Bottom Right');
+        $result[] = array('value' => 'top_left', 'label'=>__('Top Left'));
+	    $result[] = array('value' => 'top_right', 'label'=>__('Top Right'));
+        $result[] = array('value' => 'bottom_left', 'label'=>__('Bottom Left'));
+        $result[] = array('value' => 'bottom_right', 'label'=>__('Bottom Right'));
 	 	return $result;  
   	} 	
  }

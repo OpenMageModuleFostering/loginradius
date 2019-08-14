@@ -8,6 +8,10 @@ class Loginradius_Sociallogin_Block_Horizontalsharing extends Mage_Core_Block_Te
         $content = "";
 		if ($this->loginRadiusHorizontalSharing->horizontalShareEnable() == "1" ){
             $content = "<div class='loginRadiusHorizontalSharing'></div>";
+			$titleText = trim($this->getLabelText());
+			if($titleText != ""){
+				$content = "<div style='font-weight:bold'>" . __($titleText) . "</div>" . $content;
+			}
 		}
         return $content;
     }

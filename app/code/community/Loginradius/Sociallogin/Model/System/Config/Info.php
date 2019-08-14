@@ -15,22 +15,22 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
 		?>
 		
 							<fieldset class="loginRadiusFieldset" style="margin-right:13px; background-color:#EAF7FF; border-color:rgb(195, 239, 250); padding-bottom:25px; width:65%">
-		<h4 style="color:#000"><strong>Thank you for installing the LoginRadius Social Plugin!</strong></h4>
-		<p>To activate the plugin, you will need to first configure it (manage your desired social networks, etc.) from your LoginRadius account. If you do not have an account, click <a target="_blank" href="http://www.loginradius.com/">here</a> and create one for FREE!</p>
+		<h4 style="color:#000"><strong><?php echo $this -> __('Thank you for installing the LoginRadius Social Plugin!') ?></strong></h4>
+		<p><?php echo $this -> __('To activate the extension, you will need to first configure it (manage your desired social networks, etc.) from your LoginRadius account. If you do not have an account, click') ?> <a target="_blank" href="http://www.loginradius.com/"><?php echo $this -> __('here') ?></a> <?php echo $this -> __('and create one for FREE!') ?></p>
 		<p>
-		We also offer Social Plugins for  <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#wordpressplugin" target="_blank">Wordpress</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#joomlaextension" target="_blank">Joomla</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#drupalmodule" target="_blank">Drupal</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#vBulletinplugin" target="_blank">vBulletin</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#vanillaaddons" target="_blank">VanillaForum</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#osCommerceaddons" target="_blank">OSCommerce</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#prestashopmodule" target="_blank">PrestaShop</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#xcartextension" target="_blank">X-Cart</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#zencartplugin" target="_blank">Zen-Cart</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#dotnetnukemodule" target="_blank">DotNetNuke</a> and <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#blogengineextension" target="_blank">BlogEngine</a>!
+		<?php echo $this -> __('We also offer Social Plugins for') ?>  <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#wordpressplugin" target="_blank">Wordpress</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#joomlaextension" target="_blank">Joomla</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#drupalmodule" target="_blank">Drupal</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#vbulletinplugin" target="_blank">vBulletin</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#vanillaaddons" target="_blank">VanillaForum</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#osCommerceaddons" target="_blank">osCommerce</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#prestashopmodule" target="_blank">PrestaShop</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#xcartextension" target="_blank">X-Cart</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#zencartplugin" target="_blank">Zen-Cart</a> <?php echo $this -> __('and') ?> <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#dotnetnukemodule" target="_blank">DotNetNuke</a>!
 		</p>
 		<div style="margin-top:10px">
 		<a style="text-decoration:none;" href="https://www.loginradius.com/" target="_blank">
-			<input class="form-button" type="button" value="Set up my FREE account!">
+			<input class="form-button" type="button" value="<?php echo $this -> __('Set up my FREE account!') ?>">
 		</a>
-		<a class="loginRadiusHow" target="_blank" href="http://support.loginradius.com/customer/portal/articles/593954">(How to set up an account?)</a>
+		<a class="loginRadiusHow" target="_blank" href="http://support.loginradius.com/customer/portal/articles/593954">(<?php echo $this -> __('How to set up an account?') ?>)</a>
 		</div>
 		</fieldset>
 		<!-- Get Updates -->			
 		<fieldset class="loginRadiusFieldset" style="width:26%; background-color: rgb(231, 255, 224); border: 1px solid rgb(191, 231, 176); padding-bottom:6px;">
-		<h4 style="border-bottom:#d7d7d7 1px solid;"><strong>Get Updates</strong></h4>
-		<p>To receive updates on new features, future releases, etc, please connect with us via Facebook and Twitter-</p>
+		<h4 style="border-bottom:#d7d7d7 1px solid;"><strong><?php echo $this -> __('Get Updates') ?></strong></h4>
+		<p><?php echo $this -> __('To receive updates on new features, future releases, etc, please connect with us via Facebook-') ?></p>
 		<div>
 			<div style="float:left">
 				<iframe rel="tooltip" scrolling="no" frameborder="0" allowtransparency="true" style="border: none; overflow: hidden; width: 46px;
@@ -41,28 +41,28 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
 		</fieldset>
 		<!-- Help & Documentation -->
 		<fieldset class="loginRadiusHelpDiv" style="margin-right:13px; width:65%">
-		<h4 style="border-bottom:#d7d7d7 1px solid;"><strong>Help &amp; Documentations</strong></h4>
+		<h4 style="border-bottom:#d7d7d7 1px solid;"><strong><?php echo $this -> __('Help & Documentations') ?></strong></h4>
 		<ul style="float:left; margin-right:43px">
-			<li><a target="_blank" href="http://support.loginradius.com/customer/portal/articles/1056696-magento-social-login-installation-configuration-and-troubleshooting">Extension Installation, Configuration and Troubleshooting</a></li>
-			<li><a target="_blank" href="http://support.loginradius.com/customer/portal/articles/677100-how-to-get-loginradius-api-key-and-secret">How to get LoginRadius API Key &amp; Secret</a></li>
-			<li><a target="_blank" href="http://support.loginradius.com/customer/portal/articles/1056696-magento-social-login-installation-configuration-and-troubleshooting#multisite">Magento Multisite Feature</a></li>
-			<li><a target="_blank" href="http://www.loginradius.com/product/sociallogin">LoginRadius Products</a></li>
+			<li><a target="_blank" href="http://support.loginradius.com/customer/portal/articles/1056696-magento-social-login-installation-configuration-and-troubleshooting"><?php echo $this -> __('Extension Installation, Configuration and Troubleshooting') ?></a></li>
+			<li><a target="_blank" href="http://support.loginradius.com/customer/portal/articles/677100-how-to-get-loginradius-api-key-and-secret"><?php echo $this -> __('How to get LoginRadius API Key & Secret') ?></a></li>
+			<li><a target="_blank" href="http://support.loginradius.com/customer/portal/articles/1056696-magento-social-login-installation-configuration-and-troubleshooting#multisite"><?php echo $this -> __('Magento Multisite Feature') ?></a></li>
+			<li><a target="_blank" href="https://www.loginradius.com/loginradius/product-overview"><?php echo $this -> __('LoginRadius Products') ?></a></li>
 		</ul>
 		<ul style="float:left; margin-right:43px">
-			<li><a target="_blank" href="http://community.loginradius.com/">Discussion Forum</a></li>
-			<li><a target="_blank" href="http://www.loginradius.com/loginradius/about">About LoginRadius</a></li>
-			<li><a target="_blank" href="http://www.loginradius.com/addons">Social Plugins</a></li>
-			<li><a target="_blank" href="http://www.loginradius.com/sdks/loginradiussdk">Social SDKs</a></li>
+			<li><a target="_blank" href="http://community.loginradius.com/"><?php echo $this -> __('Discussion Forum') ?></a></li>
+			<li><a target="_blank" href="http://www.loginradius.com/loginradius/about"><?php echo $this -> __('About LoginRadius') ?></a></li>
+			<li><a target="_blank" href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms"><?php echo $this -> __('Social Plugins') ?></a></li>
+			<li><a target="_blank" href="https://www.loginradius.com/loginradius-for-developers/loginRadius-sdks"><?php echo $this -> __('Social SDKs') ?></a></li>
 		</ul>
 		</fieldset>
 		<!-- Support Us -->
 		<fieldset class="loginRadiusFieldset" style="margin-right:5px; background-color: rgb(231, 255, 224); border: 1px solid rgb(191, 231, 176); width:26%; height:112px">
-		<h4 style="border-bottom:#d7d7d7 1px solid;"><strong>Support Us</strong></h4>
+		<h4 style="border-bottom:#d7d7d7 1px solid;"><strong><?php echo $this -> __('Support Us') ?></strong></h4>
 		<p>
-		If you liked our FREE open-source plugin, please send your feedback/testimonial to <a href="mailto:feedback@loginradius.com">feedback@loginradius.com</a> !</p>
+		<?php echo $this -> __('If you liked our FREE open-source plugin, please send your feedback/testimonial to') ?> <a href="mailto:feedback@loginradius.com">feedback@loginradius.com</a> !</p>
 		</fieldset>
 		<div style='clear:both'></div>
-		<div id="loginRadiusKeySecretNotification" style="background-color: rgb(255, 255, 224); border: 1px solid rgb(230, 219, 85); padding: 5px; margin-bottom: 11px; display:none">To activate the <strong>Social Login</strong>, insert LoginRadius API Key and Secret in the <strong>Social Login Basic Settings</strong> section below. <strong>Social Sharing does not require API Key and Secret</strong>.</div>
+		<div id="loginRadiusKeySecretNotification" style="background-color: rgb(255, 255, 224); border: 1px solid rgb(230, 219, 85); padding: 5px; margin-bottom: 11px; display:none"><?php echo $this -> __('To activate the <strong>Social Login</strong>, insert LoginRadius API Key and Secret in the <strong>Social Login Basic Settings</strong> section below. <strong>Social Sharing does not require API Key and Secret</strong>') ?>.</div>
 		<div style='clear:both'></div>
 		<script type="text/javascript">var islrsharing = true; var islrsocialcounter = true;</script>
 		<script type="text/javascript" src="//share.loginradius.com/Content/js/LoginRadius.js" id="lrsharescript"></script>

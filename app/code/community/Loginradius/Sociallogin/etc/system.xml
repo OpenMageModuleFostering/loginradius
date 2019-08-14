@@ -44,8 +44,7 @@
 								<appid translate="label">
 									<label>LoginRadius API Key</label>
 									<frontend_type>text</frontend_type>
-									<comment><![CDATA[Paste LoginRadius API Key here. To get the API Key, login to <a href="http://www.loginradius.com" target="_blank">LoginRadius</a>]]>
-								</comment>
+									<comment><![CDATA[Paste LoginRadius API Key here. To get the API Key, login to <a href="http://www.loginradius.com" target="_blank">LoginRadius</a>]]></comment>
 									<sort_order>15</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -54,8 +53,7 @@
 								<appkey translate="label">
 									<label>LoginRadius API Secret</label>
 									<frontend_type>text</frontend_type>
-									<comment><![CDATA[Paste LoginRadius API Secret here. To get the API Secret, login to <a href="http://www.loginradius.com" target="_blank">LoginRadius</a>]]>
-									</comment>
+									<comment><![CDATA[Paste LoginRadius API Secret here. To get the API Secret, login to <a href="http://www.loginradius.com" target="_blank">LoginRadius</a>]]></comment>
 									<sort_order>16</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -64,8 +62,7 @@
 								<loginradius_title translate="label">
 									<label>Title</label>
 									<frontend_type>text</frontend_type>
-									<comment><![CDATA[Text displayed above Social login Interface]]>
-									</comment>
+									<comment><![CDATA[Text displayed above Social login Interface]]></comment>
 									<sort_order>17</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -93,7 +90,7 @@
 								<backgroundColor translate="label">
 									<label>Background Color</label>
 									<frontend_type>text</frontend_type>
-									<comment><![CDATA[What background color would you like to use for the Social Login interface? (Leave empty for transparent. You can enter hexa-decimal code of the color as well as name of the color.)]]></comment>
+									<comment><![CDATA[What background color would you like to use for the Social Login interface? (Leave empty for transparent. You can enter hexa-decimal code of the color as well as name of the color (in English language and small letters).)]]></comment>
 									<sort_order>20</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -102,8 +99,7 @@
 								<showdefault translate="label">
 									<label>Show Social Login interface in right side panel</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[Select No you don't want to display module in right panel. You can also set widget in pages or any area of your site. ]]>
-									</comment>
+									<comment><![CDATA[Select No, if you don't want to display module in right panel. You can also set widget in pages or any area of your site.]]></comment>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>23</sort_order>
 									<show_in_default>1</show_in_default>
@@ -113,8 +109,7 @@
 								<aboveLogin translate="label">
 									<label>Show Social Login interface above login form</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[Select 'Yes' to enable Social Login interface above login form.]]>
-									</comment>
+									<comment><![CDATA[Select 'Yes' to enable Social Login interface above login form.]]></comment>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>24</sort_order>
 									<show_in_default>1</show_in_default>
@@ -124,8 +119,7 @@
 								<belowLogin translate="label">
 									<label>Show Social Login interface below login form</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[Select 'Yes' to enable Social Login interface below login form.]]>
-									</comment>
+									<comment><![CDATA[Select 'Yes' to enable Social Login interface below login form.]]></comment>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>25</sort_order>
 									<show_in_default>1</show_in_default>
@@ -135,8 +129,7 @@
 								<aboveRegister translate="label">
 									<label>Show Social Login interface above registration form</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[Select 'Yes' to enable Social Login interface above registration form.]]>
-									</comment>
+									<comment><![CDATA[Select 'Yes' to enable Social Login interface above registration form.]]></comment>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>26</sort_order>
 									<show_in_default>1</show_in_default>
@@ -146,8 +139,7 @@
 								<belowRegister translate="label">
 									<label>Show Social Login interface below registration form</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[Select 'Yes' to enable Social Login interface below registration form.]]>
-									</comment>
+									<comment><![CDATA[Select 'Yes' to enable Social Login interface below registration form.]]></comment>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>27</sort_order>
 									<show_in_default>1</show_in_default>
@@ -157,8 +149,7 @@
 								<socialLinking translate="label">
 									<label>Social Linking</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[Link existing user accounts with Social Login.]]>
-								</comment>
+									<comment><![CDATA[Link existing user accounts with Social Login.]]></comment>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>29</sort_order>
 									<show_in_default>1</show_in_default>
@@ -185,8 +176,7 @@
 								<api translate="label">
 									<label>API Connection Method</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[cURL require 'cURL support = enabled' in your php.ini settings, FSOCKOPEN require 'allow_url_fopen = On' and 'safemode = off' in your php.ini settings]]>
-								</comment>
+									<comment><![CDATA[cURL require 'cURL support = enabled' in your php.ini settings, FSOCKOPEN require 'allow_url_fopen = On' and 'safemode = off' in your php.ini settings]]></comment>
 									<source_model>sociallogin/source_uihover2</source_model>
 									<sort_order>45</sort_order>
 									<show_in_default>1</show_in_default>
@@ -226,8 +216,7 @@
 								<emailrequired translate="label">
 									<label>Email Required</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[A few ID providers do not provide user's Email ID. Select YES if you would like an email pop-up after login or select NO if you would like to auto-generate the email address.]]>
-								</comment>
+									<comment><![CDATA[A few ID providers do not provide user's Email ID. Select YES if you would like an email pop-up after login or select NO if you would like to auto-generate the email address.]]></comment>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>22</sort_order>
 									<show_in_default>1</show_in_default>
@@ -237,8 +226,7 @@
 								<verificationText translate="label">
 									<label>Email verification message</label>
 									<frontend_type>text</frontend_type>
-									<comment><![CDATA[This message will be used in verification email.]]>
-								</comment>
+									<comment><![CDATA[This message will be used in verification email.]]></comment>
 									<sort_order>23</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -247,8 +235,7 @@
 								<popupText translate="label">
 									<label>"Email required" - Popup title</label>
 									<frontend_type>text</frontend_type>
-									<comment><![CDATA[This text will be displayed on "Email required" popup.]]>
-								</comment>
+									<comment><![CDATA[This text will be displayed on "Email required" popup.]]></comment>
 									<sort_order>24</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -257,8 +244,7 @@
 								<popupError translate="label">
 									<label>Error message</label>
 									<frontend_type>text</frontend_type>
-									<comment><![CDATA[This text will be displayed on the popup if the entered email is already registered or invalid.]]>
-								</comment>
+									<comment><![CDATA[This text will be displayed on the popup if the entered email is already registered or invalid.]]></comment>
 									<sort_order>25</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -267,8 +253,7 @@
 								<notifyUser translate="label">
 									<label>Enable registration notification to user</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[Send email to newly registered customer regarding login credentials.]]>
-								</comment>
+									<comment><![CDATA[Send email to newly registered customer regarding login credentials.]]></comment>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>26</sort_order>
 									<show_in_default>1</show_in_default>
@@ -278,8 +263,7 @@
 								<notifyUserText translate="label">
 									<label>User notification email message</label>
 									<frontend_type>textarea</frontend_type>
-									<comment><![CDATA[This message will be sent to user in notification email along with login credentials. If left empty, default message will be sent.]]>
-								</comment>
+									<comment><![CDATA[This message will be sent to user in notification email along with login credentials. If left empty, default message will be sent.]]></comment>
 									<sort_order>27</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -288,8 +272,7 @@
 								<notifyAdmin translate="label">
 									<label>Enable registration notification to owner</label>
 									<frontend_type>select</frontend_type>
-									<comment><![CDATA[Send email to store owner on new customer registration regarding customer details.]]>
-								</comment>
+									<comment><![CDATA[Send email to store owner on new customer registration regarding customer details.]]></comment>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>28</sort_order>
 									<show_in_default>1</show_in_default>
@@ -299,8 +282,7 @@
 								<notifyAdminText translate="label">
 									<label>Owner notification email message</label>
 									<frontend_type>textarea</frontend_type>
-									<comment><![CDATA[This message will be sent to admin in notification email.]]>
-								</comment>
+									<comment><![CDATA[This message will be sent to admin in notification email.]]></comment>
 									<sort_order>29</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -320,8 +302,7 @@
 									<label>Enable Horizontal Social Sharing</label>
 									<frontend_type>select</frontend_type>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
-									<comment><![CDATA[Do you want to enable Horizontal Social Sharing for your website?]]>
-									</comment>
+									<comment><![CDATA[Do you want to enable Horizontal Social Sharing for your website?]]></comment>
 									<sort_order>31</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -348,8 +329,7 @@
 								<sharingTitle translate="label">
 									<label>Sharing Title</label>
 									<frontend_type>text</frontend_type>
-									<comment><![CDATA[Enter the text that you wish to be displayed above the Social Sharing Interface. Leave the field blank if you don't want any text to be displayed.]]>
-								</comment>
+									<comment><![CDATA[Enter the text that you wish to be displayed above the Social Sharing Interface. Leave the field blank if you don't want any text to be displayed.]]></comment>
 									<sort_order>34</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -412,8 +392,7 @@
 									<label>Enable Vertical Social Sharing</label>
 									<frontend_type>select</frontend_type>
 									<source_model>adminhtml/system_config_source_yesno</source_model>
-									<comment><![CDATA[Do you want to enable Social Counter for your website?]]>
-									</comment>
+									<comment><![CDATA[Do you want to enable Social Counter for your website?]]></comment>
 									<sort_order>43</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>

@@ -4,9 +4,14 @@ if(typeof String.prototype.trim !== 'function') {
         return this.replace(/^\s+|\s+$/g, ''); 
       }
 }
+// validate numeric data 
+function loginRadiusIsNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
 var $loginRadiusJquery = jQuery.noConflict();
 // prepare admin UI on window load
 function loginRadiusPrepareAdminUI(){
+	
 	// highlight API Key and Secret notification
 	if($loginRadiusJquery('#loginRadiusKeySecretNotification')){
 		$loginRadiusJquery('#loginRadiusKeySecretNotification').animate({'backgroundColor' : 'rgb(241, 142, 127)'}, 1000).animate({'backgroundColor' : '#FFFFE0'}, 1000).animate({'backgroundColor' : 'rgb(241, 142, 127)'}, 1000).animate({'backgroundColor' : '#FFFFE0'}, 1000);
@@ -16,9 +21,35 @@ function loginRadiusPrepareAdminUI(){
 		if(this.value.trim() == document.getElementById('sociallogin_options_messages_appid').value.trim()){
 			if($loginRadiusJquery('#spanApiKeyError').html() == undefined){
 				$loginRadiusJquery('#sociallogin_options_messages_appkey').before('<span id="spanApiKeyError" style="color:red">API Key and Secret cannot be same. Please paste correct API Key and Secret from your LoginRadius account in the corresponding fields.</span>');	
+			}else{
+				$loginRadiusJquery('#spanApiKeyError').html('API Key and Secret cannot be same. Please paste correct API Key and Secret from your LoginRadius account in the corresponding fields.');
 			}
 		}else{
 			$loginRadiusJquery('#spanApiKeyError').html('');
+		}
+	}
+	// show warning, if number of social login icons is < 2 or if non-numeric
+	document.getElementById('sociallogin_options_messages_iconsPerRow').onblur = function(){
+		if(document.getElementById('sociallogin_options_messages_iconsPerRow').value.trim() < 2 || !loginRadiusIsNumber(document.getElementById('sociallogin_options_messages_iconsPerRow').value.trim())){
+			if($loginRadiusJquery('#loginRadiusNoColumnsError').html() == undefined){
+				$loginRadiusJquery('#sociallogin_options_messages_iconsPerRow').before('<span id="loginRadiusNoColumnsError" style="color:red">Please enter a valid number greater than 1.</span>');	
+			}else{
+				$loginRadiusJquery('#loginRadiusNoColumnsError').html('Please enter a valid number greater than 1.');
+			}
+		}else{
+			$loginRadiusJquery('#loginRadiusNoColumnsError').html('');
+		}
+	}
+	// show warning, if "top" offset is non-numeric
+	document.getElementById('sociallogin_options_verticalSharing_offset').onblur = function(){
+		if(!loginRadiusIsNumber(document.getElementById('sociallogin_options_verticalSharing_offset').value.trim())){
+			if($loginRadiusJquery('#loginRadiusOffsetError').html() == undefined){
+				$loginRadiusJquery('#sociallogin_options_verticalSharing_offset').before('<span id="loginRadiusOffsetError" style="color:red">Please enter a valid number.</span>');	
+			}else{
+				$loginRadiusJquery('#loginRadiusOffsetError').html('Please enter a valid number.');
+			}
+		}else{
+			$loginRadiusJquery('#loginRadiusOffsetError').html('');
 		}
 	}
 	var horizontalSharingTheme, verticalSharingTheme;

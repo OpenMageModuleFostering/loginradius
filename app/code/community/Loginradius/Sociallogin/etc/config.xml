@@ -46,7 +46,7 @@
 	</default>   
     <modules>
         <Loginradius_Sociallogin>
-            <version>3.5.0</version>
+            <version>3.6.0</version>
         </Loginradius_Sociallogin>
     </modules>
 	<frontend>
@@ -130,6 +130,15 @@
 				</sociallogin>
 			</updates>
 		</layout>
+		<translate>
+            <modules>
+                <Loginradius_Sociallogin>
+                    <files>
+                        <default>Loginradius_Sociallogin.csv</default>
+                    </files>
+                </Loginradius_Sociallogin>
+            </modules>
+        </translate>
     </adminhtml>   
 	<global>
 	<models>

@@ -16,6 +16,15 @@
     <sociallogin_horizontalsharing type="sociallogin/horizontalsharing" translate="name description" module="sociallogin">
         <name>Social Sharing - Horizontal</name>
         <description type="desc">Adds Social Sharing interface (horizontal theme) to the page.</description>
+		<parameters>
+            <label_text>
+                <required>0</required>
+                <visible>1</visible>
+                <label>Label Text</label>
+                <description>The text to display before Sharing interface.</description>
+                <type>text</type>
+            </label_text>
+        </parameters>
     </sociallogin_horizontalsharing>
     <sociallogin_verticalsharing type="sociallogin/verticalsharing" translate="name description" module="sociallogin">
         <name>Social Sharing - Vertical</name>
