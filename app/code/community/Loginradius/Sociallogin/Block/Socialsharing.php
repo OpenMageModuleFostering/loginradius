@@ -1,14 +1,46 @@
 <?php
+
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ *  sociallogin socialsharing block
+ *
+ * @category    Loginradius
+ * @package     Loginradius_Sociallogin
+ * @author      LoginRadius Team
+ */
+
+/**
+ * Class Loginradius_Sociallogin_Block_Socialsharing which is responsible for generating social sharing script according to configuration!
+ */
 class Loginradius_Sociallogin_Block_Socialsharing extends Mage_Core_Block_Template
 {
     /**
-     * function returns script required for vertical sharing.
-     *
-     * global $loginRadiusSettings;
+     * Calling constructor for parent class
      */
-    public static function login_radius_sharing_get_sharing_script_vertical($loginRadiusSettings, $apiKey)
+    public function _construct()
     {
+        parent::_construct();
+    }
+
+    /**
+     * function returns script required for vertical sharing.
+     */
+    public function getVerticalSharingScript($loginRadiusSettings, $apiKey)
+    {
+        $size = '';
         $sharingScript = '';
+        $type = '';
         $verticalThemvalue = isset($loginRadiusSettings['verticalSharingTheme']) ? $loginRadiusSettings['verticalSharingTheme'] : '';
 
         switch ($verticalThemvalue) {
@@ -75,29 +107,28 @@ class Loginradius_Sociallogin_Block_Socialsharing extends Mage_Core_Block_Templa
 
         $offset = '$' . $sharingVariable . '.' . $position1 . ' = \'0px\'; $' . $sharingVariable . '.' . $position2 . ' = \'0px\';';
 
-        if (empty($size)) {
-            $providers = self:: get_counter_providers('vertical', $loginRadiusSettings);
+        if (isset($size) && empty($size)) {
+            $providers = $this->getCounterProviders('vertical', $loginRadiusSettings);
             $sharingScript .= 'LoginRadius.util.ready( function() { $SC.Providers.Selected = ["' . $providers . '"]; $S = $SC.Interface.' . $interface . '; $S.isHorizontal = ' . $ishorizontal . '; $S.countertype = \'' . $type . '\'; ' . $offset . ' $u = LoginRadius.user_settings; if(typeof document.getElementsByName("viewport")[0] != "undefined"){$u.isMobileFriendly=true;}; $S.show( "loginRadiusVerticalSharing" ); } );';
         } else {
-            $providers = self:: get_sharing_providers('vertical', $loginRadiusSettings);
+            $providers = self:: getSharingProviders('vertical', $loginRadiusSettings);
             // prepare sharing script
             $sharingScript .= 'LoginRadius.util.ready( function() { $i = $SS.Interface.' . $interface . '; $SS.Providers.Top = ["' . $providers . '"]; $u = LoginRadius.user_settings;';
             $sharingScript .= '$u.apikey= \'' . trim($apiKey) . '\';';
             $sharingScript .= '$i.size = ' . $size . '; ' . $offset . ' if(typeof document.getElementsByName("viewport")[0] != "undefined"){$u.isMobileFriendly=true;}; $i.show( "loginRadiusVerticalSharing" ); } );';
         }
+
         return $sharingScript;
     }
 
     /**
-     * function returns comma seperated counters lists
-     *
-     * global $loginRadiusSettings;
+     * function returns comma separated counters lists
      */
-    public function get_counter_providers($themeType, $loginRadiusSettings)
+    public function getCounterProviders($themeType, $loginRadiusSettings)
     {
         $searchOption = $themeType . 'CounterProvidersHidden';
         if (!empty($loginRadiusSettings[$searchOption])) {
-          return str_replace(',', '","', $loginRadiusSettings[$searchOption]);
+            return str_replace(',', '","', $loginRadiusSettings[$searchOption]);
         } else {
             return 'Facebook Like","Google+ +1","Pinterest Pin it","LinkedIn Share","Hybridshare';
         }
@@ -108,26 +139,41 @@ class Loginradius_Sociallogin_Block_Socialsharing extends Mage_Core_Block_Templa
      *
      * global $loginRadiusSettings;
      */
-    public static function get_sharing_providers($themeType, $loginRadiusSettings)
+    public static function getSharingProviders($themeType, $loginRadiusSettings)
     {
         $searchOption = $themeType . 'SharingProvidersHidden';
         if (!empty($loginRadiusSettings[$searchOption])) {
-          return str_replace(',', '","', $loginRadiusSettings[$searchOption]);
+            return str_replace(',', '","', $loginRadiusSettings[$searchOption]);
         } else {
             return 'Facebook","Twitter","Pinterest","Print","Email';
         }
     }
 
+    /**
+     * Override  _prepareLayout method
+     *
+     * @return Mage_Core_Block_Abstract|void
+     */
     public function _prepareLayout()
     {
         return parent::_prepareLayout();
     }
 
+    /**
+     * Get all horizontal sharing configuration options
+     *
+     * @return mixed
+     */
     public function getHorizontalSharingSettings()
     {
         return Mage::getStoreConfig('sociallogin_options/horizontalSharing');
     }
 
+    /**
+     * Get all vertical sharing configuration options
+     *
+     * @return mixed
+     */
     public function getVerticalSharingSettings()
     {
         return Mage::getStoreConfig('sociallogin_options/verticalSharing');
@@ -135,13 +181,12 @@ class Loginradius_Sociallogin_Block_Socialsharing extends Mage_Core_Block_Templa
 
     /**
      * function returns script required for horizontal sharing.
-     *
-     * global $loginRadiusSettings;
      */
-    public function login_radius_sharing_get_sharing_script_horizontal($loginRadiusSettings, $apikey)
+    public function getHorizontalSharingScript($loginRadiusSettings, $apikey)
     {
         $size = '';
         $sharingScript = '';
+        $countertype = '';
         $horizontalThemvalue = isset($loginRadiusSettings['horizontalSharingTheme']) ? $loginRadiusSettings['horizontalSharingTheme'] : '';
 
         switch ($horizontalThemvalue) {
@@ -165,6 +210,11 @@ class Loginradius_Sociallogin_Block_Socialsharing extends Mage_Core_Block_Templa
                 $interface = 'simpleimage';
                 break;
 
+            case 'responsive':
+                $size = '32';
+                $interface = 'responsive';
+                break;
+
             case 'counter_vertical':
                 $ishorizontal = 'true';
                 $interface = 'simple';
@@ -182,13 +232,13 @@ class Loginradius_Sociallogin_Block_Socialsharing extends Mage_Core_Block_Templa
                 $interface = 'horizontal';
                 break;
         }
-        if (!empty($ishorizontal)) {
-            $providers = $this->get_counter_providers('horizontal', $loginRadiusSettings);
+        if (isset($ishorizontal) && !empty($ishorizontal)) {
+            $providers = $this->getCounterProviders('horizontal', $loginRadiusSettings);
 
             // prepare counter script
             $sharingScript .= 'LoginRadius.util.ready( function() { $SC.Providers.Selected = ["' . $providers . '"]; $S = $SC.Interface.' . $interface . '; $S.isHorizontal = ' . $ishorizontal . '; $S.countertype = \'' . $countertype . '\'; $u = LoginRadius.user_settings;  if(typeof document.getElementsByName("viewport")[0] != "undefined"){$u.isMobileFriendly=true;}; $S.show( "loginRadiusHorizontalSharing" ); } );';
         } else {
-            $providers = $this->get_sharing_providers('horizontal', $loginRadiusSettings);
+            $providers = $this->getSharingProviders('horizontal', $loginRadiusSettings);
 
             // prepare sharing script
             $sharingScript .= 'LoginRadius.util.ready( function() { $i = $SS.Interface.' . $interface . '; $SS.Providers.Top = ["' . $providers . '"]; $u = LoginRadius.user_settings;';
@@ -197,11 +247,9 @@ class Loginradius_Sociallogin_Block_Socialsharing extends Mage_Core_Block_Templa
             }
             $sharingScript .= '$i.size = ' . $size . '; $u.sharecounttype="url";  if(typeof document.getElementsByName("viewport")[0] != "undefined"){$u.isMobileFriendly=true;}; $i.show( "loginRadiusHorizontalSharing" ); } );';
         }
+
         return $sharingScript;
     }
 
-    protected function _construct()
-    {
-        parent::_construct();
-    }
+
 }

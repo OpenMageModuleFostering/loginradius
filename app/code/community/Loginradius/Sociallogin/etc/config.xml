@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Loginradius_Sociallogin>
-            <version>4.1.0</version>
+            <version>4.2.0</version>
         </Loginradius_Sociallogin>
     </modules>
     <frontend>
@@ -96,15 +96,15 @@
             </modules>
         </translate>
         <events>
-            <admin_system_config_changed_section_sociallogin_options>
+            <model_config_data_save_before>
                 <observers>
                     <sociallogin>
                         <type>singleton</type>
                         <class>sociallogin/Observer</class>
-                        <method>adminSystemConfigChangedSection</method>
+                        <method>validateLoginradiusKeys</method>
                     </sociallogin>
                 </observers>
-            </admin_system_config_changed_section_sociallogin_options>
+            </model_config_data_save_before>
         </events>
         <helpers>
             <sociallogin>
@@ -178,7 +178,7 @@
                 <updateProfileData>1</updateProfileData>
                 <profileFieldsRequired>0</profileFieldsRequired>
                 <verificationText>Please click on the following link or paste it in browser to verify your email:-</verificationText>
-                <popupText>Please provide following details</popupText>
+                <popupText>You are trying to connect with @provider</popupText>
                 <popupError>The email you entered is already registered or invalid. Please enter a valid email.</popupError>
                 <notifyUser>1</notifyUser>
                 <notifyAdmin>0</notifyAdmin>

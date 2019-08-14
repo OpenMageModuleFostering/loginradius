@@ -3,7 +3,6 @@ $installer = $this;
 $installer->startSetup();
 $installer->run(
     "
-DROP TABLE IF EXISTS {$this->getTable('sociallogin')};
 CREATE TABLE IF NOT EXISTS {$this->getTable('sociallogin')} (
    `sociallogin_id` varchar(200) default NULL,
   `entity_id` int(11) default NULL,
@@ -14,4 +13,5 @@ CREATE TABLE IF NOT EXISTS {$this->getTable('sociallogin')} (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     "
 );
+$installer->run("alter table {$this->getTable('sociallogin')} modify `sociallogin_id` varchar(200) default NULL");
 $installer->endSetup();

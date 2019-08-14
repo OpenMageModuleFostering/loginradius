@@ -1,5 +1,5 @@
-<?php 
-if( !$this->user_is_already_login() && $this->getAboveRegister() == '1' ){
+<?php
+if (!Mage::helper('sociallogin/loginhelper')->isAlreadyLoggedIn() && $this->getAboveRegister() == '1') {
     $this->getSocialLoginContainer();
 }
 ?>

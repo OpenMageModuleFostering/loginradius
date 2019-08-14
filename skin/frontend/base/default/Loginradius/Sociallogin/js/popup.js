@@ -27,6 +27,9 @@ function loginRadiusValidateForm() {
         if (!validateProvince && loginRadiusForm.elements[i].id == "loginRadiusProvince") {
             continue;
         }
+        if (loginRadiusErrorDiv ==null){
+            loginRadiusErrorDiv = document.getElementById('lr-message-error');
+        }
         if (loginRadiusForm.elements[i].value.trim() == "" && loginRadiusForm.elements[i].id != "loginRadiusEmail") {
             loginRadiusErrorDiv.innerHTML = "Please fill all the fields";
             loginRadiusErrorDiv.style.backgroundColor = "rgb(255, 235, 232)";

@@ -256,7 +256,7 @@
                         <popupText translate="label">
                             <label>"Email required" - Popup title</label>
                             <frontend_type>text</frontend_type>
-                            <comment><![CDATA[This text will be displayed on "Email required" popup.]]></comment>
+                            <comment><![CDATA[This text will be displayed on "Email required" popup.@provider will be replaced by social network you are trying to logging in with]]></comment>
                             <sort_order>28</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

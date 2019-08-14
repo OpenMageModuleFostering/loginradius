@@ -1,115 +1,139 @@
 <?php
-// instantiate your controller, using the `Mage:app()` object to grab the required request and response
-$controller  = new Loginradius_Sociallogin_IndexController();
+
+/**
+ * template to display email required popup!
+ */
+
 $socialLoginMsg = Mage::getSingleton('core/session')->getTmpPopupMsg();
 $loginRadiusShowForm = Mage::getSingleton('core/session')->getTmpShowForm();
 $profileData = Mage::getSingleton('core/session')->getTmpProfileData();
 $emailRequired = Mage::getSingleton('core/session')->getTmpEmailRequired();
 $hideZipcode = Mage::getSingleton('core/session')->getTmpHideZipcode();
-$provider = isset($profileData['Provider'])?trim($profileData['Provider']):'';
-$loginRadiusPopupTxt = str_replace('@provider', $provider, Mage::getSingleton('core/session')->getTmpPopupTxt());
+$provider = isset($profileData['Provider']) ? trim($profileData['Provider']) : '';
 $blockObj = new Loginradius_Sociallogin_Block_Sociallogin();
-$popupTitle = $blockObj->getPopupText()
+$popupTitle = $blockObj->getPopupText();
+$popupTitle = str_replace('@provider', $provider, $popupTitle);
 ?>
 <div id="fade" class="LoginRadius_overlay">
-  <div id="popupouter">
-    <div id="popupinner">
-      <div style="width:100%; border-bottom: 1px solid #ccc;">
-        <div class="lr-popupheading" style="margin-bottom:5px;"><?php echo __(Mage::helper('core')->htmlEscape($popupTitle)); ?></div></div>
-      <?php if(!empty($socialLoginMsg)){?>
-        <div class="lr-error"><?php echo __(Mage::helper('core')->htmlEscape($socialLoginMsg)); ?></div>
-      <?php }
-      if ($loginRadiusShowForm) {
-        ?>
-        <form id="loginRadiusForm" method="post" action="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . 'sociallogin' ?>" onSubmit="return loginRadiusValidateForm()">
-          <?php
-          if((!$blockObj->getProfileFieldsRequired() && $emailRequired) || isset($_POST[loginRadiusEmail]) || ($emailRequired && (isset($profileData['Email']) && empty($profileData['Email']))) || ($emailRequired && $blockObj->getEmailRequired() && isset($_POST['Email']))){
-            ?>
-            <div class="loginRadiusDiv">
-              <label for="loginRadiusEmail"><?php echo __("Email"); ?> *</label>
-              <input type="text" name="loginRadiusEmail" id="loginRadiusEmail" class="loginRadiusText"/>
-            </div>
-          <?php
-          }
-          if (isset($profileData['Address']) && $profileData['Address'] == "") {
-            ?>
-            <div class="loginRadiusDiv">
-              <label for="loginRadiusAddress"><?php echo __("Address"); ?> *</label>
-              <input type="text" name="loginRadiusAddress" id="loginRadiusAddress" class="loginRadiusText"/>
-            </div>
-          <?php
-          }
-          if (isset($profileData['City']) && $profileData['City'] == "") {
-            ?>
-            <div class="loginRadiusDiv">
-              <label for="loginRadiusCity"><?php echo __("City") ?> *</label>
-              <input type="text" name="loginRadiusCity" id="loginRadiusCity" class="loginRadiusText"/>
-            </div>
-          <?php
-          }
-          if (!$hideZipcode) {
-            ?>
-            <div class="loginRadiusDiv">
-            <label for="loginRadiusCountry"><?php echo __("Country"); ?> *</label>
-            <?php
-            $countries = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
-            if (count($countries) > 0) {
-              ?>
-              <select onChange="if(this.value == 'US'){ document.getElementById('loginRadiusProvinceContainer').style.display = 'block' }else{ document.getElementById('loginRadiusProvinceContainer').style.display = 'none' }" name="loginRadiusCountry" id="loginRadiusCountry" class="loginRadiusText">
-                <option value="">-- <?php echo __("Please Select"); ?> --</option>
-                <?php foreach ($countries as $country): ?>
-                  <option value="<?php echo $country['value'] ?>">
-                    <?php echo $country['label'] ?>
-                  </option>
-                <?php endforeach; ?>
-              </select>
-              </div>
-              <!-- United States province -->
-              <div style="display:none" id="loginRadiusProvinceContainer" class="loginRadiusDiv">
-              <label for="loginRadiusCountry"><?php echo __("State/Province") ?> *</label>
-              <select id="loginRadiusProvince" name="loginRadiusProvince" class="loginRadiusText">
-                <option value="" selected="selected">-- <?php echo __("Please Select"); ?>--</option>
-                <?php $states = array("Alabama","Alaska","American Samoa","Arizona","Arkansas","Armed Forces Africa","Armed Forces Americas","Armed Forces Canada","Armed Forces Europe","Armed Forces Middle East","Armed Forces Pacific","California","Colorado","Connecticut","Delaware","District of Columbia","Federated States Of Micronesia","Florida","Georgia","Guam","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Marshall Islands","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Northern Mariana Islands","Ohio","Oklahoma","Oregon","Palau","Pennsylvania","Puerto Rico","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virgin Islands","Virginia","Washington","West Virginia","Wisconsin","Wyoming");
-                foreach ($states as $key=>$value){
-                  echo '<option value="'.$key.'">'.__($value).'</option>';
-                }
+    <div id="popupouter">
+        <div class="lr-popupheading"><?php echo __(Mage::helper('core')->htmlEscape($popupTitle)); ?></div>
+        <?php if (!empty($socialLoginMsg)) { ?>
+            <div class="lr-error" id ="lr-message-error"><?php echo __(Mage::helper('core')->htmlEscape($socialLoginMsg)); ?></div>
+        <?php
+        } else {
+            if (!isset($_POST['EmailPopupOkButton'])) {
                 ?>
-              </select>
-            <?php
-            } else {
-              ?>
-              <input type="text" name="loginRadiusCountry" id="loginRadiusCountry" class="loginRadiusText"/>
+                <div class="lr-noerror" id="lr-message"><?php echo __(Mage::helper('core')->htmlEscape('Please provide following details.')); ?></div>
             <?php
             }
+        }
+        if ($loginRadiusShowForm) {
             ?>
-            </div>
-            <div class="loginRadiusDiv">
-              <label for="loginRadiusZipcode"><?php echo __("Zipcode") ?> *</label>
-              <input type="text" name="loginRadiusZipcode" id="loginRadiusZipcode" class="loginRadiusText"/>
-            </div>
-          <?php
-          }
-          if (isset($profileData['PhoneNumber']) && $profileData['PhoneNumber'] == "") {
+            <form id="loginRadiusForm" method="post" action="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . 'sociallogin' ?>" onSubmit="return loginRadiusValidateForm()">
+                <div id="popupinner">
+                    <table id="lr_required_fields">
+                        <?php
+                        if ($emailRequired) {
+                            ?>
+                            <tr>
+                                <td class="lr_required_field_label"><label for="loginRadiusEmail"><?php echo __("Email"); ?> *</label></td>
+                                <td><input type="text" name="loginRadiusEmail" id="loginRadiusEmail" class="loginRadiusText"/></td>
+                            </tr>
+                        <?php
+                        }
+                        if ($blockObj->getProfileFieldsRequired() == 1) {
+                            if (isset($profileData['Address'])) {
+                                ?>
+                                <tr>
+                                    <td class="lr_required_field_label"><label for="loginRadiusAddress"><?php echo __("Address"); ?> *</label></td>
+                                    <td><input type="text" name="loginRadiusAddress" id="loginRadiusAddress" class="loginRadiusText" value="<?php echo $profileData['Address'] ?>"/></td>
+                                </tr>
+
+                            <?php
+                            }
+                            if (isset($profileData['City'])) {
+                                ?>
+                                <tr>
+                                    <td class="lr_required_field_label"><label for="loginRadiusCity"><?php echo __("City") ?> *</label></td>
+                                    <td><input type="text" name="loginRadiusCity" id="loginRadiusCity" class="loginRadiusText" value="<?php echo $profileData['City'] ?>"/></td>
+                                </tr>
+
+                            <?php
+                            }
+                            if (!$hideZipcode) {
+                                ?>
+                                <tr>
+                                    <td class="lr_required_field_label"><label for="loginRadiusCountry"><?php echo __("Country"); ?> *</label></td>
+                                    <?php
+                                    $countries = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
+                                    foreach ($countries as $key => $val) {
+                                        if (strtolower($val['label']) === strtolower($profileData['Country'])) {
+                                            $currentCountry = $val['value'];
+                                            break;
+                                        }
+                                    }
+                                    if (!isset($currentCountry)) {
+                                        $currentCountry = '';
+                                    }
+                                    if (count($countries) > 0) {
+                                        ?>
+                                        <td>
+
+                                            <select name="loginRadiusCountry" id="loginRadiusCountry" class="loginRadiusText">
+                                                <option value="">-- <?php echo __("Please Select"); ?> --</option>
+                                                <?php foreach ($countries as $country):
+                                                    if ($country['value'] == $currentCountry) {
+                                                        ?>
+                                                        <option selected="selected" value="<?php echo $country['value'] ?>">
+                                                            <?php echo $country['label'] ?>
+                                                        </option>
+                                                    <?php } else { ?>
+                                                        <option value="<?php echo $country['value'] ?>">
+                                                            <?php echo $country['label'] ?>
+                                                        </option>
+                                                    <?php
+                                                    }
+                                                endforeach; ?>
+                                            </select>
+                                        </td>
+
+                                    <?php
+                                    } else {
+                                        ?>
+                                        <td><input type="text" name="loginRadiusCountry" id="loginRadiusCountry" class="loginRadiusText"/></td>
+                                    <?php
+                                    }
+                                    ?>
+                                </tr>
+                                <tr>
+                                    <td class="lr_required_field_label"><label for="loginRadiusZipcode"><?php echo __("Zipcode") ?> *</label></td>
+                                    <td><input type="text" name="loginRadiusZipcode" id="loginRadiusZipcode" class="loginRadiusText"/></td>
+                                </tr>
+                            <?php
+                            }
+                            if (isset($profileData['PhoneNumber'])) {
+                                ?>
+                                <tr>
+                                    <td class="lr_required_field_label"><label for="loginRadiusPhone"><?php echo __("Phone Number") ?> *</label></td>
+                                    <td><input type="text" name="loginRadiusPhone" id="loginRadiusPhone" class="loginRadiusText" value="<?php echo $profileData['PhoneNumber'] ?>"/></td>
+                                </tr>
+                            <?php
+                            }
+                        }
+                        ?>
+                    </table>
+                </div>
+                <div class="footerbox">
+                    <input type="submit" id="EmailPopupOkButton" name="EmailPopupOkButton" value="<?php echo __("Submit") ?>" onClick="loginRadiusPopupSubmit = true" class="inputbutton"/>
+                    <input type="submit" value="<?php echo __("Cancel") ?>" class="inputbutton" name="LoginRadiusPopupCancel" onClick="loginRadiusPopupSubmit = false"/>
+                </div>
+            </form>
+        <?php
+        } else {
             ?>
-            <div class="loginRadiusDiv">
-              <label for="loginRadiusPhone"><?php echo __("Phone Number") ?> *</label>
-              <input type="text" name="loginRadiusPhone" id="loginRadiusPhone" class="loginRadiusText"/>
-            </div>
-          <?php
-          }
-          ?>
-          <div class="loginRadiusDiv">
-            <input type="submit" id="LoginRadiusRedSliderClick" name="LoginRadiusRedSliderClick" value="<?php echo __("Submit") ?>" onClick="loginRadiusPopupSubmit = true" class="inputbutton"/>
-            <input type="submit" value="<?php echo __("Cancel") ?>" class="inputbutton" name="LoginRadiusPopupCancel" onClick="loginRadiusPopupSubmit = false"/>
-          </div>
-        </form>
-      <?php
-      } else {
+            <input type="button" value="<?php echo __("Okay") ?>" class="inputbutton" onClick="location.href = '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK); ?>'"/>
+        <?php
+        }
         ?>
-        <input type="button" value="<?php echo __("Okay") ?>" class="inputbutton" onClick="location.href = '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK); ?>'"/>
-      <?php
-      }
-      ?>
     </div>
-  </div>
 </div>

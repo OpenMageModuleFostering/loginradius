@@ -9,6 +9,14 @@ function loginRadiusIsNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 var $loginRadiusJquery = jQuery.noConflict();
+$loginRadiusJquery(document).ready(function(){
+    jQuery('#sociallogin_options_apiSettings_apikey').keyup(function(){
+        jQuery(this).val(jQuery(this).val().trim());
+    });
+    jQuery('#sociallogin_options_apiSettings_apisecret').keyup(function(){
+        jQuery(this).val(jQuery(this).val().trim());
+    });
+});
 // prepare admin UI on window load
 function loginRadiusPrepareAdminUI(){
 

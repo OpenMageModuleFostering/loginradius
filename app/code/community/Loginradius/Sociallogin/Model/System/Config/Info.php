@@ -1,5 +1,24 @@
 <?php
 
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ *  sociallogin system config info model
+ *
+ * @category    Loginradius
+ * @package     Loginradius_Sociallogin
+ * @author      LoginRadius Team
+ */
 class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
 
@@ -29,6 +48,9 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
         $this->render_module_admin_script_container();
     }
 
+    /**
+     * Get LoginRadius Module Thanks message container..
+     */
     public function render_module_thanks_message_container()
     {
         ?>
@@ -67,6 +89,9 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
     <?php
     }
 
+    /**
+     * Get LoginRadius Module information container..
+     */
     public function render_module_info_container()
     {
         ?>
@@ -74,7 +99,7 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
             <h4 class="lr_admin_fieldset_title"><strong><?php echo $this->__('Extension Information!') ?></strong></h4>
 
             <div style="margin:5px 0">
-                <strong>Version: </strong>4.1.0 <br/>
+                <strong>Version: </strong><?php echo Mage::getConfig()->getNode()->modules->Loginradius_Sociallogin->version; ?> <br/>
                 <strong>Author:</strong> LoginRadius<br/>
                 <strong>Website:</strong> <a href="https://www.loginradius.com" target="_blank">www.loginradius.com</a>
                 <br/>
@@ -100,6 +125,9 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
     <?php
     }
 
+    /**
+     * Get LoginRadius Module Help & Documentations container..
+     */
     public function render_module_help_and_documentations_container()
     {
         ?>
@@ -122,6 +150,9 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
     <?php
     }
 
+    /**
+     * Get LoginRadius Module Help & Documentations container..
+     */
     public function render_module_support_us_container()
     {
         ?>
@@ -139,6 +170,9 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
     <?php
     }
 
+    /**
+     * Render script for extension admin configuration options
+     */
     public function render_module_admin_script_container()
     {
         ?>
@@ -176,7 +210,7 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
             });
             // toggle sharing/counter providers according to the theme and sharing type
             function loginRadiusToggleSharingProviders(element, sharingType) {
-                if (element.value == '32' || element.value == '16') {
+                if (element.value == '32' || element.value == '16' || element.value == 'responsive') {
                     document.getElementById('row_sociallogin_options_' + sharingType + 'Sharing_' + sharingType + 'SharingProviders').style.display = 'table-row';
                     document.getElementById('row_sociallogin_options_' + sharingType + 'Sharing_' + sharingType + 'CounterProviders').style.display = 'none';
                     document.getElementById('row_sociallogin_options_' + sharingType + 'Sharing_' + sharingType + 'SharingProvidersHidden').style.display = 'table-row';

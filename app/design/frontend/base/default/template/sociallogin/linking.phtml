@@ -1,3 +1,9 @@
+<?php
+
+/**
+ * template to display social linking interface
+ */
+?>
 <div class="dashboard">
     <div class="box-account box-info">
         <div class="box-head">
@@ -23,20 +29,20 @@
 
                         // unlink account
                         if (isset($_GET['LoginRadiusUnlink']) && trim($_GET['LoginRadiusUnlink']) != "") {
-                          $session = Mage::getSingleton('customer/session');
-                          if(count($loginRadiusResult) == 1){
-                            $session->addError(__('This Account can\'t be removed.'));
-                            header("Location:" . Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . "customer/account");
-                            die;
-                          }
+                            $session = Mage::getSingleton('customer/session');
+                            if (count($loginRadiusResult) == 1) {
+                                $session->addError(__('This Account can\'t be removed.'));
+                                header("Location:" . Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . "customer/account");
+                                die;
+                            }
                             $loginRadiusConn = Mage::getSingleton('core/resource')->getConnection('core_write');
                             try {
                                 // delete query magento way
                                 $loginRadiusConn->delete(
-                                        Mage::getSingleton('core/resource')->getTableName('sociallogin'), array('entity_id = ?' => $loginRadiusUserId, 'sociallogin_id = ?' => trim($_GET['LoginRadiusUnlink']))
+                                    Mage::getSingleton('core/resource')->getTableName('sociallogin'), array('entity_id = ?' => $loginRadiusUserId, 'sociallogin_id = ?' => trim($_GET['LoginRadiusUnlink']))
                                 );
                             } catch (Exception $e) {
-                                
+
                             }
                             $session->addSuccess(__('Account removed successfully.'));
                             header("Location:" . Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . "customer/account");
@@ -52,7 +58,7 @@
                                     }
                                     echo '<div style="float:left;"><span>';
                                     echo __('Connected with') . '</span></div><div style="float:left; padding-left:4px;"><img alt="' . ucfirst($result['provider']) . '" title="' . ucfirst($result['provider']) . '" src="' . Mage::getDesign()->getSkinUrl("Loginradius" . DS . "Sociallogin" . DS . "images" . DS . "Linking" . DS . $result["provider"] . '.png', array('_area' => 'frontend')) . '" /></div>' . '</div>';
-                                    if(count($loginRadiusResult) != 1){
+                                    if (count($loginRadiusResult) != 1) {
                                         echo '<div style="float:right"><a href="' . Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . 'customer/account/?LoginRadiusUnlink=' . $result["sociallogin_id"] . '" title="' . __('Unlink this ID from your account') . '">' . __('Remove') . '</a></div>';
                                     }
                                     echo '<br /><div style="clear:both"></div>';

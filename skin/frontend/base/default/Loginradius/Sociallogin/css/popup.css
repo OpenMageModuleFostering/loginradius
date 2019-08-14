@@ -14,10 +14,23 @@
     filter: alpha(opacity=97);
 }
 
+#loginRadiusCountry {
+    width:100%;
+}
+table#lr_required_fields{
+    width:85%;
+}
+#lr_required_fields input[type=text] {
+    width:100%;
+}
+#loginRadiusForm {
+    width:100%;
+}
 .lr-popupheading{
     font-size: 17px;
     text-align: center;
     font-weight: normal;
+    padding: 15px;
 }
 #popupouter{
     border-radius: 0 23px;
@@ -56,8 +69,14 @@
     border-radius: 0px 12px;
     background: #fff;
 }
+.footerbox {
+    padding-bottom: 12px;
+    float: left;
+    padding-top: 12px;
+    padding-left: 20px;
+}
 select.loginRadiusText {
-    width: 365px;
+    width: 342px;
 }
 .inputbutton{
     border: #dcdcdc 1px solid !important;
@@ -100,36 +119,15 @@ select.loginRadiusText {
 .lr-error {
     text-align: left;
     background-color: rgb(255, 235, 232);
-    margin-bottom: 12px;
     padding: 12px;
 }
 
 .lr-noerror {
     text-align: left;
     background-color: #e1eabc;
-    margin-bottom: 12px;
     padding: 12px;
 
 }
-<!--[if IE]>
-.LoginRadius_content_IE
-{
-    background:black;
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-    filter: alpha(opacity=90);
-}
-.loginRadiusDiv{
-    float:left;
-    margin: 0 0 4px 2px;
-}
-.loginRadiusDiv label{
-    width: 94px;
-    margin: 5px 10px 10px 0;
-    display: block;
-    text-align: left;
-}
-
-<![endif]-->
 
 @media (max-width: 769px) {
     #popupouter {

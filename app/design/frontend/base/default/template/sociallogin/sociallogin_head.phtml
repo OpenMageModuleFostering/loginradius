@@ -1,56 +1,52 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: nyaconcept
- * Date: 11/18/14
- * Time: 7:05 PM
+ * template to render script which is required for social login.
  */
+
 $loc = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . "sociallogin/";
-if (strpos(Mage::helper('core/url')->getCurrentUrl(),'https://') !== false) {
+if (strpos(Mage::helper('core/url')->getCurrentUrl(), 'https://') !== false) {
     $loc = str_replace('http://', 'https://', $loc);
 }
 if ($this->getLayout()->getBlock('head')->getTitle() == "Checkout") {
-  $loginRadiusCallback = $loc . "?loginradiuscheckout=1";
+    $loginRadiusCallback = $loc . "?loginradiuscheckout=1";
+} elseif ($this->getLayout()->getBlock('head')->getTitle() == "My Account") {
+    $loginRadiusCallback = $loc . "?loginRadiusLinking=1";
+} else {
+    $loginRadiusCallback = $loc . "?redirect_to=" . Mage::helper('core/url')->getCurrentUrl();
 }
-elseif ($this->getLayout()->getBlock('head')->getTitle() == "My Account") {
-  $loginRadiusCallback = $loc . "?loginRadiusLinking=1";
-}
-else {
-  $loginRadiusCallback = $loc . "?redirect_to=" . Mage::helper('core/url')->getCurrentUrl();
-}
-$scriptUrl = $this->getSkinUrl('Loginradius/Sociallogin/js/LoginRadiusSDK.2.0.0.js');
+$scriptUrl = $this->getSkinUrl('Loginradius/Sociallogin/js/LoginRadiusSDK.js');
 ?>
-<script src="//cdn.loginradius.com/hub/prod/v1/js/LoginRadius.1.0.js"></script>
+<script src="//hub.loginradius.com/include/js/LoginRadius.js"></script>
 <script src="<?php echo $scriptUrl; ?>"></script>
 
 <script type="text/javascript">
-  var loginRadiusOptions = {};
-  loginRadiusOptions.login = true;
-  LoginRadius_SocialLogin.util.ready(function () {
-    $ui = LoginRadius_SocialLogin.lr_login_settings;
-    $ui.interfacesize = "<?php echo $this->iconSize() == 'small' ? 'small' : '' ?>";
-    <?php if (trim($this->iconsPerRow()) != '' && is_numeric($this->iconsPerRow())) {
-        echo '$ui.noofcolumns = ' . trim($this->iconsPerRow()) . ';';
-    } ?>
-    <?php if (trim($this->backgroundColor()) != '') {
-        echo '$ui.lrinterfacebackground = "' . trim($this->backgroundColor()) . '";';
-    } ?>
-    $ui.apikey = "<?php echo trim($this->getApikey()) ?>";
-    $ui.callback = "<?php echo $loginRadiusCallback ?>";
-    $ui.lrinterfacecontainer = "interfacecontainerdiv";
-    $ui.is_access_token = true;
-    LoginRadius_SocialLogin.init(loginRadiusOptions);
-  });
-  LoginRadiusSDK.setLoginCallback(function () {
-    var form = document.createElement('form');
-    form.action = "<?php echo urldecode($loginRadiusCallback); ?>";
-    form.method = 'POST';
-    var hiddenToken = document.createElement('input');
-    hiddenToken.type = 'hidden';
-    hiddenToken.value = LoginRadiusSDK.getToken();
-    hiddenToken.name = "token";
-    form.appendChild(hiddenToken);
-    document.body.appendChild(form);
-    form.submit();
-  });
+    var loginRadiusOptions = {};
+    loginRadiusOptions.login = true;
+    LoginRadius_SocialLogin.util.ready(function () {
+        $ui = LoginRadius_SocialLogin.lr_login_settings;
+        $ui.interfacesize = "<?php echo $this->iconSize() == 'small' ? 'small' : '' ?>";
+        <?php if (trim($this->iconsPerRow()) != '' && is_numeric($this->iconsPerRow())) {
+            echo '$ui.noofcolumns = ' . trim($this->iconsPerRow()) . ';';
+        } ?>
+        <?php if (trim($this->backgroundColor()) != '') {
+            echo '$ui.lrinterfacebackground = "' . trim($this->backgroundColor()) . '";';
+        } ?>
+        $ui.apikey = "<?php echo trim($this->getApikey()) ?>";
+        $ui.callback = "<?php echo $loginRadiusCallback ?>";
+        $ui.lrinterfacecontainer = "interfacecontainerdiv";
+        $ui.is_access_token = true;
+        LoginRadius_SocialLogin.init(loginRadiusOptions);
+    });
+    LoginRadiusSDK.setLoginCallback(function () {
+        var form = document.createElement('form');
+        form.action = "<?php echo urldecode($loginRadiusCallback); ?>";
+        form.method = 'POST';
+        var hiddenToken = document.createElement('input');
+        hiddenToken.type = 'hidden';
+        hiddenToken.value = LoginRadiusSDK.getToken();
+        hiddenToken.name = "token";
+        form.appendChild(hiddenToken);
+        document.body.appendChild(form);
+        form.submit();
+    });
 </script>

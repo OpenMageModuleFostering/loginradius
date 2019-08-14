@@ -1,30 +1,61 @@
 <?php
+
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ *  sociallogin data helper
+ *
+ * @category    Loginradius
+ * @package     Loginradius_Sociallogin
+ * @author      LoginRadius Team
+ */
+
+/**
+ * Class Loginradius_Sociallogin_Helper_Data which is default helper for loginradius module and contains function related to session
+ */
 class Loginradius_Sociallogin_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     /**
-     * Returns whether the Enabled config variable is set to true
+     * Setting the parameter values in session before displaying popup.
+     *
+     * @param string $loginRadiusPopupTxt
+     * @param string $socialLoginMsg
+     * @param bool   $loginRadiusShowForm
+     * @param array  $profileData
+     * @param bool   $emailRequired
+     * @param bool   $hideZipcode
+     */
+    public function setTmpSession($loginRadiusPopupTxt = '', $socialLoginMsg = "", $loginRadiusShowForm = true, $profileData = array(), $emailRequired = true, $hideZipcode = false)
+    {
+
+        Mage::getSingleton('core/session')->setTmpPopupTxt($loginRadiusPopupTxt);
+        Mage::getSingleton('core/session')->setTmpPopupMsg($socialLoginMsg);
+        Mage::getSingleton('core/session')->setTmpShowForm($loginRadiusShowForm);
+        Mage::getSingleton('core/session')->setTmpProfileData($profileData);
+        Mage::getSingleton('core/session')->setTmpEmailRequired($emailRequired);
+        Mage::getSingleton('core/session')->setTmpHideZipcode($hideZipcode);
+    }
+
+    /**
+     * Check if curl is enabled or not!
      *
      * @return bool
      */
-    public function isSocialloginEnabled()
-    {
-        if (Mage::getStoreConfig('sociallogin_options/messages/enabled') == '1') {
-            return true;
-        }
-        return false;
-    }
-
     public function isCurlEnabled()
     {
         return function_exists('curl_version') ? '1' : '0';
     }
 
-    public function isCustomerAlreadyLoggedIn()
-    {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            return true;
-        }
-        return false;
-    }
 
 }
