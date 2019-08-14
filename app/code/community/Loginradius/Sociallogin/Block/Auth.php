@@ -24,7 +24,6 @@ class Loginradius_Sociallogin_Block_Auth extends Mage_Core_Block_Template implem
              $titleText = 'Social Login';
 		   }
 		  $label = '<span ><b>' . $titleText . '</b></span>';
-         // $iframe = '<iframe src="'.$http.'hub.loginradius.com/Control/PluginSlider.aspx?apikey='.$ApiKey.'&callback='.$loc.'" width="'.$iframeWidth.'" height="'.$iframeHeight.'" frameborder="0" scrolling="no" allowtransparency="true"></iframe>';
 		  $iframe = '<div class="interfacecontainerdiv" style="margin-left:10px"></div>';
 		  return $label.$iframe;
        }

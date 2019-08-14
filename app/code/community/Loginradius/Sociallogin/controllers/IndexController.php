@@ -55,7 +55,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 							$socialLoginLinkData['sociallogin_id'] = $user_obj->ID;
 							$socialLoginLinkData['entity_id'] = $sociallogin_id;
 							$provider = empty($user_obj->Provider) ? "" : $user_obj->Provider;
-							$socialLoginLinkData['avatar'] = $this->socialLoginFilterAvatar( $user_obj->ID, $user_obj->ImageUrl, $provider );
+							$socialLoginLinkData['avatar'] = $this->socialLoginFilterAvatar( $user_obj->ID, $user_obj->ThumbnailImageUrl, $provider );
 							$socialLoginLinkData['avatar'] = ($socialLoginLinkData['avatar'] == "") ? NULL : $socialLoginLinkData['avatar'] ;
 							$this->SocialLoginInsert( "sociallogin", $socialLoginLinkData );
 						}
@@ -117,7 +117,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		$socialloginProfileData['City'] = empty($user_obj->City) ? "" : $user_obj->City;
 		$socialloginProfileData['Industry'] = empty($user_obj->Positions['0']->Comapny->Name) ? "" : $user_obj->Positions['0']->Comapny->Name;
 		$socialloginProfileData['Country'] = empty($user_obj->Country) ? "" : $user_obj->Country;
-		$socialloginProfileData['thumbnail'] = $this->socialLoginFilterAvatar( $user_obj->ID, $user_obj->ImageUrl, $socialloginProfileData['Provider'] );
+		$socialloginProfileData['thumbnail'] = $this->socialLoginFilterAvatar( $user_obj->ID, $user_obj->ThumbnailImageUrl, $socialloginProfileData['Provider'] );
 		$explode= explode("@",$email);
 		if( empty( $socialloginProfileData['FirstName'] ) && !empty( $socialloginProfileData['FullName'] ) ){
 			$socialloginProfileData['FirstName'] = $socialloginProfileData['FullName'];
