@@ -47,7 +47,7 @@
 	</default>   
     <modules>
         <Loginradius_Sociallogin>
-            <version>3.7.0</version>
+            <version>3.7.1</version>
         </Loginradius_Sociallogin>
     </modules>
 	<frontend>
