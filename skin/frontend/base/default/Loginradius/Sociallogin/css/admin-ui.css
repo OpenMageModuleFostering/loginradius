@@ -63,6 +63,9 @@ loginradius_radio{
 #row_sociallogin_options_messages_iconSize td input{
 	margin-right:2px
 }
+#row_sociallogin_options_messages_sameWindow td input{
+	margin-right:2px
+}
 #row_sociallogin_options_verticalSharing_verticalSharingTheme td input{
 	float:left !important;
 	margin-left:4px

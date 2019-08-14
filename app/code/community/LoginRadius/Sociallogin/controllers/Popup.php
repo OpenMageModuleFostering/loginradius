@@ -190,7 +190,7 @@ function SL_popUpWindow( $loginRadiusPopupTxt, $socialLoginMsg = "", $loginRadiu
 	<?php
 	if( $loginRadiusShowForm ){
 	?>
-		<form id="loginRadiusForm" method="post" action="" onSubmit="return loginRadiusValidateForm()">
+		<form id="loginRadiusForm" method="post" action="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . 'sociallogin' ?>" onSubmit="return loginRadiusValidateForm()">
 		<?php
 		if($emailRequired){
 			?>

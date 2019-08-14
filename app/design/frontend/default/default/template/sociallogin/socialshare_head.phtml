@@ -149,7 +149,7 @@ if( $this->loginEnable() == "1" ){
 	}
 	?>
 	 <script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script>
-	 <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings;$ui.interfacesize = "<?php echo $this->iconSize() == 'small' ? 'small' : '' ?>"; <?php if(trim($this->iconsPerRow()) != ''){ echo '$ui.noofcolumns = '.trim($this->iconsPerRow()).';'; } ?> $ui.apikey = "<?php echo trim($this->getApikey()) ?>";$ui.callback = "<?php echo $loginRadiusCallback ?>"; $ui.lrinterfacebackground = "<?php if(trim($this->backgroundColor()) != ''){ echo trim($this->backgroundColor()); } ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); });
+	 <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings;$ui.interfacesize = "<?php echo $this->iconSize() == 'small' ? 'small' : '' ?>"; <?php if(trim($this->iconsPerRow()) != ''){ echo '$ui.noofcolumns = '.trim($this->iconsPerRow()).';'; } ?> $ui.apikey = "<?php echo trim($this->getApikey()) ?>";$ui.callback = "<?php echo $loginRadiusCallback ?>"; $ui.lrinterfacebackground = "<?php if(trim($this->backgroundColor()) != ''){ echo trim($this->backgroundColor()); } ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; $ui.samewindow = <?php if(trim($this->getLoginWindow()) != ''){ echo trim($this->getLoginWindow()); } ?>; LoginRadius_SocialLogin.init(options); });
 	 </script>
 	<?php
 }

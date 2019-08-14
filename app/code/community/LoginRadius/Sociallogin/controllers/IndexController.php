@@ -11,6 +11,21 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 	var $blockObj;
 	private $loginRadiusPopMsg;
 	private $loginRadiusPopErr;
+	
+	function redirect($url){
+		?>
+		<script>
+		if(window.opener){
+			window.opener.location.href = "<?php echo $url; ?>";
+			window.close();
+		}else{
+			window.location.href = "<?php echo $url; ?>";
+		}
+		</script>
+		<?php
+		die;
+	}
+	
 	protected function _getSession(){
 		return Mage::getSingleton('sociallogin/session');
 	}
@@ -22,23 +37,23 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		if(is_object($user_obj) && isset($user_obj->ID)){
 			$id = $user_obj->ID;
 		}else{
-			header('Location:' . Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK));
-			exit();
+			$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK));
 		}
 		if(empty($id)){
 			//invalid user
-			header('Location:' . Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK));
+			$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK));
 			exit();
 		}
 		// social linking variable
 		$socialLinking = false;
 		// social linking
-		if(isset($_GET['loginradiuslinking']) && trim($_GET['loginradiuslinking']) == 1){
+		if(isset($_GET['loginRadiusLinking']) && trim($_GET['loginRadiusLinking']) == 1){
 			$socialLinking = true;
 		}
 		//valid user, checking if user in sociallogin table
 		$socialLoginIdResult = $this->loginRadiusRead( "sociallogin", "get user", array($id), true );
 		$socialLoginIds = $socialLoginIdResult->fetchAll();
+		
 		// variable to hold user id of the logged in user
 		$sociallogin_id = '';
 		foreach( $socialLoginIds as $socialLoginId ){
@@ -47,12 +62,12 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			if($rowArray = $select->fetch()){
 				if( $socialLoginId['verified'] == "0" ){
 					if(!$socialLinking){
-						SL_popUpWindow( "Please verify your email to login.", "", false );
-						return;
+						$this -> setTmpSession("Please verify your email to login.", "", false);
+						$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 					}else{
 						// link account
 						$this->loginRadiusSocialLinking(Mage::getSingleton("customer/session")->getCustomer()->getId(), $user_obj->ID, $user_obj->Provider, $user_obj->ThumbnailImageUrl);
-						header("Location:".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=1");
+						$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=1");
 						die;
 					}
 				}
@@ -74,14 +89,14 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 				}
 			}else{
 				// account already exists
-				header("Location:".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=0");
+				$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=0");
 				die;
 			}
 		}
 		// social linking
 		if($socialLinking){
 			$this->loginRadiusSocialLinking(Mage::getSingleton("customer/session")->getCustomer()->getId(), $user_obj->ID, $user_obj->Provider, $user_obj->ThumbnailImageUrl, true);
-			header("Location:".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=1");
+			$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=1");
 			die;
 		}
 		// initialize email
@@ -113,8 +128,9 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			if($this->blockObj->getProfileFieldsRequired() == 1){
 				$id = $user_obj->ID;
 				$this->setInSession($id, $socialloginProfileData);
+				$this -> setTmpSession("Please provide following details", "", true, $socialloginProfileData, false);
 				// show a popup to fill required profile fields 
-				SL_popUpWindow("Please provide following details:-", "", true, $socialloginProfileData, false);
+				$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 				return;
 			}
 			$this->socialLoginAddNewUser( $socialloginProfileData );
@@ -130,8 +146,9 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 				$id = $user_obj->ID;
 				//$socialloginProfileData = $this->socialLoginFilterData( $email, $user_obj );
 				$this->setInSession($id, $socialloginProfileData);
+				$this -> setTmpSession("Please provide following details", "", true, $socialloginProfileData, false);
 				// show a popup to fill required profile fields
-				SL_popUpWindow("Please provide following details:-", "", true, $socialloginProfileData, false);
+				$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 				return;
 			}
 			// create new user
@@ -143,9 +160,11 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			$this->setInSession($id, $socialloginProfileData);
 			if($this->blockObj->getProfileFieldsRequired() == 1){
 				// show a popup to fill required profile fields 
-				SL_popUpWindow("Please provide following details:-", "", true, $socialloginProfileData, true);
+				$this -> setTmpSession("Please provide following details", "", true, $socialloginProfileData, true);
+				$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 			}else{
-				SL_popUpWindow($this->loginRadiusPopMsg, "", true, array(), true, true);
+				$this -> setTmpSession($this->loginRadiusPopMsg, "", true, array(), true, true);
+				$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 			}
 			return;
 		}
@@ -171,7 +190,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 	function loginRadiusSocialLinking($entityId, $socialId, $provider, $thumbnail, $unique = false){
 		// check if any account from this provider is already linked
 		if($unique && $this->loginRadiusRead( "sociallogin", "provider exists in sociallogin", array($entityId, $provider))){
-			header("Location:".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=2");
+			$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=2");
 			die;
 		}
 		$socialLoginLinkData = array();
@@ -212,20 +231,26 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			$socialloginProfileData['Country'] = "";
 		}
 		$socialloginProfileData['thumbnail'] = $this->socialLoginFilterAvatar( $user_obj->ID, $user_obj->ThumbnailImageUrl, $socialloginProfileData['Provider'] );
-		$explode= explode("@",$email);
-		if( empty( $socialloginProfileData['FirstName'] ) && !empty( $socialloginProfileData['FullName'] ) ){
-			$socialloginProfileData['FirstName'] = $socialloginProfileData['FullName'];
-		}elseif(empty($socialloginProfileData['FirstName'] ) && !empty( $socialloginProfileData['NickName'] )){
-			$socialloginProfileData['FirstName'] = $socialloginProfileData['NickName'];
-		}elseif(empty($socialloginProfileData['FirstName'] ) && empty($socialloginProfileData['NickName'] ) && !empty($socialloginProfileData['FullName'] ) ){
-			$socialloginProfileData['FirstName'] = $explode[0];
-		}
-		if($socialloginProfileData['FirstName'] == '' ){
-			$letters = range('a', 'z');
-			for($i=0;$i<5;$i++){
-				$socialloginProfileData['FirstName'] .= $letters[rand(0,26)];
+		
+		
+		if(empty($socialloginProfileData['FirstName'])){
+			if(!empty($socialloginProfileData['FullName'])){
+				$socialloginProfileData['FirstName'] = $socialloginProfileData['FullName'];
+			}
+			elseif(!empty($socialloginProfileData['ProfileName'])){
+				$socialloginProfileData['FirstName'] = $socialloginProfileData['ProfileName'];
+			}
+			elseif(!empty($socialloginProfileData['NickName'])){
+				$socialloginProfileData['FirstName'] = $socialloginProfileData['NickName'];
+			}elseif(!empty($email)){
+				$user_name = explode('@', $email);
+				$username = $user_name[0];
+				$socialloginProfileData['FirstName'] = str_replace("_", " ", $user_name[0]);
+			}else{
+				$socialloginProfileData['FirstName'] = $user_obj->ID;
 			}
 		}
+		
 		$socialloginProfileData['Gender'] = (!empty($user_obj->Gender) ? $user_obj->Gender : '');
 		if( strtolower(substr($socialloginProfileData['Gender'], 0, 1)) == 'm' ){
 			$socialloginProfileData['Gender'] = '1';
@@ -283,20 +308,20 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		$url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
 		// check if logged in from callback page
 		if(isset($_GET['loginradiuscheckout'])){
-			header( 'Location: '.Mage::helper('checkout/url')->getCheckoutUrl() );
+			$this -> redirect( Mage::helper('checkout/url')->getCheckoutUrl() );
 			exit();
 			return;
 		}
 		if($Hover == 'account'){
-			header( 'Location: '.$url.'customer/account' );
+			$this -> redirect( $url.'customer/account' );
 			exit();
 			return;
 		}elseif($Hover == 'index' ){
-			header( 'Location: '.$url.'') ;
+			$this -> redirect( $url.'') ;
 			exit();
 			return;
 		}elseif( $Hover == 'custom' && $write_url != '' ) {
-			header( 'Location: '.$write_url.'' );
+			$this -> redirect( $write_url.'' );
 			exit();
 			return;
 		}else{
@@ -305,7 +330,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			 }else{
 				$currentUrl = $url;
 			 }
-			 header( 'Location: '.$currentUrl);
+			 $this -> redirect( $currentUrl);
 			 exit();
 			 return;
 		}
@@ -316,6 +341,15 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		Mage::getSingleton('core/session')->setSocialLoginData( $socialloginProfileData );
 	}
 
+	function setTmpSession($loginRadiusPopupTxt = '', $socialLoginMsg = "", $loginRadiusShowForm = true, $profileData = array(), $emailRequired = true, $hideZipcode = false){
+		Mage::getSingleton('core/session')->setTmpPopupTxt( $loginRadiusPopupTxt );
+		Mage::getSingleton('core/session')->setTmpPopupMsg( $socialLoginMsg );
+		Mage::getSingleton('core/session')->setTmpShowForm( $loginRadiusShowForm );
+		Mage::getSingleton('core/session')->setTmpProfileData( $profileData );
+		Mage::getSingleton('core/session')->setTmpEmailRequired( $emailRequired );
+		Mage::getSingleton('core/session')->setTmpHideZipcode( $hideZipcode );
+	}
+	
 	function loginRadiusEmail( $subject, $message, $to, $toName ){
 		$storeName =  Mage::app()->getStore()->getGroup()->getName();
 		$mail = new Zend_Mail('UTF-8'); //class for mail
@@ -401,18 +435,18 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		if(($update && !$matched) || !$update){
 			$address->firstname = $customer->firstname;
 			$address->lastname = $customer->lastname;
-			$address->country_id = ucfirst( $socialloginProfileData['Country'] ); //Country code here
+			$address->country_id = isset($socialloginProfileData['Country']) ? ucfirst($socialloginProfileData['Country']) : '';
 			if(isset($socialloginProfileData['Zipcode'])){
 				$address->postcode = $socialloginProfileData['Zipcode'];
 			}
-			$address->city = ucfirst( $socialloginProfileData['City'] );
+			$address->city = isset($socialloginProfileData['City']) ? ucfirst($socialloginProfileData['City']) : '';
 			// If country is USA, set up province
 			if(isset($socialloginProfileData['Province'])){
 				$address->region = $socialloginProfileData['Province'];
 			}
-			$address->telephone = $socialloginProfileData['PhoneNumber'];
-			$address->company = ucfirst( $socialloginProfileData['Industry'] );
-			$address->street = ucfirst( $socialloginProfileData['Address'] );
+			$address->telephone = isset($socialloginProfileData['PhoneNumber']) ? ucfirst($socialloginProfileData['PhoneNumber']) : '';
+			$address->company = isset($socialloginProfileData['Industry']) ? ucfirst($socialloginProfileData['Industry']) : '';
+			$address->street = isset($socialloginProfileData['Address']) ? ucfirst($socialloginProfileData['Address']) : '';
 			// set default billing, shipping address and save in address book
 			$address -> setIsDefaultShipping('1') -> setIsDefaultBilling('1') -> setSaveInAddressBook('1');
 			$address->save();
@@ -435,7 +469,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 				if( $this->blockObj->notifyUser() == "1" ){
 					$loginRadiusMessage = $this->blockObj->notifyUserText();
 					if( $loginRadiusMessage == "" ){
-						$loginRadiusMessage = __("Welcome to ").$store->getGroup()->getName().". ".__("You can login to the store using following e-mail address and password:-");
+						$loginRadiusMessage = __("Welcome to ").$store->getGroup()->getName().". ".__("You can login to the store using following e-mail address and password");
 					}
 					$loginRadiusMessage .= "<br/>".
 										   "Email : ".$socialloginProfileData['Email'].
@@ -449,7 +483,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 					$loginRadiusAdminName = Mage::getStoreConfig('trans_email/ident_general/name');
 					$loginRadiusMessage = trim($this->blockObj->notifyAdminText());
 					if( $loginRadiusMessage == "" ){
-						$loginRadiusMessage = __("New customer has been registered to your store with following details:-");
+						$loginRadiusMessage = __("New customer has been registered to your store with following details");
 					}
 					$loginRadiusMessage .= "<br/>".
 										   __("Name")." : ".$loginRadiusUsername."<br/>".
@@ -545,12 +579,13 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		// send verification mail
 		$message = __(Mage::helper('core')->htmlEscape(trim($this->blockObj->verificationText())));
 		if( $message == "" ){
-			$message = __("Please click on the following link or paste it in browser to verify your email:-");
+			$message = __("Please click on the following link or paste it in browser to verify your email");
 		}
 		$message .= "<br/>".Mage::getBaseUrl()."sociallogin/?loginRadiusKey=".$vKey;
 		$this->loginRadiusEmail( __("Email verification"), $message, $email, $email);
+		$this -> setTmpSession( "Confirmation link has been sent to your email address. Please verify your email by clicking on confirmation link.", "", false );
 		// show popup message
-		SL_popUpWindow( "Confirmation link Has Been Sent To Your Email Address. Please verify your email by clicking on confirmation link.", "", false );
+		$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 		$this->SocialLoginShowLayout();
 		return;
 	}
@@ -578,7 +613,8 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 				$tempUpdate = array("verified" => '1', "vkey" => '');
 				$tempUpdate2 = array("vkey = ?" => $loginRadiusVkey);
 				$this->SocialLoginInsert( "sociallogin", $tempUpdate, true, $tempUpdate2 );
-				SL_popUpWindow( "Your email has been verified. Now you can login to your account.", "", false );
+				$this -> setTmpSession("Your email has been verified. Now you can login to your account.", "", false );
+				$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 				
 				// check if verification for same provider is still pending on this entity_id
 				if( $this->loginRadiusRead( "sociallogin", "verification2", array( $temp['entity_id'], $temp['provider'] ) ) ){
@@ -593,7 +629,12 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		$session_user_id = $socialLoginProfileData['lrId'];
 		$loginRadiusPopProvider = $socialLoginProfileData['Provider'];
 		$loginRadiusAvatar = $socialLoginProfileData['thumbnail'];
-
+		// popup check
+		if(isset($_GET['loginradiuspopup'])){
+			SL_popUpWindow( Mage::getSingleton('core/session')->getTmpPopupTxt(), Mage::getSingleton('core/session')->getTmpPopupMsg(), Mage::getSingleton('core/session')->getTmpShowForm(), Mage::getSingleton('core/session')->getTmpProfileData(), Mage::getSingleton('core/session')->getTmpEmailRequired(), Mage::getSingleton('core/session')->getTmpHideZipcode());
+			$this -> SocialLoginShowLayout();
+			return;
+		}
 		if(isset($_POST['LoginRadiusRedSliderClick'])) {
 			if(!empty($session_user_id) ){
 				$loginRadiusProfileData = array();
@@ -626,7 +667,8 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 						}else{
 							$hideZipCountry = true;
 						}
-						SL_popUpWindow($this->loginRadiusPopMsg, $this->loginRadiusPopErr, true, $loginRadiusProfileData, true, $hideZipCountry);
+						$this -> setTmpSession($this->loginRadiusPopMsg, $this->loginRadiusPopErr, true, $loginRadiusProfileData, true, $hideZipCountry);
+						$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 						$this->SocialLoginShowLayout();
 						return false;
 					}
@@ -643,14 +685,16 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 									$this->socialLoginUserLogin( $rowArray['entity_id'], $rowArray2['sociallogin_id'] );
 									return;
 								}else{
-									SL_popUpWindow( $this->loginRadiusPopMsg, $this->loginRadiusPopErr, true, array(), true, true );
+									$this -> setTmpSession($this->loginRadiusPopMsg, $this->loginRadiusPopErr, true, array(), true, true);
+									$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 									$this->SocialLoginShowLayout();
 									return;
 								}
 							}else{
 								// check sociallogin id
 								if( $rowArray2['sociallogin_id'] == $session_user_id ){
-									SL_popUpWindow( "Please verify your email to login", "", false );
+									$this -> setTmpSession("Please provide following details", "", true, $socialloginProfileData, false);
+									$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 									$this->SocialLoginShowLayout();
 									return;
 								}else{
@@ -668,7 +712,8 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 				}
 				// validate other profile fields
 				if((isset($profileAddress) && $profileAddress == "") || (isset($profileCity) && $profileCity == "") || (isset($profileCountry) && $profileCountry == "") || (isset($profilePhone) && $profilePhone == "")){
-					SL_popUpWindow("", "Please fill all the fields", true, $loginRadiusProfileData, true);
+					$this -> setTmpSession("", "Please fill all the fields", true, $loginRadiusProfileData, true);
+					$this -> redirect(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."sociallogin?loginradiuspopup=1");
 					$this->SocialLoginShowLayout();
 					return false;
 				}
@@ -710,8 +755,16 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			}
 		}elseif( isset($_POST['LoginRadiusPopupCancel']) ) { 				// popup cancelled
 			Mage::getSingleton('core/session')->unsSocialLoginData(); 		// unset session
+			
+			Mage::getSingleton('core/session')->unsTmpPopupTxt();
+			Mage::getSingleton('core/session')->unsTmpPopupMsg();
+			Mage::getSingleton('core/session')->unsTmpShowForm();
+			Mage::getSingleton('core/session')->unsTmpProfileData();
+			Mage::getSingleton('core/session')->unsTmpEmailRequired();
+			Mage::getSingleton('core/session')->unsTmpHideZipcode();
+			
 			$url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
-			header("Location:".$url);										// redirect to index page
+			$this -> redirect($url);										// redirect to index page
 		}
 		$this->SocialLoginShowLayout();
     }

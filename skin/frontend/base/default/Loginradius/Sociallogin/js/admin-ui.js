@@ -83,6 +83,8 @@ function loginRadiusPrepareAdminUI(){
 	document.getElementById('sociallogin_options_messages_iconSizemedium').style.marginLeft = '6px';
 	// set left margin for first radio button in Horizontal counter
 	document.getElementById('sociallogin_options_horizontalSharing_horizontalSharingTheme32').style.marginLeft = '6px';
+	// set left margin for first radio button in Horizontal counter
+	document.getElementById('sociallogin_options_messages_sameWindow1').style.marginLeft = '6px';
 	// set left margin for first radio button in login redirection
 	var loginRadiusRedirectionOptions = document.getElementById('row_sociallogin_options_messages_redirect').getElementsByTagName('input');
 	loginRadiusRedirectionOptions[0].style.marginLeft = '6px';

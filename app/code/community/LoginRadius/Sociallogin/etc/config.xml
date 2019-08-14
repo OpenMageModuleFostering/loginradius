@@ -11,6 +11,7 @@
 				<redirect>account</redirect>
 				<aboveLogin>1</aboveLogin>
 				<aboveRegister>1</aboveRegister>
+				<sameWindow>1</sameWindow>
 			</messages>
 			<email_settings>
 				<profileFieldsRequired>0</profileFieldsRequired>
@@ -46,7 +47,7 @@
 	</default>   
     <modules>
         <Loginradius_Sociallogin>
-            <version>3.6.0</version>
+            <version>3.7.0</version>
         </Loginradius_Sociallogin>
     </modules>
 	<frontend>

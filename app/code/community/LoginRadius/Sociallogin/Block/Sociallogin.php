@@ -64,9 +64,13 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
       {	 
     	return Mage::getStoreConfig('sociallogin_options/messages/appkey');
       }
-	public function getLoginRadiusTitle()
+	  public function getLoginRadiusTitle()
       {	 
     	return Mage::getStoreConfig('sociallogin_options/messages/loginradius_title');
+      }
+	  public function getLoginWindow()
+      {	 
+    	return Mage::getStoreConfig('sociallogin_options/messages/sameWindow');
       }
 	  public function iconSize()
       {	 

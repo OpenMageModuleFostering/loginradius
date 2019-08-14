@@ -4,7 +4,7 @@ $installer->startSetup();
 $installer->run("
 DROP TABLE IF EXISTS {$this->getTable('sociallogin')};
 CREATE TABLE IF NOT EXISTS {$this->getTable('sociallogin')} (
-   `sociallogin_id` varchar(50) default NULL,
+   `sociallogin_id` varchar(200) default NULL,
   `entity_id` int(11) default NULL,
   `avatar` varchar(1000) default NULL,
   `verified` enum('0','1') default NULL,
