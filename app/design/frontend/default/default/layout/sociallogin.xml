@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <default>
+	<reference name="right">
+            <block type="sociallogin/sociallogin" name="sociallogin" template="sociallogin/sociallogin.phtml" />
+        </reference>
+    </default>
+ </layout> 

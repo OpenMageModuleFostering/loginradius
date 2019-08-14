@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/LoginRadius",
+    "type": "magento-module",
+    "license": "GNU-General-Public-License-(GPL)",
+    "homepage": "",
+    "description": "Social Login for Magento",
+    "authors": [
+    {
+        "name": "LoginRadius Team",
+        "email": "developers@loginradius.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<widgets>
+    <sociallogin_auth type="sociallogin/auth" translate="name description" module="sociallogin">
+        <name>Social Login</name>
+        <description type="desc">Adds a link to open the Sociallogin authentication dialog</description>
+        <parameters>
+            <label_text>
+                <required>0</required>
+                <visible>1</visible>
+                <label>Label Text</label>
+                <description>The text to display before Provider Icons. Defaults to 'please login with'</description>
+                <type>text</type>
+            </label_text>
+           </parameters>
+    </sociallogin_auth>
+    
+</widgets>

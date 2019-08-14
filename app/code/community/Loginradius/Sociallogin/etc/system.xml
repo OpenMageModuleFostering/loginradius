@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+
+<config>
+ <tabs>
+		<socialconfig translate="label" module="sociallogin">
+            <label>Social login</label>
+            <sort_order>9999</sort_order>
+        </socialconfig>
+    </tabs>
+    <sections>
+	<sociallogin_options translate="label" module="sociallogin">
+            <label>Social Login Configration</label>
+            <tab>socialconfig</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>    
+			<groups>
+                <messages translate="label">
+                    <label>Social Login</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store> 
+				 <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <appid translate="label">
+                                <label>LoginRadius API Key</label>
+                                <frontend_type>text</frontend_type>
+								<comment><![CDATA[Paste LoginRadius API Key here. To get the API Key, log in to<a href="http://www.loginradius.com" target="_blank">LoginRadius</a>]]>
+                            </comment>
+                                <sort_order>15</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </appid>
+                            <appkey translate="label">
+                                <label>LoginRadius API Secret</label>
+                                <frontend_type>text</frontend_type>
+								<comment><![CDATA[Paste LoginRadius API Secret here. To get the API Secret, log in to<a href="http://www.loginradius.com" target="_blank">LoginRadius</a>]]>
+                            </comment>
+                                <sort_order>20</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </appkey>
+							<showdefault translate="label">
+                                <label>Show default widget in right panel</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[Select No you don't want to display module in right panel. You can also set widget in pages or any area of your site. ]]>
+                            </comment>
+							    <source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>25</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </showdefault>
+							<emailrequired translate="label">
+                                <label>Email Required</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[A few ID providers do not provide user's Email ID. Select YES if you would like an email pop-up after login or select NO if you would like to auto-generate the email address.]]>
+                            </comment>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>30</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </emailrequired>
+							<redirect translate="label">
+                                <label>Redirect After Login</label>
+                                <frontend_type>radios</frontend_type>
+								<source_model>sociallogin/source_uihover</source_model>
+                                <sort_order>35</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </redirect>
+							<call translate="label">
+                                <label></label>
+                                <frontend_type>text</frontend_type>
+                                <sort_order>40</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </call>
+							<api translate="label">
+                                <label>API Connection Method</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[cURL require 'cURL support = enabled' in your php.ini settings, FSOCKOPEN require 'allow_url_fopen = On' and 'safemode = off' in your php.ini settings]]>
+                            </comment>
+								<source_model>sociallogin/source_uihover2</source_model>
+                                <sort_order>45</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </api>
+							
+                         </fields> 	               
+                </messages>
+				<info translate="label">
+                    <label>Extension Help</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>sociallogin/info</frontend_model>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </info>
+
+            </groups>                
+        </sociallogin_options>
+	
+            </sections>
+</config>
