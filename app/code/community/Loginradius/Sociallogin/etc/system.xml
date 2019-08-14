@@ -3,13 +3,13 @@
 <config>
  <tabs>
 		<socialconfig translate="label" module="sociallogin">
-            <label>Social login</label>
-            <sort_order>9999</sort_order>
+            <label>Login Radius</label>
+            <sort_order>1</sort_order>
         </socialconfig>
     </tabs>
     <sections>
 	<sociallogin_options translate="label" module="sociallogin">
-            <label>Social Login Configration</label>
+            <label>Social Login</label>
             <tab>socialconfig</tab>
             <frontend_type>text</frontend_type>
             <sort_order>1000</sort_order>
@@ -18,23 +18,23 @@
             <show_in_store>1</show_in_store>    
 			<groups>
                 <messages translate="label">
-                    <label>Social Login</label>
+                    <label>Social Login Basic Settings</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store> 
 				 <fields>
-                        <enabled translate="label">
-                            <label>Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </enabled>
-                        <appid translate="label">
+                        	<loginEnable translate="label">
+                                <label>Enable Social Login</label>
+                                <frontend_type>select</frontend_type>
+							    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>14</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </loginEnable>
+                        	<appid translate="label">
                                 <label>LoginRadius API Key</label>
                                 <frontend_type>text</frontend_type>
 								<comment><![CDATA[Paste LoginRadius API Key here. To get the API Key, log in to<a href="http://www.loginradius.com" target="_blank">LoginRadius</a>]]>
@@ -48,39 +48,49 @@
                                 <label>LoginRadius API Secret</label>
                                 <frontend_type>text</frontend_type>
 								<comment><![CDATA[Paste LoginRadius API Secret here. To get the API Secret, log in to<a href="http://www.loginradius.com" target="_blank">LoginRadius</a>]]>
-                            </comment>
+                            	</comment>
                                 <sort_order>20</sort_order>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
                             </appkey>
+                            <loginradius_title translate="label">
+                                <label>Title</label>
+                                <frontend_type>text</frontend_type>
+								<comment><![CDATA[Text displayed above Social login Interface]]>
+                            	</comment>
+                                <sort_order>22</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </loginradius_title>
 							<showdefault translate="label">
-                                <label>Show default widget in right panel</label>
+                                <label>Show interface in right side panel</label>
                                 <frontend_type>select</frontend_type>
 								<comment><![CDATA[Select No you don't want to display module in right panel. You can also set widget in pages or any area of your site. ]]>
-                            </comment>
+                            	</comment>
 							    <source_model>adminhtml/system_config_source_yesno</source_model>
-								<sort_order>25</sort_order>
+								<sort_order>23</sort_order>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
                             </showdefault>
-							<emailrequired translate="label">
-                                <label>Email Required</label>
+							<socialLinking translate="label">
+                                <label>Social Linking</label>
                                 <frontend_type>select</frontend_type>
-								<comment><![CDATA[A few ID providers do not provide user's Email ID. Select YES if you would like an email pop-up after login or select NO if you would like to auto-generate the email address.]]>
+								<comment><![CDATA[Link existing user accounts with Social Login.]]>
                             </comment>
 								<source_model>adminhtml/system_config_source_yesno</source_model>
-                                <sort_order>30</sort_order>
+                                <sort_order>29</sort_order>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
-                            </emailrequired>
+                            </socialLinking>
 							<redirect translate="label">
                                 <label>Redirect After Login</label>
                                 <frontend_type>radios</frontend_type>
 								<source_model>sociallogin/source_uihover</source_model>
-                                <sort_order>35</sort_order>
+                                <sort_order>34</sort_order>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -107,6 +117,157 @@
 							
                          </fields> 	               
                 </messages>
+				<email_settings>
+                    <label>Social Login Advanced Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store> 
+				 <fields>
+							<emailrequired translate="label">
+                                <label>Email Required</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[A few ID providers do not provide user's Email ID. Select YES if you would like an email pop-up after login or select NO if you would like to auto-generate the email address.]]>
+                            </comment>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>24</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </emailrequired>
+							<verificationText translate="label">
+                                <label>Email verification message</label>
+                                <frontend_type>text</frontend_type>
+								<comment><![CDATA[This message will be used in verification email.]]>
+                            </comment>
+                                <sort_order>25</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </verificationText>
+							<popupText translate="label">
+                                <label>"Email required" - Popup title</label>
+                                <frontend_type>text</frontend_type>
+								<comment><![CDATA[This text will be displayed on "Email required" popup.]]>
+                            </comment>
+                                <sort_order>27</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </popupText>
+							<popupError translate="label">
+                                <label>Error message</label>
+                                <frontend_type>text</frontend_type>
+								<comment><![CDATA[This text will be displayed on the popup if the entered email is already registered or invalid.]]>
+                            </comment>
+                                <sort_order>28</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </popupError>
+							<notifyUser translate="label">
+                                <label>Enable registration notification to user</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[Send email to newly registered customer regarding login credentials.]]>
+                            </comment>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>30</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </notifyUser>
+							<notifyUserText translate="label">
+                                <label>User notification email message</label>
+                                <frontend_type>text</frontend_type>
+								<comment><![CDATA[This message will be sent to user in notification email along with login credentials. If left empty, default message will be sent.]]>
+                            </comment>
+                                <sort_order>31</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </notifyUserText>
+							<notifyAdmin translate="label">
+                                <label>Enable registration notification to owner</label>
+                                <frontend_type>select</frontend_type>
+								<comment><![CDATA[Send email to store owner on new customer registration regarding customer details.]]>
+                            </comment>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>32</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </notifyAdmin>
+							<notifyAdminText translate="label">
+                                <label>Owner notification email message</label>
+                                <frontend_type>text</frontend_type>
+								<comment><![CDATA[This message will be sent to admin in notification email.]]>
+                            </comment>
+                                <sort_order>33</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </notifyAdminText>
+                         </fields> 	               
+				</email_settings>
+				<sharing>
+                    <label>Social Share Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store> 
+				 		<fields>
+							<shareEnable translate="label">
+                                <label>Enable Social Sharing</label>
+                                <frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>24</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </shareEnable>
+							<sharingCode translate="label">
+                                <label>Sharing Code</label>
+                                <frontend_type>textarea</frontend_type>
+								<comment><![CDATA[Paste sharing code from "Add this code to 'head' tag" section from your <a href="https://www.loginradius.com/account/socialshare" target="_blank" >LoginRadius</a> account.]]>
+                            </comment>
+                                <sort_order>25</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </sharingCode>
+                         </fields> 	               
+				</sharing>
+				<counter>
+                    <label>Social Counter Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store> 
+				 		<fields>
+							<counterEnable translate="label">
+                                <label>Enable Social Counter</label>
+                                <frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>24</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </counterEnable>
+							<counterCode translate="label">
+                                <label>Counter Code</label>
+                                <frontend_type>textarea</frontend_type>
+								<comment><![CDATA[Paste counter code from "Add this code to 'head' tag" section from your <a href="https://www.loginradius.com/account/socialcounter" target="_blank" >LoginRadius</a> account.]]>
+                            </comment>
+                                <sort_order>25</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </counterCode>
+                         </fields> 	               
+				</counter>
 				<info translate="label">
                     <label>Extension Help</label>
                     <frontend_type>text</frontend_type>

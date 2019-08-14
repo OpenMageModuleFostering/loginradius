@@ -1,0 +1,23 @@
+<?php
+if( $this->shareEnable() == "1" ){
+	echo str_replace("islrsocialcounter = false", "islrsocialcounter = true", trim($this->sharingCode()) );
+	?>
+	<style type="text/css">
+		div.lrsharecontainer{
+			z-index : 1000000;
+		}
+	</style>
+	<?php
+}
+if( $this->counterEnable() == "1" ){
+	$loginRadiusCounter = str_replace("islrsharing = false", "islrsharing = true", trim($this->counterCode()));
+	echo str_replace("$S.left = '50px'", "$S.left = '0px'", $loginRadiusCounter );
+	?>
+	<style type="text/css">
+		div.lrcounter_simplebox{
+			z-index : 1000000;
+		}
+	</style>
+	<?php
+}
+?>

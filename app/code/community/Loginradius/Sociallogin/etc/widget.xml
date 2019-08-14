@@ -2,16 +2,23 @@
 <widgets>
     <sociallogin_auth type="sociallogin/auth" translate="name description" module="sociallogin">
         <name>Social Login</name>
-        <description type="desc">Adds a link to open the Sociallogin authentication dialog</description>
+        <description type="desc">Adds Social Login interface to the page.</description>
         <parameters>
             <label_text>
                 <required>0</required>
                 <visible>1</visible>
                 <label>Label Text</label>
-                <description>The text to display before Provider Icons. Defaults to 'please login with'</description>
+                <description>The text to display before Provider Icons. Defaults to 'Social Login'</description>
                 <type>text</type>
             </label_text>
            </parameters>
     </sociallogin_auth>
-    
+    <sociallogin_share type="sociallogin/share" translate="name description" module="sociallogin">
+        <name>Social Share</name>
+        <description type="desc">Adds Social Share interface to the page.</description>
+    </sociallogin_share>
+    <sociallogin_counter type="sociallogin/counter" translate="name description" module="sociallogin">
+        <name>Social Counter</name>
+        <description type="desc">Adds Social Counter interface to the page.</description>
+    </sociallogin_counter>
 </widgets>

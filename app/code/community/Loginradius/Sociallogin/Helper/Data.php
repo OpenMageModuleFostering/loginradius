@@ -8,9 +8,9 @@ class Loginradius_Sociallogin_Helper_Data extends Mage_Core_Helper_Abstract {
      * @return bool
      */
     public function isSocialloginEnabled() {
-     if (Mage::getStoreConfig('sociallogin_options/messages/enabled') == '1')
+     if (Mage::getStoreConfig('sociallogin_options/messages/enabled') == '1'){
             return true;
-
+	 }
         return false;
     }
 }

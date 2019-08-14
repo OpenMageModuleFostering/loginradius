@@ -1,8 +1,34 @@
 <?xml version="1.0"?>
-<config>    
+<config>
+	<default>
+		<sociallogin_options>
+			<messages>
+				<loginEnable>1</loginEnable>
+				<loginradius_title>Login with</loginradius_title>
+				<showdefault>1</showdefault>
+				<socialLinking>1</socialLinking>
+				<redirect>account</redirect>
+			</messages>
+			<email_settings>
+				<emailrequired>0</emailrequired>
+				<verificationText>Please click on the following link or paste it in browser to verify your email:-</verificationText>
+				<popupText>Please enter your email to proceed</popupText>
+				<popupError>The email you entered is already registered or invalid. Please enter a valid email.</popupError>
+				<notifyUser>1</notifyUser>
+				<notifyAdmin>0</notifyAdmin>
+				<notifyAdminText>New customer has been registered to your store with following details:-</notifyAdminText>
+			</email_settings>
+			<sharing>
+				<shareEnable>1</shareEnable>
+			</sharing>
+			<counter>
+				<counterEnable>1</counterEnable>
+			</counter>
+		</sociallogin_options>
+	</default>   
     <modules>
         <Loginradius_Sociallogin>
-            <version>1.2.1</version>
+            <version>2.0.0</version>
         </Loginradius_Sociallogin>
     </modules>
 	<frontend>

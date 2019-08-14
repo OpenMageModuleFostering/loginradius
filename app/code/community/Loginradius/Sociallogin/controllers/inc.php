@@ -7,7 +7,7 @@ function showDie($line,$msg){
 	}
 }
 
-function SL_popUpWindow( $socialLoginMsg = "" ){	
+function SL_popUpWindow( $loginRadiusPopupTxt, $socialLoginMsg = "", $loginRadiusShowForm = true ){	
 ?>
 	<!--css of email block		-->
 	<style type="text/css">
@@ -122,16 +122,26 @@ function SL_popUpWindow( $socialLoginMsg = "" ){
 	<div id="fade" class="LoginRadius_overlay">	
 	<div id="popupouter">
 	<div id="popupinner">
-	<div id="textmatter"><strong>Please enter your email to proceed</strong> </div>
+	<div id="textmatter"><strong><?php echo $loginRadiusPopupTxt; ?></strong></div>
 	<div style="clear:both;"></div>
 	<div style="color:red; text-align:justify"><?php echo $socialLoginMsg ?></div>
-	<form method="post" action="">
-	<div><input type="text" name="SL_EMAIL" id="SL_EMAIL" class="inputtxt" /></div>
-	<div>
-	<input type="submit" id="LoginRadiusRedSliderClick" name="LoginRadiusRedSliderClick" value="Submit" class="inputbutton">
-	<input type="submit" value="Cancel" class="inputbutton" name="LoginRadiusPopupCancel" />
-	</div>
-	</form>
+	<?php
+	if( $loginRadiusShowForm ){
+	?>
+		<form method="post" action="">
+		<div><input type="text" name="SL_EMAIL" id="SL_EMAIL" class="inputtxt" /></div>
+		<div>
+		<input type="submit" id="LoginRadiusRedSliderClick" name="LoginRadiusRedSliderClick" value="Submit" class="inputbutton">
+		<input type="submit" value="Cancel" class="inputbutton" name="LoginRadiusPopupCancel" />
+		</div>
+		</form>
+	<?php
+	}else{
+		?>
+		<input type="button" value="OK" onClick="location.href = '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK); ?>'" />
+		<?php
+	}
+	?>
 	</div>
 	</div>
 	</div>

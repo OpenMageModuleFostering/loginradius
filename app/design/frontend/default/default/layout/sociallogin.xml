@@ -1,8 +1,19 @@
 <?xml version="1.0"?>
-<layout version="1.2.1">
+<layout version="2.0.0">
     <default>
-	<reference name="right">
+		<reference name="right">
             <block type="sociallogin/sociallogin" name="sociallogin" template="sociallogin/sociallogin.phtml" />
         </reference>
-    </default>
+	 	<reference name="head">
+            <block type="sociallogin/sociallogin" name="socialshare_head" template="sociallogin/socialshare_head.phtml" />
+        </reference>
+	</default>
+     <catalog_product_view>
+        <reference name="alert.urls">
+            <block type="sociallogin/sociallogin" name="socialshare" before="-" />
+        </reference>
+        <reference name="product.info.extrahint">
+            <block type="sociallogin/sociallogin" name="socialcounter" template="sociallogin/socialcounter.phtml" />
+        </reference>
+    </catalog_product_view>
  </layout> 
