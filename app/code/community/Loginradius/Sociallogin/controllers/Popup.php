@@ -1,5 +1,5 @@
 <?php
-function SL_popUpWindow( $loginRadiusPopupTxt, $socialLoginMsg = "", $loginRadiusShowForm = true, $profileData, $emailRequired = true, $hideZipcode = false){	
+function SL_popUpWindow( $loginRadiusPopupTxt, $socialLoginMsg = "", $loginRadiusShowForm = true, $profileData = array(), $emailRequired = true, $hideZipcode = false){	
 ?>
 	<!--css of email block	-->
 	<style type="text/css">

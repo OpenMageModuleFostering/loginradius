@@ -18,7 +18,12 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 	function tokenHandle() {
 		$ApiSecrete = $this->blockObj->getApiSecret();
 		$user_obj = $this->blockObj->getProfileResult($ApiSecrete);
-		$id = $user_obj->ID;
+		// validate the object
+		if(is_object($user_obj)){
+			$id = $user_obj->ID;
+		}else{
+			return;
+		}
 		if(empty($id)){
 			//invalid user
 			return;
@@ -29,10 +34,13 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		if(isset($_GET['loginradiuslinking']) && trim($_GET['loginradiuslinking']) == 1){
 			$socialLinking = true;
 		}
-		//valid user, checking if user in database?
+		//valid user, checking if user in sociallogin table
 		$socialLoginIdResult = $this->loginRadiusRead( "sociallogin", "get user", array($id), true );
 		$socialLoginIds = $socialLoginIdResult->fetchAll();
+		// variable to hold user id of the logged in user
+		$sociallogin_id = '';
 		foreach( $socialLoginIds as $socialLoginId ){
+			// check if the user exists in the customer_entity table for this social id
 			$select = $this->loginRadiusRead( "customer_entity", "get user2", array($socialLoginId['entity_id']), true );
 			if($rowArray = $select->fetch()){
 				if( $socialLoginId['verified'] == "0" ){
@@ -46,10 +54,10 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 						die;
 					}
 				}
+				$sociallogin_id = $rowArray['entity_id'];
 				break;
 			}
 		}
-		$sociallogin_id = $rowArray['entity_id'];
 		if(!empty($sociallogin_id)){	//user is in database
 			if(!$socialLinking){
 				$this->socialLoginUserLogin( $sociallogin_id, $id );
@@ -66,6 +74,8 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			header("Location:".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=1");
 			die;
 		}
+		// initialize email
+		$email = '';
 		if( !empty($user_obj->Email[0]->Value) ){
 			//if email is provided by provider then check if it's in table
 			$email = $user_obj->Email['0']->Value;
@@ -180,7 +190,11 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		$socialloginProfileData['State'] = empty($user_obj->State) ? "" : $user_obj->State;
 		$socialloginProfileData['City'] = empty($user_obj->City) || $user_obj->City == "unknown" ? "" : $user_obj->City;
 		$socialloginProfileData['Industry'] = empty($user_obj->Positions['0']->Comapny->Name) ? "" : $user_obj->Positions['0']->Comapny->Name;
-		$socialloginProfileData['Country'] = empty($user_obj->Country) || $user_obj->Country == "unknown" ? "" : $user_obj->Country;
+		if(isset($user_obj->Country->Code) && is_string($user_obj->Country->Code)){
+			$socialloginProfileData['Country'] = $user_obj->Country->Code;
+		}else{
+			$socialloginProfileData['Country'] = "";
+		}
 		$socialloginProfileData['thumbnail'] = $this->socialLoginFilterAvatar( $user_obj->ID, $user_obj->ThumbnailImageUrl, $socialloginProfileData['Provider'] );
 		$explode= explode("@",$email);
 		if( empty( $socialloginProfileData['FirstName'] ) && !empty( $socialloginProfileData['FullName'] ) ){
@@ -368,7 +382,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		}
 	}
 
-	private function SocialLoginInsert( $lrTable, $lrInsertData, $update = false, $value ){
+	private function SocialLoginInsert( $lrTable, $lrInsertData, $update = false, $value = '' ){
 		$connection = Mage::getSingleton('core/resource')
 							->getConnection('core_write');
 		$connection->beginTransaction();
@@ -376,8 +390,12 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		if( !$update ){
 			$connection->insert($sociallogin, $lrInsertData);
 		}else{
-			$query = "UPDATE {$sociallogin} SET ".$lrInsertData." WHERE ".$value;
-			$offset = $connection->query( $query );
+			// update query magento way
+			$connection->update(
+				$sociallogin,
+				$lrInsertData,
+				$value
+			);
 		}
 		$connection->commit();
 	}
@@ -474,15 +492,15 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			$result = $this->loginRadiusRead( "sociallogin", "verification", array( $loginRadiusVkey ), true );
 			if( $temp = $result->fetch() ){
 				// set verified status true at this verification key
-				$tempUpdate = "verified = '1', vkey = ''";
-				$tempUpdate2 = "vkey = '".$loginRadiusVkey."'";
+				$tempUpdate = array("verified" => '1', "vkey" => '');
+				$tempUpdate2 = array("vkey = ?" => $loginRadiusVkey);
 				$this->SocialLoginInsert( "sociallogin", $tempUpdate, true, $tempUpdate2 );
 				SL_popUpWindow( "Your email has been verified. Now you can login to your account.", "", false );
 				
 				// check if verification for same provider is still pending on this entity_id
 				if( $this->loginRadiusRead( "sociallogin", "verification2", array( $temp['entity_id'], $temp['provider'] ) ) ){
-					$tempUpdate = "vkey = ''";
-					$tempUpdate2 = "entity_id = ".$temp['entity_id']." and provider = '".$temp['provider']."'";
+					$tempUpdate = array("vkey" => '');
+					$tempUpdate2 = array("entity_id = ?" => $temp['entity_id'], "provider = ?" => $temp['provider']);
 					$this->SocialLoginInsert( "sociallogin", $tempUpdate, true, $tempUpdate2 );
 				}
 			}

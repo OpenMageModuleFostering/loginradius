@@ -42,9 +42,13 @@ if( $this->loginEnable() == "1" ){
 							if(isset($_GET['LoginRadiusUnlink']) && trim($_GET['LoginRadiusUnlink']) != ""){
 								$loginRadiusConn = Mage::getSingleton('core/resource')
 														->getConnection('core_write');
-								$loginRadiusQuery = "delete from ".Mage::getSingleton('core/resource')->getTableName('sociallogin')." where entity_id = ".$loginRadiusUserId." and sociallogin_id = '".trim($_GET['LoginRadiusUnlink'])."'";
 								try{
-									$loginRadiusConn->query($loginRadiusQuery);
+									// delete query magento way
+									$loginRadiusConn->delete(
+									   Mage::getSingleton('core/resource')->getTableName('sociallogin'), 
+									   array('entity_id = ?' => $loginRadiusUserId,
+									          'sociallogin_id = ?' => trim($_GET['LoginRadiusUnlink']))
+									);
 								}catch(Exception $e){
 								}
 								?>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<layout version="3.0.0">
+<layout version="3.1.0">
     <default>
 		<reference name="right">
             <block type="sociallogin/sociallogin" name="sociallogin" template="sociallogin/sociallogin.phtml" before="-" />

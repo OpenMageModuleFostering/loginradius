@@ -185,6 +185,7 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
       }
       public function getApiCall($url)
        {
+	   		$JsonResponse = "";
 			if ( $this->getApiOption() == 'curl' ){
 				$curl_handle = curl_init();
 				curl_setopt($curl_handle, CURLOPT_URL, $url);
