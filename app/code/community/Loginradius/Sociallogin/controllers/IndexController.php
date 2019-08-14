@@ -30,8 +30,18 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 							->getConnection('core_read');
 		$tbl_sociallog = getMazeTable("sociallogin");   // mage_sociallogin
 		$customerTbl = getMazeTable("customer_entity");  // customer_entity
-		$select = $connection->query("select entity_id from $customerTbl where entity_id = (select entity_id from $tbl_sociallog where sociallogin_id= '$id')");
-		$rowArray = $select->fetch();
+		
+		$websiteId = Mage::app()->getWebsite()->getId();
+		$storeId = Mage::app()->getStore()->getId();
+		
+		$socialLoginIdResult = $connection->query("select entity_id from $tbl_sociallog where sociallogin_id= '$id'");
+		$socialLoginIds = $socialLoginIdResult->fetchAll();
+		foreach( $socialLoginIds as $socialLoginId ){
+			$select = $connection->query("select entity_id from $customerTbl where entity_id = ".$socialLoginId['entity_id']." and website_id = $websiteId and store_id = $storeId" );
+			if($rowArray = $select->fetch()){
+				break;
+			}
+		}
 		$sociallogin_id = $rowArray['entity_id'];
 		if(!empty($sociallogin_id)){//user is in database
 			$this->socialLoginUserLogin( $sociallogin_id, $blockObj);
@@ -41,7 +51,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		if( !empty($user_obj->Email) ){
 			//if email is provided by provider then check if it's in table
 			$email = $user_obj->Email['0']->Value;
-			$select = $connection->query("select * from $customerTbl where email = '$email' ");
+			$select = $connection->query("select * from $customerTbl where email = '$email' and website_id = $websiteId and store_id = $storeId");
 			
 			
 			if( $rowArray = $select->fetch() ) {
@@ -160,7 +170,6 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		$websiteId = Mage::app()->getWebsite()->getId();
 		$store = Mage::app()->getStore();
 		 
-		//$customer = new Mage_Customer_Model_Customer();
 		$customer = Mage::getModel("customer/customer");
 		$customer->website_id = $websiteId; 
 		$customer->setStore($store);
@@ -196,13 +205,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		$fields['entity_id'] = $customer->getId();
 		$sociallogin = getMazeTable("sociallogin");
 
-		$socialLoginSelect = $connection->query("select sociallogin_id from $sociallogin where sociallogin_id = '".$socialloginProfileData['lrId']."' limit 1");
-		
-		if( $rowArray = $socialLoginSelect->fetch() ) {
-			$socialLoginUpdate = $connection->query("update $sociallogin set entity_id = ".$fields['entity_id']." where sociallogin_id = '".$socialloginProfileData['lrId']."'");
-		}else {
-			$connection->insert($sociallogin, $fields);
-		}
+		$connection->insert($sociallogin, $fields);
 		
 		$connection->commit();
 		
@@ -240,7 +243,10 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 				$socialLoginConn = Mage::getSingleton('core/resource')
 									->getConnection('core_read');
 				$customerTbl = getMazeTable("customer_entity");  // customer_entity
-				$select = $socialLoginConn->query("select * from $customerTbl where email = '$email' ");
+				$websiteId = Mage::app()->getWebsite()->getId();
+				$storeId = Mage::app()->getStore()->getId();
+
+				$select = $socialLoginConn->query("select entity_id from $customerTbl where email = '$email' and website_id = $websiteId and store_id = $storeId");
 				
 				if( $rowArray = $select->fetch() ) {  // email exists
 					SL_popUpWindow( "This email already exists. Please enter valid email address." );

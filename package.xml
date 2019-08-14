@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <package>
     <name>LoginRadius</name>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <stability>stable</stability>
     <license>GNU General Public License (GPL)</license>
     <channel>community</channel>
     <extends/>
     <summary>Social Login for Magento</summary>
     <description>Add Social Login to your Magento website and also get accurate User Profile Data and Social Analytics.</description>
-    <notes>Second release of social login</notes>
+    <notes>Third release of social login</notes>
     <authors><author><name>LoginRadius Team</name><user>LoginRadius</user><email>developers@loginradius.com</email></author></authors>
-    <date>2012-08-29</date>
-    <time>05:01:24</time>
-    <contents><target name="magecommunity"><dir name="Loginradius"><dir name="Sociallogin"><dir name="Block"><file name="Auth.php" hash="e4563c133d7a52e32a33de71f86e21df"/><file name="Info.php" hash="4d421932d1304c740cec6fc7ce6469c2"/><file name="Sociallogin.php" hash="2cf4e433fd2abe40c418436f7a03fd7e"/></dir><dir name="Helper"><file name="Data.php" hash="8a82c0ca3478c9aa5cef4db99003d311"/></dir><dir name="Model"><dir name="Mysql4"><dir name="Sociallogin"><file name="Collection.php" hash="a32296c7f53c420ca655439416771653"/></dir><file name="Sociallogin.php" hash="ed906cba7eb16d8b0a343baf8baa9b42"/></dir><file name="Sociallogin.php" hash="c71f4160bba6b0b26c4cf38b9448b22b"/><dir name="Source"><file name="Uihover.php" hash="6c6ba75ff19328c512dea06b3ce73484"/><file name="Uihover2.php" hash="ce80c1d278040b7e11bb353baf0cc275"/></dir></dir><dir name="controllers"><file name="IndexController.php" hash="622010b3b8bfb0cd187c118d78d92d81"/><file name="inc.php" hash="0268ecb5f1b2e0befc4d1534798a2f51"/></dir><dir name="etc"><file name="config.xml" hash="ceba1c14782ee35024d62bb1743c9469"/><file name="system.xml" hash="6f23fd5b68eec18ecab9a981a484daab"/><file name="widget.xml" hash="1e21bd95f5b940dc0d924c86c531c870"/></dir><dir name="sql"><dir name="sociallogin_setup"><file name="mysql4-install-0.1.0.php" hash="6598e12a0948680a0e2826ed7c5486bc"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="frontend"><dir name="default"><dir name="default"><dir name="layout"><file name="sociallogin.xml" hash=""/></dir><dir name="template"><dir name="sociallogin"><file name="sociallogin.phtml" hash=""/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Loginradius_Sociallogin.xml" hash=""/></dir></target></contents>
+    <date>2012-09-05</date>
+    <time>01:05:12</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Loginradius_Sociallogin.xml" hash="6c5bb03c460936006692aa1d01d142ba"/></dir></target><target name="magedesign"><dir name="frontend"><dir name="default"><dir name="default"><dir name="layout"><file name="sociallogin.xml" hash="98019223ef93f4dba25bb76b1b27ac15"/></dir><dir name="template"><dir name="sociallogin"><file name="sociallogin.phtml" hash="854274fd61c7d21517a54b8017fe2701"/></dir></dir></dir></dir></dir></target><target name="magecommunity"><dir name="Loginradius"><dir name="Sociallogin"><dir name="Block"><file name="Auth.php" hash="e4563c133d7a52e32a33de71f86e21df"/><file name="Info.php" hash="be7d35ed710f898000f03ae5426d755a"/><file name="Sociallogin.php" hash="2cf4e433fd2abe40c418436f7a03fd7e"/></dir><dir name="Helper"><file name="Data.php" hash="8a82c0ca3478c9aa5cef4db99003d311"/></dir><dir name="Model"><dir name="Mysql4"><dir name="Sociallogin"><file name="Collection.php" hash="a32296c7f53c420ca655439416771653"/></dir><file name="Sociallogin.php" hash="ed906cba7eb16d8b0a343baf8baa9b42"/></dir><file name="Sociallogin.php" hash="c71f4160bba6b0b26c4cf38b9448b22b"/><dir name="Source"><file name="Uihover.php" hash="6c6ba75ff19328c512dea06b3ce73484"/><file name="Uihover2.php" hash="ce80c1d278040b7e11bb353baf0cc275"/></dir></dir><dir name="controllers"><file name="IndexController.php" hash="52b71377f2312311d48d56f2f4ae5d26"/><file name="inc.php" hash="0268ecb5f1b2e0befc4d1534798a2f51"/></dir><dir name="etc"><file name="config.xml" hash="ff678d3782c88ac16f87515d6a3cee46"/><file name="system.xml" hash="6f23fd5b68eec18ecab9a981a484daab"/><file name="widget.xml" hash="1e21bd95f5b940dc0d924c86c531c870"/></dir><dir name="sql"><dir name="sociallogin_setup"><file name="mysql4-install-1.2.0.php" hash="6598e12a0948680a0e2826ed7c5486bc"/></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
 </package>
