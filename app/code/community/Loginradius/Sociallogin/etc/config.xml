@@ -3,8 +3,9 @@
 	<default>
 		<sociallogin_options>
 			<messages>
-				<loginEnable>1</loginEnable>
+				<loginEnable>0</loginEnable>
 				<loginradius_title>Login with your social account</loginradius_title>
+				<iconSize>small</iconSize>
 				<showdefault>1</showdefault>
 				<socialLinking>1</socialLinking>
 				<redirect>account</redirect>
@@ -13,7 +14,8 @@
 			</messages>
 			<email_settings>
 				<profileFieldsRequired>0</profileFieldsRequired>
-				<emailrequired>0</emailrequired>
+				<updateProfileData>1</updateProfileData>
+				<emailrequired>1</emailrequired>
 				<verificationText>Please click on the following link or paste it in browser to verify your email:-</verificationText>
 				<popupText>Please enter your email to proceed</popupText>
 				<popupError>The email you entered is already registered or invalid. Please enter a valid email.</popupError>
@@ -21,33 +23,30 @@
 				<notifyAdmin>0</notifyAdmin>
 				<notifyAdminText>New customer has been registered to your store with following details:-</notifyAdminText>
 			</email_settings>
-			<sharing>
-				<shareEnable>1</shareEnable>
+			<horizontalSharing>
+				<horizontalShareEnable>1</horizontalShareEnable>
+				<horizontalShareProduct>1</horizontalShareProduct>
+				<horizontalShareSuccess>1</horizontalShareSuccess>
 				<sharingTitle>Share it now!</sharingTitle>
-				<sharingTheme>horizontal</sharingTheme>
-				<horizontalSharing>32</horizontalSharing>
-				<verticalSharing>32</verticalSharing>
-				<sharingVerticalAlignment>top_left</sharingVerticalAlignment>
-				<sharingProvidersHidden>facebook,twitter,googleplus,linkedin,print,email</sharingProvidersHidden>
-				<shareProduct>1</shareProduct>
-				<shareSuccess>1</shareSuccess>
-			</sharing>
-			<counter>
-				<counterEnable>1</counterEnable>
-				<counterTitle>Share it now!</counterTitle>
-				<counterTheme>horizontal</counterTheme>
-				<horizontalCounter>vertical</horizontalCounter>
-				<verticalCounter>vertical</verticalCounter>
-				<counterVerticalAlignment>top_left</counterVerticalAlignment>
-				<counterProvidersHidden>Facebook Like,Google+ +1,LinkedIn Share,Twitter Tweet</counterProvidersHidden>
-				<counterProduct>1</counterProduct>
-				<counterSuccess>1</counterSuccess>
-			</counter>
+				<horizontalSharingTheme>32</horizontalSharingTheme>
+				<horizontalSharingProvidersHidden>Facebook,Twitter,GooglePlus,LinkedIn,Pinterest,Print,Email</horizontalSharingProvidersHidden>
+				<horizontalCounterProvidersHidden>Facebook Like,Google+ +1,Twitter Tweet,Pinterest Pin it,Hybridshare</horizontalCounterProvidersHidden>
+			</horizontalSharing>
+			<verticalSharing>
+				<verticalShareEnable>1</verticalShareEnable>
+				<verticalShareProduct>1</verticalShareProduct>
+				<verticalShareSuccess>1</verticalShareSuccess>
+				<verticalSharingTheme>counter_vertical</verticalSharingTheme>
+				<verticalAlignment>top_left</verticalAlignment>
+				<offset>150</offset>
+				<verticalSharingProvidersHidden>Facebook,Twitter,GooglePlus,LinkedIn,Pinterest,Print,Email</verticalSharingProvidersHidden>
+				<verticalCounterProvidersHidden>Facebook Like,Google+ +1,Twitter Tweet,Pinterest Pin it,Hybridshare</verticalCounterProvidersHidden>
+			</verticalSharing>
 		</sociallogin_options>
 	</default>   
     <modules>
         <Loginradius_Sociallogin>
-            <version>3.1.0</version>
+            <version>3.5.0</version>
         </Loginradius_Sociallogin>
     </modules>
 	<frontend>

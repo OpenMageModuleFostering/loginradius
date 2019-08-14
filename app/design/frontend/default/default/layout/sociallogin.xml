@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<layout version="3.1.0">
+<layout version="3.5.0">
     <default>
 		<reference name="right">
             <block type="sociallogin/sociallogin" name="sociallogin" template="sociallogin/sociallogin.phtml" before="-" />
@@ -11,9 +11,6 @@
      <catalog_product_view>
         <reference name="alert.urls">
             <block type="sociallogin/sociallogin" name="socialshareproduct" template="sociallogin/socialshareproduct.phtml" before="-" />
-        </reference>
-		<reference name="product.info.extrahint">
-            <block type="sociallogin/sociallogin" name="socialcounter" template="sociallogin/socialcounterproduct.phtml" />
         </reference>
     </catalog_product_view>
 	<customer_account_login>
@@ -36,7 +33,6 @@
 	<checkout_onepage_success>
 		<reference name="content">
 			<block type="sociallogin/sociallogin" name="checkoutsuccessshare" template="sociallogin/socialsharesuccess.phtml" before="-" />              
-			<block type="sociallogin/sociallogin" name="checkoutsuccesscounter" template="sociallogin/socialcountersuccess.phtml" before="-" />            
 		</reference>
 	</checkout_onepage_success>
 </layout> 

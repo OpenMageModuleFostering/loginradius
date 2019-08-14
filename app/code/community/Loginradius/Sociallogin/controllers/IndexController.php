@@ -58,10 +58,18 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 				break;
 			}
 		}
+		
 		if(!empty($sociallogin_id)){	//user is in database
 			if(!$socialLinking){
-				$this->socialLoginUserLogin( $sociallogin_id, $id );
-				return;
+				if($this->blockObj->updateProfileData() != '1'){
+					$this->socialLoginUserLogin( $sociallogin_id, $id );
+					return;
+				}else{
+					$socialloginProfileData = $this->socialLoginFilterData( '', $user_obj );
+					$socialloginProfileData['lrId'] = $user_obj->ID;
+					$this->socialLoginAddNewUser( $socialloginProfileData, $verify = false, true, $sociallogin_id );
+					return;
+				}
 			}else{
 				// account already exists
 				header("Location:".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)."customer/account/?LoginRadiusLinked=0");
@@ -87,11 +95,17 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 					if( $this->blockObj->getLinking() == "1" ){    // Social Linking
 						$this->loginRadiusSocialLinking($sociallogin_id, $user_obj->ID, $user_obj->Provider, $user_obj->ThumbnailImageUrl);
 					}
-					$this->socialLoginUserLogin( $sociallogin_id, $user_obj->ID );
-					return;
+					if($this->blockObj->updateProfileData() != '1'){
+						$this->socialLoginUserLogin( $sociallogin_id, $user_obj->ID );
+						return;
+					}else{
+						$socialloginProfileData = $this->socialLoginFilterData( '', $user_obj );
+						$socialloginProfileData['lrId'] = $user_obj->ID;
+						$this->socialLoginAddNewUser( $socialloginProfileData, $verify = false, true, $sociallogin_id );
+						return;
+					}
 				}
 			}
-			
 			$socialloginProfileData = $this->socialLoginFilterData( $email, $user_obj );
 			$socialloginProfileData['lrId'] = $user_obj->ID;
 			if($this->blockObj->getProfileFieldsRequired() == 1){
@@ -112,7 +126,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			$socialloginProfileData['lrId'] = $user_obj->ID;
 			if($this->blockObj->getProfileFieldsRequired() == 1){
 				$id = $user_obj->ID;
-				$socialloginProfileData = $this->socialLoginFilterData( $email, $user_obj );
+				//$socialloginProfileData = $this->socialLoginFilterData( $email, $user_obj );
 				$this->setInSession($id, $socialloginProfileData);
 				// show a popup to fill required profile fields
 				SL_popUpWindow("Please provide following details:-", "", true, $socialloginProfileData, false);
@@ -174,7 +188,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		$socialloginProfileData['FullName'] = empty($user_obj->FullName) ? "" : $user_obj->FullName;
 		$socialloginProfileData['NickName'] = empty($user_obj->NickName) ? "" : $user_obj->NickName;
 		$socialloginProfileData['LastName'] = empty($user_obj->LastName) ? "" : $user_obj->LastName;
-		if(is_array($user_obj->Addresses)){
+		if(isset($user_obj->Addresses) && is_array($user_obj->Addresses)){
 			foreach($user_obj->Addresses as $address){
 				if(isset($address->Address1) && !empty($address->Address1)){
 					$socialloginProfileData['Address'] = $address->Address1;
@@ -305,41 +319,90 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		}
 	}
 
-	function socialLoginAddNewUser( $socialloginProfileData, $verify = false ) {
-		// add new user magento way
+	function socialLoginAddNewUser( $socialloginProfileData, $verify = false, $update = false, $customerId = '' ) {
 		$websiteId = Mage::app()->getWebsite()->getId();
 		$store = Mage::app()->getStore();
-		$customer = Mage::getModel("customer/customer");
+		if(!$update){
+			// add new user magento way
+			$customer = Mage::getModel("customer/customer");
+		}else{
+			$customer = Mage::getModel('customer/customer') -> load($customerId);
+		}
 		$customer->website_id = $websiteId; 
 		$customer->setStore($store);
-		$customer->firstname = $socialloginProfileData['FirstName'];
-		$customer->lastname = $socialloginProfileData['LastName'] == "" ? $socialloginProfileData['FirstName'] : $socialloginProfileData['LastName'];
-		$customer->email = $socialloginProfileData['Email'];
-		$customer->dob = $socialloginProfileData['BirthDate'];
-		$customer->gender = $socialloginProfileData['Gender'];
-		$loginRadiusPwd = $customer->generatePassword(10);
-		$customer->password_hash = md5( $loginRadiusPwd );
+		if($socialloginProfileData['FirstName'] != ""){
+			$customer->firstname = $socialloginProfileData['FirstName'];
+		}
+		if(!$update){
+			$customer->lastname = $socialloginProfileData['LastName'] == "" ? $socialloginProfileData['FirstName'] : $socialloginProfileData['LastName'];
+		}elseif($update && $socialloginProfileData['LastName'] != ""){
+			$customer->lastname = $socialloginProfileData['LastName'];
+		}
+		if(!$update){
+			$customer->email = $socialloginProfileData['Email'];
+			$loginRadiusPwd = $customer->generatePassword(10);
+			$customer->password_hash = md5( $loginRadiusPwd );
+		}
+		if($socialloginProfileData['BirthDate'] != ""){
+			$customer->dob = $socialloginProfileData['BirthDate'];
+		}
+		if($socialloginProfileData['Gender'] != ""){
+			$customer->gender = $socialloginProfileData['Gender'];
+		}
 		$customer->setConfirmation(null);
 		$customer->save();
-
-		//$address = new Mage_Customer_Model_Address();
+		
+		// if updating user profile
+		if($update){
+			$addresses = $customer->getAddressesCollection();
+			$matched = false;
+			foreach($addresses as $address){
+				$address = $address->toArray();
+				if($address['firstname'] == $socialloginProfileData['FirstName']
+				 	&& $address['lastname'] == $socialloginProfileData['LastName']
+					&& $address['country_id'] == ucfirst($socialloginProfileData['Country'])
+					&& $address['city'] == ucfirst($socialloginProfileData['City'])
+					&& $address['telephone'] == $socialloginProfileData['PhoneNumber']
+					&& $address['company'] == ucfirst($socialloginProfileData['Industry'])
+					&& $address['street'] == ucfirst($socialloginProfileData['Address'])){
+						$matched = true;
+						// if profile data contains zipcode then match it with that in the address
+						if(isset($socialloginProfileData['Zipcode']) && $address['postcode'] != $socialloginProfileData['Zipcode']){
+							$matched = false;
+						}
+						// if profile data contains province then match it with that in the address
+						if(isset($socialloginProfileData['Province']) && $address['region'] != $socialloginProfileData['Province']){
+							$matched = false;
+						}
+				}
+				if($matched){
+					break;
+				}
+			}
+		}
 		$address = Mage::getModel("customer/address");
-		$address->setCustomerId($customer->getId());
-		$address->firstname = $customer->firstname;
-		$address->lastname = $customer->lastname;
-		$address->country_id = ucfirst( $socialloginProfileData['Country'] ); //Country code here
-		if(isset($socialloginProfileData['Zipcode'])){
-			$address->postcode = $socialloginProfileData['Zipcode'];
+		if(!$update){
+			$address->setCustomerId($customer->getId());
+		}else{
+			$address->setCustomerId($customerId);
 		}
-		$address->city = ucfirst( $socialloginProfileData['City'] );
-		// If country is USA, set up province
-		if(isset($socialloginProfileData['Province'])){
-			$address->region = $socialloginProfileData['Province'];
+		if(($update && !$matched) || !$update){
+			$address->firstname = $customer->firstname;
+			$address->lastname = $customer->lastname;
+			$address->country_id = ucfirst( $socialloginProfileData['Country'] ); //Country code here
+			if(isset($socialloginProfileData['Zipcode'])){
+				$address->postcode = $socialloginProfileData['Zipcode'];
+			}
+			$address->city = ucfirst( $socialloginProfileData['City'] );
+			// If country is USA, set up province
+			if(isset($socialloginProfileData['Province'])){
+				$address->region = $socialloginProfileData['Province'];
+			}
+			$address->telephone = $socialloginProfileData['PhoneNumber'];
+			$address->company = ucfirst( $socialloginProfileData['Industry'] );
+			$address->street = ucfirst( $socialloginProfileData['Address'] );
+			$address->save();
 		}
-		$address->telephone = $socialloginProfileData['PhoneNumber'];
-		$address->company = ucfirst( $socialloginProfileData['Industry'] );
-		$address->street = ucfirst( $socialloginProfileData['Address'] );
-		$address->save();
 		// add info in sociallogin table
 		if( !$verify ){
 			$fields = array();
@@ -347,32 +410,38 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 			$fields['entity_id'] = $customer->getId();
 			$fields['avatar'] = $socialloginProfileData['thumbnail'] ;
 			$fields['provider'] = $socialloginProfileData['Provider'] ;
-			$this->SocialLoginInsert( "sociallogin", $fields );
-			$loginRadiusUsername = $socialloginProfileData['FirstName']." ".$socialloginProfileData['LastName'];
-			// email notification to user
-			if( $this->blockObj->notifyUser() == "1" ){
-				$loginRadiusMessage = $this->blockObj->notifyUserText();
-				if( $loginRadiusMessage == "" ){
-					$loginRadiusMessage = "Welcome to ".$store->getGroup()->getName().". You can login to the store using following e-mail address and password:-";
-				}
-				$loginRadiusMessage .= "<br/>".
-									   "Email : ".$socialloginProfileData['Email'].
-									   "<br/>Password : ".$loginRadiusPwd;
-									   
-				$this->loginRadiusEmail( "Welcome ".$loginRadiusUsername."!", $loginRadiusMessage, $socialloginProfileData['Email'], $loginRadiusUsername );
+			if(!$update){
+				$this->SocialLoginInsert( "sociallogin", $fields );
+			}else{
+				$this->SocialLoginInsert( "sociallogin", array('avatar' => $socialloginProfileData['thumbnail']), true, array('entity_id = ?' => $customerId) );
 			}
-			// new user notification to admin
-			if( $this->blockObj->notifyAdmin() == "1" ){
-				$loginRadiusAdminEmail = Mage::getStoreConfig('trans_email/ident_general/email');
-				$loginRadiusAdminName = Mage::getStoreConfig('trans_email/ident_general/name');
-				$loginRadiusMessage = trim($this->blockObj->notifyAdminText());
-				if( $loginRadiusMessage == "" ){
-					$loginRadiusMessage = "New customer has been registered to your store with following details:-";
+			if(!$update){
+				$loginRadiusUsername = $socialloginProfileData['FirstName']." ".$socialloginProfileData['LastName'];
+				// email notification to user
+				if( $this->blockObj->notifyUser() == "1" ){
+					$loginRadiusMessage = $this->blockObj->notifyUserText();
+					if( $loginRadiusMessage == "" ){
+						$loginRadiusMessage = "Welcome to ".$store->getGroup()->getName().". You can login to the store using following e-mail address and password:-";
+					}
+					$loginRadiusMessage .= "<br/>".
+										   "Email : ".$socialloginProfileData['Email'].
+										   "<br/>Password : ".$loginRadiusPwd;
+										   
+					$this->loginRadiusEmail( "Welcome ".$loginRadiusUsername."!", $loginRadiusMessage, $socialloginProfileData['Email'], $loginRadiusUsername );
 				}
-				$loginRadiusMessage .= "<br/>".
-									   "Name : ".$loginRadiusUsername."<br/>".
-									   "Email : ".$socialloginProfileData['Email'];
-				$this->loginRadiusEmail( "New User Registration", $loginRadiusMessage, $loginRadiusAdminEmail, $loginRadiusAdminName );
+				// new user notification to admin
+				if( $this->blockObj->notifyAdmin() == "1" ){
+					$loginRadiusAdminEmail = Mage::getStoreConfig('trans_email/ident_general/email');
+					$loginRadiusAdminName = Mage::getStoreConfig('trans_email/ident_general/name');
+					$loginRadiusMessage = trim($this->blockObj->notifyAdminText());
+					if( $loginRadiusMessage == "" ){
+						$loginRadiusMessage = "New customer has been registered to your store with following details:-";
+					}
+					$loginRadiusMessage .= "<br/>".
+										   "Name : ".$loginRadiusUsername."<br/>".
+										   "Email : ".$socialloginProfileData['Email'];
+					$this->loginRadiusEmail( "New User Registration", $loginRadiusMessage, $loginRadiusAdminEmail, $loginRadiusAdminName );
+				}
 			}
 			//login and redirect user
 			$this->socialLoginUserLogin( $customer->getId(), $fields['sociallogin_id'] );
@@ -511,7 +580,7 @@ class Loginradius_Sociallogin_IndexController extends Mage_Core_Controller_Front
 		$loginRadiusPopProvider = $socialLoginProfileData['Provider'];
 		$loginRadiusAvatar = $socialLoginProfileData['thumbnail'];
 
-		if( isset($_POST['LoginRadiusRedSliderClick']) ) {
+		if(isset($_POST['LoginRadiusRedSliderClick'])) {
 			if(!empty($session_user_id) ){
 				$loginRadiusProfileData = array();
 				// address

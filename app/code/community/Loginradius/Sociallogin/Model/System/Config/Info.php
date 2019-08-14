@@ -18,7 +18,7 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
 		<h4 style="color:#000"><strong>Thank you for installing the LoginRadius Social Plugin!</strong></h4>
 		<p>To activate the plugin, you will need to first configure it (manage your desired social networks, etc.) from your LoginRadius account. If you do not have an account, click <a target="_blank" href="http://www.loginradius.com/">here</a> and create one for FREE!</p>
 		<p>
-		We also offer Social Plugins for  <a href="http://www.loginradius.com/addons/wordpress" target="_blank">Wordpress</a>, <a href="http://www.loginradius.com/addons/joomla" target="_blank">Joomla</a>, <a href="http://www.loginradius.com/addons/drupal" target="_blank">Drupal</a>, <a href="http://www.loginradius.com/addons/vbulletin" target="_blank">vBulletin</a>, <a href="http://www.loginradius.com/addons/vanilla" target="_blank">VanillaForum</a>, <a href="http://www.loginradius.com/addons/oscommerce" target="_blank">OSCommerce</a>, <a href="http://www.loginradius.com/addons/prestashop" target="_blank">PrestaShop</a>, <a href="http://www.loginradius.com/addons/Xcart" target="_blank">X-Cart</a>, <a href="http://www.loginradius.com/addons/zencart" target="_blank">Zen-Cart</a>, <a href="http://www.loginradius.com/addons/dotnetnuke" target="_blank">DotNetNuke</a> and <a href="http://www.loginradius.com/addons/blogengine" target="_blank">BlogEngine</a>!
+		We also offer Social Plugins for  <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#wordpressplugin" target="_blank">Wordpress</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#joomlaextension" target="_blank">Joomla</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#drupalmodule" target="_blank">Drupal</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#vBulletinplugin" target="_blank">vBulletin</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#vanillaaddons" target="_blank">VanillaForum</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#osCommerceaddons" target="_blank">OSCommerce</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#prestashopmodule" target="_blank">PrestaShop</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#xcartextension" target="_blank">X-Cart</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#zencartplugin" target="_blank">Zen-Cart</a>, <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#dotnetnukemodule" target="_blank">DotNetNuke</a> and <a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms#blogengineextension" target="_blank">BlogEngine</a>!
 		</p>
 		<div style="margin-top:10px">
 		<a style="text-decoration:none;" href="https://www.loginradius.com/" target="_blank">
@@ -36,10 +36,6 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
 				<iframe rel="tooltip" scrolling="no" frameborder="0" allowtransparency="true" style="border: none; overflow: hidden; width: 46px;
 							height: 61px; margin-right:10px" src="//www.facebook.com/plugins/like.php?app_id=194112853990900&amp;href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FLoginRadius%2F119745918110130&amp;send=false&amp;layout=box_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=90" data-original-title="Like us on Facebook"></iframe>
 				</div>
-		<div>
-		<div class="twitter_box"><span id="followers">880</span></div>
-		<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/follow_button.1363148939.html#_=1363649731067&amp;id=twitter-widget-0&amp;lang=en&amp;screen_name=LoginRadius&amp;show_count=false&amp;show_screen_name=false&amp;size=m" class="twitter-follow-button twitter-follow-button" style="width: 60px; height: 20px;" title="Twitter Follow Button" data-twttr-rendered="true"></iframe>
-		</div>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		</div>
 		</fieldset>
@@ -65,9 +61,57 @@ class Loginradius_Sociallogin_Model_System_Config_Info extends Mage_Adminhtml_Bl
 		<p>
 		If you liked our FREE open-source plugin, please send your feedback/testimonial to <a href="mailto:feedback@loginradius.com">feedback@loginradius.com</a> !</p>
 		</fieldset>
-		
 		<div style='clear:both'></div>
-						
+		<div id="loginRadiusKeySecretNotification" style="background-color: rgb(255, 255, 224); border: 1px solid rgb(230, 219, 85); padding: 5px; margin-bottom: 11px; display:none">To activate the <strong>Social Login</strong>, insert LoginRadius API Key and Secret in the <strong>Social Login Basic Settings</strong> section below. <strong>Social Sharing does not require API Key and Secret</strong>.</div>
+		<div style='clear:both'></div>
+		<script type="text/javascript">var islrsharing = true; var islrsocialcounter = true;</script>
+		<script type="text/javascript" src="//share.loginradius.com/Content/js/LoginRadius.js" id="lrsharescript"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				if(document.getElementById('sociallogin_options_messages_appid').value.trim() == "" || document.getElementById('sociallogin_options_messages_appkey').value.trim() == ""){
+					document.getElementById('loginRadiusKeySecretNotification').style.display = 'block';
+				}
+				var sharingType = ['horizontal', 'vertical'];
+				var sharingModes = ['Sharing', 'Counter'];
+				for(var i = 0; i < sharingType.length; i++){
+					for(var j = 0; j < sharingModes.length; j++){
+						if(sharingModes[j] == 'Counter'){
+							var providers = $SC.Providers.All;
+						}else{
+							var providers = $SS.Providers.More;
+						}
+						// populate sharing providers checkbox
+						loginRadiusCounterHtml = "<ul class='checkboxes'>";
+						// prepare HTML to be shown as Vertical Counter Providers
+						for(var ii = 0; ii < providers.length; ii++){
+							loginRadiusCounterHtml += '<li><input type="checkbox" id="'+sharingType[i]+'_'+sharingModes[j]+'_'+providers[ii]+'" ';
+							loginRadiusCounterHtml += 'value="'+providers[ii]+'"> <label for="'+sharingType[i]+'_'+sharingModes[j]+'_'+providers[ii]+'">'+providers[ii]+'</label></li>';
+						}
+						loginRadiusCounterHtml += "</ul>";
+						var tds = document.getElementById('row_sociallogin_options_'+sharingType[i]+'Sharing_'+sharingType[i]+sharingModes[j]+'Providers').getElementsByTagName('td');
+						tds[1].innerHTML = loginRadiusCounterHtml;
+					}
+					document.getElementById('row_sociallogin_options_'+sharingType[i]+'Sharing_'+sharingType[i]+'CounterProvidersHidden').style.display = 'none';
+				}
+				loginRadiusPrepareAdminUI();
+			}
+			// toggle sharing/counter providers according to the theme and sharing type
+			function loginRadiusToggleSharingProviders(element, sharingType){
+				if(element.value == '32' || element.value == '16'){
+					document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'SharingProviders').style.display = 'table-row';
+					document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'CounterProviders').style.display = 'none';
+					document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'SharingProvidersHidden').style.display = 'table-row';
+				}else if(element.value == 'single_large' || element.value == 'single_small'){
+					document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'SharingProviders').style.display = 'none';
+					document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'CounterProviders').style.display = 'none';
+					document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'SharingProvidersHidden').style.display = 'none';
+				}else{
+					document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'SharingProviders').style.display = 'none';
+					document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'CounterProviders').style.display = 'table-row';
+					document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'SharingProvidersHidden').style.display = 'none';
+				}
+			}
+		</script>				
 		<?php
     }
 }

@@ -1,72 +1,122 @@
-jQuery.noConflict();
-window.onload = function(){
-	// hide counter providers hidden field
-	document.getElementById('row_sociallogin_options_counter_counterProvidersHidden').style.display = 'none';
-	// set left margin for first radio button in Horzontal counter
-	var loginRadiusHorizontalCounter = document.getElementById('row_sociallogin_options_counter_horizontalCounter').getElementsByTagName('input');
-	loginRadiusHorizontalCounter[0].style.marginLeft = '6px';
-	// set left margin for first radio button in Horzontal sharing
-	var loginRadiusHorizontalSharing = document.getElementById('row_sociallogin_options_sharing_horizontalSharing').getElementsByTagName('input');
-	loginRadiusHorizontalSharing[0].style.marginLeft = '6px';
+// get trim() worked in IE 
+if(typeof String.prototype.trim !== 'function') {
+      String.prototype.trim = function() {
+        return this.replace(/^\s+|\s+$/g, ''); 
+      }
+}
+var $loginRadiusJquery = jQuery.noConflict();
+// prepare admin UI on window load
+function loginRadiusPrepareAdminUI(){
+	// highlight API Key and Secret notification
+	if($loginRadiusJquery('#loginRadiusKeySecretNotification')){
+		$loginRadiusJquery('#loginRadiusKeySecretNotification').animate({'backgroundColor' : 'rgb(241, 142, 127)'}, 1000).animate({'backgroundColor' : '#FFFFE0'}, 1000).animate({'backgroundColor' : 'rgb(241, 142, 127)'}, 1000).animate({'backgroundColor' : '#FFFFE0'}, 1000);
+	}
+	// show notification, if API Key and secret are same
+	document.getElementById('sociallogin_options_messages_appkey').onkeyup = function(){
+		if(this.value.trim() == document.getElementById('sociallogin_options_messages_appid').value.trim()){
+			if($loginRadiusJquery('#spanApiKeyError').html() == undefined){
+				$loginRadiusJquery('#sociallogin_options_messages_appkey').before('<span id="spanApiKeyError" style="color:red">API Key and Secret cannot be same. Please paste correct API Key and Secret from your LoginRadius account in the corresponding fields.</span>');	
+			}
+		}else{
+			$loginRadiusJquery('#spanApiKeyError').html('');
+		}
+	}
+	var horizontalSharingTheme, verticalSharingTheme;
+	// fetch horizontal and vertical sharing providers dynamically from LoginRadius on window load 
+	var sharingType = ['horizontal', 'vertical'];
+	var sharingModes = ['Sharing', 'Counter'];
+	// show the sharing/counter providers according to the selected sharing theme
+	for(var j = 0; j < sharingType.length; j++){
+		var loginRadiusHorizontalSharingThemes = document.getElementById('row_sociallogin_options_'+sharingType[j]+'Sharing_'+sharingType[j]+'SharingTheme').getElementsByTagName('input');
+		for(var i = 0; i < loginRadiusHorizontalSharingThemes.length; i++){
+			if(sharingType[j] == 'horizontal'){
+				loginRadiusHorizontalSharingThemes[i].onclick = function(){
+																	loginRadiusToggleSharingProviders(this, 'horizontal');
+																}
+			}else if(sharingType[j] == 'vertical'){
+				loginRadiusHorizontalSharingThemes[i].onclick = function(){
+																	loginRadiusToggleSharingProviders(this, 'vertical');
+																}
+			}
+			if(loginRadiusHorizontalSharingThemes[i].checked == true){
+				if(sharingType[j] == 'horizontal'){
+					horizontalSharingTheme = loginRadiusHorizontalSharingThemes[i].value;
+				}else if(sharingType[j] == 'vertical'){
+					verticalSharingTheme = loginRadiusHorizontalSharingThemes[i].value;
+				}
+				loginRadiusToggleSharingProviders(loginRadiusHorizontalSharingThemes[i], sharingType[j]);
+			}
+		}
+	}
+	// set left margin for first radio button in Social Login Icon Size
+	document.getElementById('sociallogin_options_messages_iconSizemedium').style.marginLeft = '6px';
+	// set left margin for first radio button in Horizontal counter
+	document.getElementById('sociallogin_options_horizontalSharing_horizontalSharingTheme32').style.marginLeft = '6px';
 	// set left margin for first radio button in login redirection
 	var loginRadiusRedirectionOptions = document.getElementById('row_sociallogin_options_messages_redirect').getElementsByTagName('input');
 	loginRadiusRedirectionOptions[0].style.marginLeft = '6px';
-	// sharing theme
-	var loginRadiusSharingTheme = document.getElementById('sociallogin_options_sharing_sharingTheme');
-	// show sharing themes according to the currently selected theme type
-	loginRadiusToggleSharing(loginRadiusSharingTheme.value);
-	// counter theme
-	var loginRadiusCounterTheme = document.getElementById('sociallogin_options_counter_counterTheme');
-	// show counter themes according to the currently selected theme type
-	loginRadiusToggleCounter(loginRadiusCounterTheme.value);
-	// show sharing themes according to the selected option
-	loginRadiusSharingTheme.onchange = loginRadiusToggleSharing;
-	// show counter themes according to the selected option	
-	loginRadiusCounterTheme.onchange = loginRadiusToggleCounter;
-	// get counter providers table-row reference
-	var loginRadiusCounterProvidersRow = document.getElementById('row_sociallogin_options_counter_counterProviders');
-	// get counter providers checkboxes reference
-	var loginRadiusCounterProviders = loginRadiusCounterProvidersRow.getElementsByTagName('input');
-	for(var i = 0; i < loginRadiusCounterProviders.length; i++){
-		loginRadiusCounterProviders[i].onclick = loginRadiusPopulateCounter;
-	}
-	// check the counter providers that were saved previously in the hidden field
-	var loginRadiusCounterProvidersHidden = document.getElementById('sociallogin_options_counter_counterProvidersHidden').value.trim();
-	if(loginRadiusCounterProvidersHidden != ""){
-		var loginRadiusCounterProviderArray = loginRadiusCounterProvidersHidden.split(',');
-		for(var i = 0; i < loginRadiusCounterProviderArray.length; i++){
-			document.getElementById("sociallogin_options_counter_counterProviders_"+loginRadiusCounterProviderArray[i]).checked = true;
-			loginRadiusPopulateCounter(document.getElementById("sociallogin_options_counter_counterProviders_"+loginRadiusCounterProviderArray[i]));
-		}
-	}else{
-		document.getElementById("sociallogin_options_counter_counterProviders_Reddit").checked = false;
-		var loginRadiusCounterProviderArray = ["Facebook Like", "Google+ +1", "Twitter Tweet", "LinkedIn Share"];
-		for(var i = 0; i < loginRadiusCounterProviderArray.length; i++){
-			document.getElementById("sociallogin_options_counter_counterProviders_"+loginRadiusCounterProviderArray[i]).checked = true;
-			loginRadiusPopulateCounter(document.getElementById("sociallogin_options_counter_counterProviders_"+loginRadiusCounterProviderArray[i]), true);
-		}
-	}
-	// get sharing providers table-row reference
-	var loginRadiusSharingProvidersRow = document.getElementById('row_sociallogin_options_sharing_sharingProviders');
-	// get sharing providers checkboxes reference
-	var loginRadiusSharingProviders = loginRadiusSharingProvidersRow.getElementsByTagName('input');
-	for(var i = 0; i < loginRadiusSharingProviders.length; i++){
-		loginRadiusSharingProviders[i].onclick = loginRadiusShowIcon;
-	}
-	// check the sharing providers that were saved previously in the hidden field
-	var loginRadiusSharingProvidersHidden = document.getElementById('sociallogin_options_sharing_sharingProvidersHidden').value.trim();
-	if(loginRadiusSharingProvidersHidden != ""){
-		var loginRadiusSharingProviderArray = loginRadiusSharingProvidersHidden.split(',');
-		for(var i = 0; i < loginRadiusSharingProviderArray.length; i++){
-			document.getElementById("sociallogin_options_sharing_sharingProviders_"+loginRadiusSharingProviderArray[i]).checked = true;
-			loginRadiusShowIcon(document.getElementById("sociallogin_options_sharing_sharingProviders_"+loginRadiusSharingProviderArray[i]));
-		}
-	}else{
-		document.getElementById("sociallogin_options_sharing_sharingProviders_dotnetkicks").checked = false;
-		var loginRadiusSharingProviderArray = ["facebook", "googleplus", "twitter", "email", "print"];
-		for(var i = 0; i < loginRadiusSharingProviderArray.length; i++){
-			document.getElementById("sociallogin_options_sharing_sharingProviders_"+loginRadiusSharingProviderArray[i]).checked = true;
-			loginRadiusShowIcon(document.getElementById("sociallogin_options_sharing_sharingProviders_"+loginRadiusSharingProviderArray[i]), true);
+	
+	
+	// if selected sharing theme is worth showing rearrange icons, then show rearrange icons and manage sharing providers in hidden field
+	for(var j = 0; j < sharingType.length; j++){
+		for(var jj = 0; jj < sharingModes.length; jj++){
+			// get sharing providers table-row reference
+			var loginRadiusHorizontalSharingProvidersRow = document.getElementById('row_sociallogin_options_'+sharingType[j]+'Sharing_'+sharingType[j]+sharingModes[jj]+'Providers');
+			// get sharing providers checkboxes reference
+			var loginRadiusHorizontalSharingProviders = loginRadiusHorizontalSharingProvidersRow.getElementsByTagName('input');
+			for(var i = 0; i < loginRadiusHorizontalSharingProviders.length; i++){
+				if(sharingType[j] == 'horizontal'){
+					if(sharingModes[jj] == 'Sharing'){
+						loginRadiusHorizontalSharingProviders[i].onclick = function(){
+																				loginRadiusShowIcon(false, this, 'horizontal');
+																			}
+					}else{
+						loginRadiusHorizontalSharingProviders[i].onclick = function(){
+																				loginRadiusPopulateCounter(this, 'horizontal');
+																			}
+					}
+				}else if(sharingType[j] == 'vertical'){
+					if(sharingModes[jj] == 'Sharing'){
+						loginRadiusHorizontalSharingProviders[i].onclick = function(){
+																				loginRadiusShowIcon(false, this, 'vertical');
+																			}
+					}else{
+						loginRadiusHorizontalSharingProviders[i].onclick = function(){
+																				loginRadiusPopulateCounter(this, 'vertical');
+																			}
+					}
+				}
+			}
+			
+			// check the sharing providers that were saved previously in the hidden field
+			var loginRadiusSharingProvidersHidden = document.getElementById('sociallogin_options_'+sharingType[j]+'Sharing_'+sharingType[j]+sharingModes[jj]+'ProvidersHidden').value.trim();
+			if(loginRadiusSharingProvidersHidden != ""){
+				var loginRadiusSharingProviderArray = loginRadiusSharingProvidersHidden.split(',');
+				if(sharingModes[jj] == 'Sharing'){
+					for(var i = 0; i < loginRadiusSharingProviderArray.length; i++){
+						document.getElementById(sharingType[j]+"_"+sharingModes[jj]+"_"+loginRadiusSharingProviderArray[i]).checked = true;
+						loginRadiusShowIcon(true, document.getElementById(sharingType[j]+"_"+sharingModes[jj]+"_"+loginRadiusSharingProviderArray[i]), sharingType[j]);
+					}
+				}else{
+					for(var i = 0; i < loginRadiusSharingProviderArray.length; i++){
+						document.getElementById(sharingType[j]+"_"+sharingModes[jj]+"_"+loginRadiusSharingProviderArray[i]).checked = true;
+					}
+				}
+			}else{
+				if(sharingModes[jj] == 'Sharing'){
+					var loginRadiusSharingProviderArray = ["Facebook", "GooglePlus", "Twitter", "Pinterest", "Email", "Print"];
+					for(var i = 0; i < loginRadiusSharingProviderArray.length; i++){
+						document.getElementById(sharingType[j]+"_"+sharingModes[jj]+"_"+loginRadiusSharingProviderArray[i]).checked = true;
+						loginRadiusShowIcon(true, document.getElementById(sharingType[j]+"_"+sharingModes[jj]+"_"+loginRadiusSharingProviderArray[i]), sharingType[j], true);
+					}
+				}else{
+					var loginRadiusSharingProviderArray = ["Facebook Like", "Google+ +1", "Twitter Tweet", "Pinterest Pin it", "Hybridshare"];
+					for(var i = 0; i < loginRadiusSharingProviderArray.length; i++){
+						document.getElementById(sharingType[j]+"_"+sharingModes[jj]+"_"+loginRadiusSharingProviderArray[i]).checked = true;
+						loginRadiusPopulateCounter(document.getElementById(sharingType[j]+"_"+sharingModes[jj]+"_"+loginRadiusSharingProviderArray[i]), sharingType[j]);
+					}
+				}
+			}
 		}
 	}
 }
@@ -109,10 +159,10 @@ function loginRadiusToggleCounter(theme){
 	}
 }
 // limit maximum number of providers selected in sharing
-function loginRadiusSharingLimit(elem){
+function loginRadiusSharingLimit(elem, sharingType){
 	var checkCount = 0;
 	// get providers table-row reference
-	var loginRadiusSharingProvidersRow = document.getElementById('row_sociallogin_options_sharing_sharingProviders');
+	var loginRadiusSharingProvidersRow = document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'SharingProviders');
 	// get sharing providers checkboxes reference
 	var loginRadiusSharingProviders = loginRadiusSharingProvidersRow.getElementsByTagName('input');
 	for(var i = 0; i < loginRadiusSharingProviders.length; i++){
@@ -121,16 +171,16 @@ function loginRadiusSharingLimit(elem){
 			checkCount++;
 			if(checkCount >= 10){
 				elem.checked = false;
-				if(document.getElementById('loginRadiusErrorDiv') == null){
+				if(document.getElementById('loginRadius'+sharingType+'ErrorDiv') == null){
 					// create and show div having error message
 					var errorDiv = document.createElement('div');
-					errorDiv.setAttribute('id', 'loginRadiusErrorDiv');
+					errorDiv.setAttribute('id', 'loginRadius'+sharingType+'ErrorDiv');
 					errorDiv.innerHTML = "You can select only 9 providers.";
 					errorDiv.style.color = 'red';
 					errorDiv.style.marginBottom = '10px';
 					// append div to the <td> containing sharing provider checkboxes
 					var rearrangeTd = loginRadiusSharingProvidersRow.getElementsByTagName('td');
-					jQuery(rearrangeTd[1]).find('ul').before(errorDiv);
+					$loginRadiusJquery(rearrangeTd[1]).find('ul').before(errorDiv);
 				}
 				return;
 			}
@@ -138,15 +188,12 @@ function loginRadiusSharingLimit(elem){
 	}
 }
 // add/remove icons from counter hidden field
-function loginRadiusPopulateCounter(elem, lrDefault){
-	if(typeof this.checked != "undefined"){
-		elem = this;
-	}
+function loginRadiusPopulateCounter(elem, sharingType, lrDefault){
 	// get providers hidden field value
-	var providers = document.getElementById('sociallogin_options_counter_counterProvidersHidden');
+	var providers = document.getElementById('sociallogin_options_'+sharingType+'Sharing_'+sharingType+'CounterProvidersHidden');
 	if(elem.checked){
 		// add selected providers in the hiddem field value
-		if(typeof this.checked != "undefined" || lrDefault == true){
+		if(typeof elem.checked != "undefined" || lrDefault == true){
 			if(providers.value == ""){
 				providers.value = elem.value;
 			}else{
@@ -166,38 +213,35 @@ function loginRadiusPopulateCounter(elem, lrDefault){
 	}
 }
 // show selected providers in rearrange option
-function loginRadiusShowIcon(elem, lrDefault){
-	if(typeof this.checked != "undefined"){
-		elem = this;
-		loginRadiusSharingLimit(elem);
-	}
+function loginRadiusShowIcon(pageRefresh, elem, sharingType, lrDefault){
+	loginRadiusSharingLimit(elem, sharingType);
 	// get providers hidden field value
-	var providers = document.getElementById('sociallogin_options_sharing_sharingProvidersHidden');
+	var providers = document.getElementById('sociallogin_options_'+sharingType+'Sharing_'+sharingType+'SharingProvidersHidden');
 	if(elem.checked){
 		// get reference to "rearrange providers" <ul> element
-		var ul = document.getElementById('loginRadiusRearrangeSharing');
+		var ul = document.getElementById('loginRadius'+sharingType+'RearrangeSharing');
 		// if <ul> is not already created
 		if(ul == null){
 			// create <ul> element
 			var ul = document.createElement('ul');
-			ul.setAttribute('id', 'loginRadiusRearrangeSharing');
-			jQuery(ul).sortable({
+			ul.setAttribute('id', 'loginRadius'+sharingType+'RearrangeSharing');
+			$loginRadiusJquery(ul).sortable({
 				update: function(e, ui) {
-					var val = jQuery(this).children().map(function() {
-						return jQuery(this).attr('title');
+					var val = $loginRadiusJquery(this).children().map(function() {
+						return $loginRadiusJquery(this).attr('title');
 					}).get().join();
-					jQuery(providers).val(val);
+					$loginRadiusJquery(providers).val(val);
 				},
 			revert: true});
 		}
 		// create list items
 		var listItem = document.createElement('li');
-		listItem.setAttribute('id', 'loginRadiusLI'+elem.value);
+		listItem.setAttribute('id', 'loginRadius'+sharingType+'LI'+elem.value);
 		listItem.setAttribute('title', elem.value);
-		listItem.setAttribute('class', 'lrshare_iconsprite32 lrshare_'+elem.value);
+		listItem.setAttribute('class', 'lrshare_iconsprite32 lrshare_'+elem.value.toLowerCase());
 		ul.appendChild(listItem);
 		// add selected providers in the hiddem field value
-		if(typeof this.checked != "undefined" || lrDefault == true){
+		if(!pageRefresh || lrDefault == true){
 			if(providers.value == ""){
 				providers.value = elem.value;
 			}else{
@@ -205,12 +249,14 @@ function loginRadiusShowIcon(elem, lrDefault){
 			}
 		}
 		// append <ul> to the <td>
-		var rearrangeRow = document.getElementById('row_sociallogin_options_sharing_sharingProvidersHidden');
+		var rearrangeRow = document.getElementById('row_sociallogin_options_'+sharingType+'Sharing_'+sharingType+'SharingProvidersHidden');
 		var rearrangeTd = rearrangeRow.getElementsByTagName('td');
 		rearrangeTd[1].appendChild(ul);
 	}else{
-		var remove = document.getElementById('loginRadiusLI'+elem.value);
-		remove.parentNode.removeChild(remove);
+		var remove = document.getElementById('loginRadius'+sharingType+'LI'+elem.value);
+		if(remove){
+			remove.parentNode.removeChild(remove);
+		}
 		if(providers.value.indexOf(',') == -1){
 			providers.value = providers.value.replace(elem.value, ""); 
 		}else{
@@ -222,27 +268,3 @@ function loginRadiusShowIcon(elem, lrDefault){
 		}
 	}
 }
-// twitter follow script
-jQuery(function(){
-    function m(n, d){
-        P = Math.pow;
-        R = Math.round
-        d = P(10, d);
-        i = 7;
-        while(i) {
-            (s = P(10, i-- * 3)) <= n && (n = R(n * d / s) / d + "KMGTPE"[i])
-        }
-        return n;
-    }
-    jQuery.ajax({
-        url: 'http://api.twitter.com/1/users/show.json',
-        data: {
-            screen_name: 'LoginRadius'
-        },
-        dataType: 'jsonp',
-        success: function(data) {
-           count = data.followers_count;
-           jQuery('#followers').html(m(count, 1));
-        }
-    });
-});

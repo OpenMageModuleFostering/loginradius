@@ -13,12 +13,12 @@
             </label_text>
            </parameters>
     </sociallogin_auth>
-    <sociallogin_share type="sociallogin/share" translate="name description" module="sociallogin">
-        <name>Social Share</name>
-        <description type="desc">Adds Social Share interface to the page.</description>
-    </sociallogin_share>
-    <sociallogin_counter type="sociallogin/counter" translate="name description" module="sociallogin">
-        <name>Social Counter</name>
-        <description type="desc">Adds Social Counter interface to the page.</description>
-    </sociallogin_counter>
+    <sociallogin_horizontalsharing type="sociallogin/horizontalsharing" translate="name description" module="sociallogin">
+        <name>Social Sharing - Horizontal</name>
+        <description type="desc">Adds Social Sharing interface (horizontal theme) to the page.</description>
+    </sociallogin_horizontalsharing>
+    <sociallogin_verticalsharing type="sociallogin/verticalsharing" translate="name description" module="sociallogin">
+        <name>Social Sharing - Vertical</name>
+        <description type="desc">Adds Social Sharing interface (vertical theme) to the page.</description>
+    </sociallogin_verticalsharing>
 </widgets>

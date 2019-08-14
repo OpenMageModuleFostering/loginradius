@@ -3,7 +3,7 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 {
 	protected function _construct(){
         parent::_construct();
-		if( $this->shareEnable() == "1" || $this->counterEnable() == "1" ){
+		if( $this->horizontalShareEnable() == "1" || $this->verticalShareEnable() == "1" ){
         	$this->setTemplate('sociallogin/socialshare.phtml');
     	}
 	}
@@ -68,6 +68,18 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
       {	 
     	return Mage::getStoreConfig('sociallogin_options/messages/loginradius_title');
       }
+	  public function iconSize()
+      {	 
+    	return Mage::getStoreConfig('sociallogin_options/messages/iconSize');
+      }
+	  public function iconsPerRow()
+      {	 
+    	return Mage::getStoreConfig('sociallogin_options/messages/iconsPerRow');
+      }
+	  public function backgroundColor()
+      {	 
+    	return Mage::getStoreConfig('sociallogin_options/messages/backgroundColor');
+      }
       public function getRedirectOption(){
     	return Mage::getStoreConfig('sociallogin_options/messages/redirect');
       }
@@ -76,6 +88,9 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
       }
 	  public function getProfileFieldsRequired(){
     	return Mage::getStoreConfig('sociallogin_options/email_settings/profileFieldsRequired');
+      }
+	  public function updateProfileData(){
+    	return Mage::getStoreConfig('sociallogin_options/email_settings/updateProfileData');
       }
 	  public function getEmailRequired(){
     	return Mage::getStoreConfig('sociallogin_options/email_settings/emailrequired');
@@ -104,65 +119,50 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 	  public function notifyAdminText(){
     	return Mage::getStoreConfig('sociallogin_options/email_settings/notifyAdminText');
 	  }
-	  public function shareEnable(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/shareEnable');
+	  public function horizontalShareEnable(){
+    	return Mage::getStoreConfig('sociallogin_options/horizontalSharing/horizontalShareEnable');
 	  }
-	  public function shareProduct(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/shareProduct');
+	  public function verticalShareEnable(){
+    	return Mage::getStoreConfig('sociallogin_options/verticalSharing/verticalShareEnable');
 	  }
-	  public function shareSuccess(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/shareSuccess');
+	  public function horizontalShareProduct(){
+    	return Mage::getStoreConfig('sociallogin_options/horizontalSharing/horizontalShareProduct');
+	  }
+	  public function verticalShareProduct(){
+    	return Mage::getStoreConfig('sociallogin_options/verticalSharing/verticalShareProduct');
+	  }
+	  public function horizontalShareSuccess(){
+    	return Mage::getStoreConfig('sociallogin_options/horizontalSharing/horizontalShareSuccess');
+	  }
+	  public function verticalShareSuccess(){
+    	return Mage::getStoreConfig('sociallogin_options/verticalSharing/verticalShareSuccess');
 	  }
 	  public function sharingTitle(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingTitle');
+    	return Mage::getStoreConfig('sociallogin_options/horizontalSharing/sharingTitle');
 	  }
-	  public function sharingTheme(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingTheme');
+	  public function horizontalSharingTheme(){
+    	return Mage::getStoreConfig('sociallogin_options/horizontalSharing/horizontalSharingTheme');
 	  }
-	  public function horizontalSharing(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/horizontalSharing');
+	  public function verticalSharingTheme(){
+    	return Mage::getStoreConfig('sociallogin_options/verticalSharing/verticalSharingTheme');
 	  }
-	  public function verticalSharing(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/verticalSharing');
+	  public function verticalAlignment(){
+    	return Mage::getStoreConfig('sociallogin_options/verticalSharing/verticalAlignment');
 	  }
-	  public function sharingVerticalAlignment(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingVerticalAlignment');
+	  public function offset(){
+    	return Mage::getStoreConfig('sociallogin_options/verticalSharing/offset');
 	  }
-	  public function sharingOffset(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingOffset');
+	  public function horizontalSharingProviders(){
+    	return Mage::getStoreConfig('sociallogin_options/horizontalSharing/horizontalSharingProvidersHidden');
 	  }
-	  public function sharingProviders(){
-    	return Mage::getStoreConfig('sociallogin_options/sharing/sharingProvidersHidden');
+	  public function verticalSharingProviders(){
+    	return Mage::getStoreConfig('sociallogin_options/verticalSharing/verticalSharingProvidersHidden');
 	  }
-	  public function counterEnable(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/counterEnable');
+	  public function horizontalCounterProviders(){
+    	return Mage::getStoreConfig('sociallogin_options/horizontalSharing/horizontalCounterProvidersHidden');
 	  }
-	  public function counterProduct(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/counterProduct');
-	  }
-	  public function counterSuccess(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/counterSuccess');
-	  }
-	  public function counterTitle(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/counterTitle');
-	  }
-	  public function counterTheme(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/counterTheme');
-	  }
-	  public function horizontalCounter(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/horizontalCounter');
-	  }
-	  public function verticalCounter(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/verticalCounter');
-	  }
-	  public function counterVerticalAlignment(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/counterVerticalAlignment');
-	  }
-	  public function counterOffset(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/counterOffset');
-	  }
-	  public function counterProviders(){
-    	return Mage::getStoreConfig('sociallogin_options/counter/counterProvidersHidden');
+	  public function verticalCounterProviders(){
+    	return Mage::getStoreConfig('sociallogin_options/verticalSharing/verticalCounterProvidersHidden');
 	  }
 	  public function getCallBack(){
     	return Mage::getStoreConfig('sociallogin_options/messages/call');
