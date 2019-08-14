@@ -50,7 +50,8 @@ class Loginradius_Sociallogin_Block_Sociallogin extends Mage_Core_Block_Template
 	  public function getProfileResult($ApiSecrete) 
 	  { 
 	    if(isset($_REQUEST['token'])) {
-		  $ValidateUrl = "http://hub.loginradius.com/userprofile.ashx?token=".$_REQUEST['token']."&apisecrete=".$ApiSecrete."";		          return $this->getApiCall($ValidateUrl);
+		  $ValidateUrl = "http://hub.loginradius.com/userprofile.ashx?token=".$_REQUEST['token']."&apisecrete=".trim($ApiSecrete);
+		  return $this->getApiCall($ValidateUrl);
 		}
 	  }
 	  public function getApiResult($ApiKey, $ApiSecrete) 
