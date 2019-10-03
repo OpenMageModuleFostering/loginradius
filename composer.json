@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/LoginRadius",
+    "name": "OpenMageModuleFostering\/LoginRadius",
     "type": "magento-module",
     "license": "GNU-General-Public-License-(GPL)",
     "homepage": "",
     "description": "Social Login and Social Share for Magento",
     "authors": [
-    {
-        "name": "LoginRadius Team",
-        "email": "developers@loginradius.com"
-    }
-],
+        {
+            "name": "LoginRadius Team",
+            "email": "developers@loginradius.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
